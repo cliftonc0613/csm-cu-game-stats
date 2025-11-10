@@ -14,7 +14,7 @@
 ## Relevant Files
 
 **Initial setup and configuration:**
-- `package.json` - Project dependencies and scripts (created in Task 1.1, updated in 1.2, 1.4, 1.6)
+- `package.json` - Project dependencies and scripts (created in Task 1.1, updated in 1.2, 1.4, 1.6, 1.9)
 - `next.config.ts` - Next.js configuration for SSG optimization (created in Task 1.1)
 - `tailwind.config.ts` - Custom Clemson color palette and design tokens (will be created)
 - `tsconfig.json` - TypeScript configuration with strict mode and additional strict options (created in Task 1.1, enhanced in Task 1.5)
@@ -22,6 +22,7 @@
 - `.prettierrc` - Prettier configuration for code formatting (created in Task 1.6)
 - `.prettierignore` - Prettier ignore patterns (created in Task 1.6)
 - `postcss.config.mjs` - PostCSS configuration for TailwindCSS (created in Task 1.1)
+- `zod` - Schema validation library (installed in Task 1.9)
 
 **Application structure:**
 - `app/layout.tsx` - Root layout with brand colors and typography (created in Task 1.1)
@@ -104,7 +105,7 @@
   - [x] 1.6 Set up ESLint and Prettier configurations for code quality
   - [x] 1.7 Create project directory structure: `app/`, `components/`, `lib/`, `content/`, `public/`
   - [x] 1.8 Initialize Git repository and create `.gitignore` for Next.js (if not already done)
-  - [ ] 1.9 Install Zod for schema validation: `npm install zod`
+  - [x] 1.9 Install Zod for schema validation: `npm install zod`
   - [ ] 1.10 Verify development server runs successfully: `npm run dev`
 
 - [ ] 2.0 **Design System and Component Library Foundation**
