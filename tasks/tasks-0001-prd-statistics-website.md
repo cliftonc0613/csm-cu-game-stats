@@ -94,7 +94,7 @@
   - [x] 1.1 Initialize Next.js 14+ project with TypeScript using `npx create-next-app@latest` with App Router enabled
   - [x] 1.2 Install core dependencies: `tailwindcss`, `postcss`, `autoprefixer`, `gsap`, `gray-matter`, `remark`, `remark-html`, `recharts`
   - [x] 1.3 Install Shadcn UI CLI and initialize: `npx shadcn-ui@latest init`
-  - [ ] 1.4 Install development dependencies: `@types/node`, `@types/react`, `eslint`, `prettier`, `jest`, `@testing-library/react`, `@testing-library/jest-dom`
+  - [x] 1.4 Install development dependencies: `@types/node`, `@types/react`, `eslint`, `prettier`, `jest`, `@testing-library/react`, `@testing-library/jest-dom`
   - [ ] 1.5 Configure TypeScript with strict mode in `tsconfig.json`
   - [ ] 1.6 Set up ESLint and Prettier configurations for code quality
   - [ ] 1.7 Create project directory structure: `app/`, `components/`, `lib/`, `content/`, `public/`
