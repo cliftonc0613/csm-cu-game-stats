@@ -27,11 +27,11 @@
 **Application structure:**
 - `app/layout.tsx` - Root layout with brand colors and typography (created in Task 1.1)
 - `app/page.tsx` - Homepage with game list and filters (created in Task 1.1)
-- `app/globals.css` - Global styles with Shadcn CSS variables and typography system (updated in Task 1.3, enhanced in Task 2.3, customized with Clemson colors in Task 2.5)
+- `app/globals.css` - Global styles with Shadcn CSS variables, typography, spacing, and shadows (updated in Task 1.3, enhanced in Task 2.3, customized with Clemson colors in Task 2.5, CSS custom properties added in Task 2.7)
 - `app/favicon.ico` - Site favicon (created in Task 1.1)
 - `app/games/[slug]/page.tsx` - Dynamic game detail page (SSG)
 - `components/ui/*` - Shadcn UI components (Button, Card, Table, Input created in Task 2.4)
-- `lib/utils.ts` - Class name utility function using clsx and tailwind-merge (created in Task 1.3)
+- `lib/utils/` - Utility functions directory with cn and helper functions (created in Task 1.3, enhanced in Task 2.6)
 - `components.json` - Shadcn UI configuration (created in Task 1.3)
 
 **Markdown parsing and validation:**
@@ -55,7 +55,8 @@
 - `components/filters/FilterPanel.tsx` - Season/opponent/type filters
 
 **Utilities and helpers:**
-- `lib/utils/cn.ts` - Class name utility (from Shadcn)
+- `lib/utils/cn.ts` - Class name utility with Clemson-specific helpers (created in Task 2.6)
+- `lib/utils/index.ts` - Utility functions index/re-exports (created in Task 2.6)
 - `lib/utils/colors.ts` - Color utility functions
 - `lib/utils/animations.ts` - GSAP animation helpers
 - `lib/constants/colors.ts` - Clemson brand color constants (created in Task 2.2)
@@ -120,8 +121,8 @@
     - Set base font sizes (14-16px body, 12-14px metadata)
   - [x] 2.4 Install base Shadcn UI components: `npx shadcn-ui@latest add button card table input`
   - [x] 2.5 Customize Shadcn component themes to use Clemson colors in `components/ui/` files
-  - [ ] 2.6 Create utility class helpers in `lib/utils/cn.ts` for conditional class names
-  - [ ] 2.7 Set up CSS custom properties for consistent spacing and shadows
+  - [x] 2.6 Create utility class helpers in `lib/utils/cn.ts` for conditional class names
+  - [x] 2.7 Set up CSS custom properties for consistent spacing and shadows
   - [ ] 2.8 Create `components/ui/Container.tsx` for max-width content wrapper
   - [ ] 2.9 Test responsive design at all breakpoints (320px-2560px)
 
