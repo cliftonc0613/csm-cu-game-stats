@@ -14,18 +14,19 @@
 ## Relevant Files
 
 **Initial setup and configuration:**
-- `package.json` - Project dependencies and scripts
-- `next.config.js` - Next.js configuration for SSG optimization
-- `tailwind.config.ts` - Custom Clemson color palette and design tokens
-- `tsconfig.json` - TypeScript configuration
-- `.eslintrc.json` - ESLint configuration
-- `postcss.config.js` - PostCSS configuration for TailwindCSS
+- `package.json` - Project dependencies and scripts (created in Task 1.1)
+- `next.config.ts` - Next.js configuration for SSG optimization (created in Task 1.1)
+- `tailwind.config.ts` - Custom Clemson color palette and design tokens (will be created)
+- `tsconfig.json` - TypeScript configuration with strict mode (created in Task 1.1)
+- `eslint.config.mjs` - ESLint configuration (created in Task 1.1)
+- `postcss.config.mjs` - PostCSS configuration for TailwindCSS (created in Task 1.1)
 
 **Application structure:**
-- `app/layout.tsx` - Root layout with brand colors and typography
-- `app/page.tsx` - Homepage with game list and filters
+- `app/layout.tsx` - Root layout with brand colors and typography (created in Task 1.1)
+- `app/page.tsx` - Homepage with game list and filters (created in Task 1.1)
+- `app/globals.css` - Global styles and Tailwind imports (created in Task 1.1)
+- `app/favicon.ico` - Site favicon (created in Task 1.1)
 - `app/games/[slug]/page.tsx` - Dynamic game detail page (SSG)
-- `app/globals.css` - Global styles and Tailwind imports
 - `components/ui/*` - Shadcn UI components (Button, Card, Table, etc.)
 
 **Markdown parsing and validation:**
@@ -88,7 +89,7 @@
 ## Tasks
 
 - [ ] 1.0 **Project Initialization and Setup**
-  - [ ] 1.1 Initialize Next.js 14+ project with TypeScript using `npx create-next-app@latest` with App Router enabled
+  - [x] 1.1 Initialize Next.js 14+ project with TypeScript using `npx create-next-app@latest` with App Router enabled
   - [ ] 1.2 Install core dependencies: `tailwindcss`, `postcss`, `autoprefixer`, `gsap`, `gray-matter`, `remark`, `remark-html`, `recharts`
   - [ ] 1.3 Install Shadcn UI CLI and initialize: `npx shadcn-ui@latest init`
   - [ ] 1.4 Install development dependencies: `@types/node`, `@types/react`, `eslint`, `prettier`, `jest`, `@testing-library/react`, `@testing-library/jest-dom`
