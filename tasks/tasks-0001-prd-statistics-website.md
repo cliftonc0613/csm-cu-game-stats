@@ -27,7 +27,7 @@
 **Application structure:**
 - `app/layout.tsx` - Root layout with brand colors and typography (created in Task 1.1)
 - `app/page.tsx` - Homepage with game list and filters (created in Task 1.1)
-- `app/globals.css` - Global styles with Shadcn CSS variables and typography system (updated in Task 1.3, enhanced in Task 2.3)
+- `app/globals.css` - Global styles with Shadcn CSS variables and typography system (updated in Task 1.3, enhanced in Task 2.3, customized with Clemson colors in Task 2.5)
 - `app/favicon.ico` - Site favicon (created in Task 1.1)
 - `app/games/[slug]/page.tsx` - Dynamic game detail page (SSG)
 - `components/ui/*` - Shadcn UI components (Button, Card, Table, Input created in Task 2.4)
@@ -119,7 +119,7 @@
     - Create ordinal superscript styles
     - Set base font sizes (14-16px body, 12-14px metadata)
   - [x] 2.4 Install base Shadcn UI components: `npx shadcn-ui@latest add button card table input`
-  - [ ] 2.5 Customize Shadcn component themes to use Clemson colors in `components/ui/` files
+  - [x] 2.5 Customize Shadcn component themes to use Clemson colors in `components/ui/` files
   - [ ] 2.6 Create utility class helpers in `lib/utils/cn.ts` for conditional class names
   - [ ] 2.7 Set up CSS custom properties for consistent spacing and shadows
   - [ ] 2.8 Create `components/ui/Container.tsx` for max-width content wrapper
