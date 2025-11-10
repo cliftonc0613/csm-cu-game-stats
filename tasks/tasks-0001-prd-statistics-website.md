@@ -14,10 +14,10 @@
 ## Relevant Files
 
 **Initial setup and configuration:**
-- `package.json` - Project dependencies and scripts (created in Task 1.1)
+- `package.json` - Project dependencies and scripts (created in Task 1.1, updated in 1.2, 1.4)
 - `next.config.ts` - Next.js configuration for SSG optimization (created in Task 1.1)
 - `tailwind.config.ts` - Custom Clemson color palette and design tokens (will be created)
-- `tsconfig.json` - TypeScript configuration with strict mode (created in Task 1.1)
+- `tsconfig.json` - TypeScript configuration with strict mode and additional strict options (created in Task 1.1, enhanced in Task 1.5)
 - `eslint.config.mjs` - ESLint configuration (created in Task 1.1)
 - `postcss.config.mjs` - PostCSS configuration for TailwindCSS (created in Task 1.1)
 
@@ -95,7 +95,7 @@
   - [x] 1.2 Install core dependencies: `tailwindcss`, `postcss`, `autoprefixer`, `gsap`, `gray-matter`, `remark`, `remark-html`, `recharts`
   - [x] 1.3 Install Shadcn UI CLI and initialize: `npx shadcn-ui@latest init`
   - [x] 1.4 Install development dependencies: `@types/node`, `@types/react`, `eslint`, `prettier`, `jest`, `@testing-library/react`, `@testing-library/jest-dom`
-  - [ ] 1.5 Configure TypeScript with strict mode in `tsconfig.json`
+  - [x] 1.5 Configure TypeScript with strict mode in `tsconfig.json`
   - [ ] 1.6 Set up ESLint and Prettier configurations for code quality
   - [ ] 1.7 Create project directory structure: `app/`, `components/`, `lib/`, `content/`, `public/`
   - [ ] 1.8 Initialize Git repository and create `.gitignore` for Next.js (if not already done)
