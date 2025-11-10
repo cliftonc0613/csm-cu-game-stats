@@ -27,7 +27,7 @@
 **Application structure:**
 - `app/layout.tsx` - Root layout with brand colors and typography (created in Task 1.1)
 - `app/page.tsx` - Homepage with game list and filters (created in Task 1.1)
-- `app/globals.css` - Global styles with Shadcn CSS variables (updated in Task 1.3)
+- `app/globals.css` - Global styles with Shadcn CSS variables and typography system (updated in Task 1.3, enhanced in Task 2.3)
 - `app/favicon.ico` - Site favicon (created in Task 1.1)
 - `app/games/[slug]/page.tsx` - Dynamic game detail page (SSG)
 - `components/ui/*` - Shadcn UI components (Button, Card, Table, etc.)
@@ -113,7 +113,7 @@
     - Add custom colors: `clemson-orange: '#F56600'`, `clemson-purple: '#522D80'`, `clemson-dark: '#333333'`
     - Configure responsive breakpoints to match PRD specs
   - [x] 2.2 Create `lib/constants/colors.ts` with brand color constants and utility functions
-  - [ ] 2.3 Set up global typography system in `app/globals.css`:
+  - [x] 2.3 Set up global typography system in `app/globals.css`:
     - Configure sans-serif font stack
     - Define display number styles (80-120px, ultra-bold)
     - Create ordinal superscript styles
