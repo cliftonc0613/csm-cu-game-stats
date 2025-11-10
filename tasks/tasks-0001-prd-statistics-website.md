@@ -24,10 +24,12 @@
 **Application structure:**
 - `app/layout.tsx` - Root layout with brand colors and typography (created in Task 1.1)
 - `app/page.tsx` - Homepage with game list and filters (created in Task 1.1)
-- `app/globals.css` - Global styles and Tailwind imports (created in Task 1.1)
+- `app/globals.css` - Global styles with Shadcn CSS variables (updated in Task 1.3)
 - `app/favicon.ico` - Site favicon (created in Task 1.1)
 - `app/games/[slug]/page.tsx` - Dynamic game detail page (SSG)
 - `components/ui/*` - Shadcn UI components (Button, Card, Table, etc.)
+- `lib/utils.ts` - Class name utility function using clsx and tailwind-merge (created in Task 1.3)
+- `components.json` - Shadcn UI configuration (created in Task 1.3)
 
 **Markdown parsing and validation:**
 - `lib/markdown/parser.ts` - Markdown file parsing with gray-matter
@@ -91,7 +93,7 @@
 - [ ] 1.0 **Project Initialization and Setup**
   - [x] 1.1 Initialize Next.js 14+ project with TypeScript using `npx create-next-app@latest` with App Router enabled
   - [x] 1.2 Install core dependencies: `tailwindcss`, `postcss`, `autoprefixer`, `gsap`, `gray-matter`, `remark`, `remark-html`, `recharts`
-  - [ ] 1.3 Install Shadcn UI CLI and initialize: `npx shadcn-ui@latest init`
+  - [x] 1.3 Install Shadcn UI CLI and initialize: `npx shadcn-ui@latest init`
   - [ ] 1.4 Install development dependencies: `@types/node`, `@types/react`, `eslint`, `prettier`, `jest`, `@testing-library/react`, `@testing-library/jest-dom`
   - [ ] 1.5 Configure TypeScript with strict mode in `tsconfig.json`
   - [ ] 1.6 Set up ESLint and Prettier configurations for code quality
