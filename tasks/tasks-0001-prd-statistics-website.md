@@ -60,10 +60,13 @@
 - `lib/constants/colors.ts` - Clemson brand color constants
 
 **Data and content:**
-- `content/games/*.md` - Markdown files for game statistics
-- `content/evaluations/*.md` - Markdown files for game evaluations
-- `content/templates/game-stats-template.md` - Template structure reference
-- `public/images/logos/*.svg` - Team logos (Clemson and opponents)
+- `content/games/` - Directory for game statistics markdown files (created in Task 1.7)
+- `content/evaluations/` - Directory for game evaluation markdown files (created in Task 1.7)
+- `content/templates/` - Directory for template reference files (created in Task 1.7)
+- `content/games/*.md` - Markdown files for game statistics (will be created)
+- `content/evaluations/*.md` - Markdown files for game evaluations (will be created)
+- `content/templates/game-stats-template.md` - Template structure reference (will be created)
+- `public/images/logos/*.svg` - Team logos (Clemson and opponents) (will be created)
 
 **Export functionality:**
 - `lib/export/csv.ts` - CSV export logic
@@ -99,7 +102,7 @@
   - [x] 1.4 Install development dependencies: `@types/node`, `@types/react`, `eslint`, `prettier`, `jest`, `@testing-library/react`, `@testing-library/jest-dom`
   - [x] 1.5 Configure TypeScript with strict mode in `tsconfig.json`
   - [x] 1.6 Set up ESLint and Prettier configurations for code quality
-  - [ ] 1.7 Create project directory structure: `app/`, `components/`, `lib/`, `content/`, `public/`
+  - [x] 1.7 Create project directory structure: `app/`, `components/`, `lib/`, `content/`, `public/`
   - [ ] 1.8 Initialize Git repository and create `.gitignore` for Next.js (if not already done)
   - [ ] 1.9 Install Zod for schema validation: `npm install zod`
   - [ ] 1.10 Verify development server runs successfully: `npm run dev`
