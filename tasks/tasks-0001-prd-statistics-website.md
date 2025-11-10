@@ -30,7 +30,7 @@
 - `app/globals.css` - Global styles with Shadcn CSS variables, typography, spacing, and shadows (updated in Task 1.3, enhanced in Task 2.3, customized with Clemson colors in Task 2.5, CSS custom properties added in Task 2.7)
 - `app/favicon.ico` - Site favicon (created in Task 1.1)
 - `app/games/[slug]/page.tsx` - Dynamic game detail page (SSG)
-- `components/ui/*` - Shadcn UI components (Button, Card, Table, Input created in Task 2.4)
+- `components/ui/*` - Shadcn UI components (Button, Card, Table, Input created in Task 2.4; Container created in Task 2.8)
 - `lib/utils/` - Utility functions directory with cn and helper functions (created in Task 1.3, enhanced in Task 2.6)
 - `components.json` - Shadcn UI configuration (created in Task 1.3)
 
@@ -123,7 +123,7 @@
   - [x] 2.5 Customize Shadcn component themes to use Clemson colors in `components/ui/` files
   - [x] 2.6 Create utility class helpers in `lib/utils/cn.ts` for conditional class names
   - [x] 2.7 Set up CSS custom properties for consistent spacing and shadows
-  - [ ] 2.8 Create `components/ui/Container.tsx` for max-width content wrapper
+  - [x] 2.8 Create `components/ui/Container.tsx` for max-width content wrapper
   - [ ] 2.9 Test responsive design at all breakpoints (320px-2560px)
 
 - [ ] 3.0 **Markdown Parsing Engine and Content Infrastructure**
