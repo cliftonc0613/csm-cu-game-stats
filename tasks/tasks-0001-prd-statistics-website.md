@@ -16,7 +16,7 @@
 **Initial setup and configuration:**
 - `package.json` - Project dependencies and scripts (created in Task 1.1, updated in 1.2, 1.4, 1.6, 1.9)
 - `next.config.ts` - Next.js configuration for SSG optimization (created in Task 1.1)
-- `tailwind.config.ts` - Custom Clemson color palette and design tokens (will be created)
+- `tailwind.config.ts` - Custom Clemson color palette and design tokens (created in Task 2.1)
 - `tsconfig.json` - TypeScript configuration with strict mode and additional strict options (created in Task 1.1, enhanced in Task 1.5)
 - `eslint.config.mjs` - ESLint configuration with Next.js best practices (created in Task 1.1)
 - `.prettierrc` - Prettier configuration for code formatting (created in Task 1.6)
@@ -58,7 +58,7 @@
 - `lib/utils/cn.ts` - Class name utility (from Shadcn)
 - `lib/utils/colors.ts` - Color utility functions
 - `lib/utils/animations.ts` - GSAP animation helpers
-- `lib/constants/colors.ts` - Clemson brand color constants
+- `lib/constants/colors.ts` - Clemson brand color constants (created in Task 2.2)
 
 **Data and content:**
 - `content/games/` - Directory for game statistics markdown files (created in Task 1.7)
@@ -109,10 +109,10 @@
   - [x] 1.10 Verify development server runs successfully: `npm run dev`
 
 - [ ] 2.0 **Design System and Component Library Foundation**
-  - [ ] 2.1 Configure Tailwind with Clemson brand colors in `tailwind.config.ts`:
+  - [x] 2.1 Configure Tailwind with Clemson brand colors in `tailwind.config.ts`:
     - Add custom colors: `clemson-orange: '#F56600'`, `clemson-purple: '#522D80'`, `clemson-dark: '#333333'`
     - Configure responsive breakpoints to match PRD specs
-  - [ ] 2.2 Create `lib/constants/colors.ts` with brand color constants and utility functions
+  - [x] 2.2 Create `lib/constants/colors.ts` with brand color constants and utility functions
   - [ ] 2.3 Set up global typography system in `app/globals.css`:
     - Configure sans-serif font stack
     - Define display number styles (80-120px, ultra-bold)
