@@ -103,7 +103,7 @@
   - [x] 1.5 Configure TypeScript with strict mode in `tsconfig.json`
   - [x] 1.6 Set up ESLint and Prettier configurations for code quality
   - [x] 1.7 Create project directory structure: `app/`, `components/`, `lib/`, `content/`, `public/`
-  - [ ] 1.8 Initialize Git repository and create `.gitignore` for Next.js (if not already done)
+  - [x] 1.8 Initialize Git repository and create `.gitignore` for Next.js (if not already done)
   - [ ] 1.9 Install Zod for schema validation: `npm install zod`
   - [ ] 1.10 Verify development server runs successfully: `npm run dev`
 
