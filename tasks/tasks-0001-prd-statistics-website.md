@@ -26,7 +26,8 @@
 
 **Application structure:**
 - `app/layout.tsx` - Root layout with Clemson branding, system fonts, Header, and Footer components with flex layout (created in Task 1.1, updated in Task 2.9, updated in Task 5.1, updated in Task 5.2)
-- `app/page.tsx` - Responsive design test page with component demonstrations (created in Task 1.1, updated to test page in Task 2.9)
+- `app/page.tsx` - Homepage with search, filters, and game list (created in Task 1.1, updated to test page in Task 2.9, rebuilt in Task 5.7)
+- `app/api/games/route.ts` - API endpoint to fetch all games as list items (created in Task 5.7)
 - `app/globals.css` - Global styles with Shadcn CSS variables, typography, spacing, and shadows (updated in Task 1.3, enhanced in Task 2.3, customized with Clemson colors in Task 2.5, CSS custom properties added in Task 2.7)
 - `app/favicon.ico` - Site favicon (created in Task 1.1)
 - `app/games/[slug]/page.tsx` - Dynamic game detail page (SSG)
@@ -225,7 +226,7 @@
     - Game date and score
     - Link to full game detail page
     - Clemson brand styling
-  - [ ] 5.7 Build homepage `app/page.tsx`:
+  - [x] 5.7 Build homepage `app/page.tsx`:
     - Render Header and Footer
     - Display SearchBar and FilterPanel
     - Fetch all games using `getAllGames()`
