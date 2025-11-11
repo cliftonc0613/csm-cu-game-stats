@@ -2,10 +2,9 @@
  * Helper function to retrieve all game statistics and evaluations
  */
 
-import path from 'path';
 import { parseMarkdownFile, getMarkdownFiles, CONTENT_DIRS } from './parser';
 import { validateGameFrontmatterStrict } from './validator';
-import type { ParsedGame, GameFrontmatter, GameListItem, GameFilters, GameSortOptions } from './types';
+import type { ParsedGame, GameListItem, GameFilters, GameSortOptions } from './types';
 
 /**
  * Get all games from both statistics and evaluations directories

@@ -29,7 +29,7 @@
 - `app/page.tsx` - Responsive design test page with component demonstrations (created in Task 1.1, updated to test page in Task 2.9)
 - `app/globals.css` - Global styles with Shadcn CSS variables, typography, spacing, and shadows (updated in Task 1.3, enhanced in Task 2.3, customized with Clemson colors in Task 2.5, CSS custom properties added in Task 2.7)
 - `app/favicon.ico` - Site favicon (created in Task 1.1)
-- `app/games/[slug]/page.tsx` - Dynamic game detail page (SSG)
+- `app/games/[slug]/page.tsx` - Dynamic game detail page with SSG, generateStaticParams(), getGameBySlug(), and 404 handling (created in Task 6.1)
 - `components/ui/*` - Shadcn UI components (Button, Card, Table, Input created in Task 2.4; Container created in Task 2.8)
 - `lib/utils/` - Utility functions directory with cn and helper functions (created in Task 1.3, enhanced in Task 2.6)
 - `components.json` - Shadcn UI configuration (created in Task 1.3)
@@ -235,7 +235,7 @@
   - [ ] 5.9 Test navigation flow and filter interactions
 
 - [ ] 6.0 **Game Detail Pages with SSG**
-  - [ ] 6.1 Create dynamic route `app/games/[slug]/page.tsx`:
+  - [x] 6.1 Create dynamic route `app/games/[slug]/page.tsx`:
     - Implement `generateStaticParams()` to pre-render all game pages at build time
     - Fetch game data using `getGameBySlug(slug)`
     - Handle 404 for invalid slugs with Next.js `notFound()`
