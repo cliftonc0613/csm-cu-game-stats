@@ -82,11 +82,14 @@
 
 **Testing:**
 - `COMPONENT_TESTING.md` - Component testing documentation for Task 4.8 (manual/visual testing)
-- `lib/markdown/parser.test.ts` - Markdown parser tests (will be created)
-- `lib/markdown/validator.test.ts` - Schema validation tests (will be created)
-- `components/game/StatCard.test.tsx` - Component tests (will be created)
-- `jest.config.js` - Jest configuration (will be created)
-- `jest.setup.js` - Jest setup file (will be created)
+- `components/game/StatCard.test.tsx` - StatCard component tests (created in Task 4.9)
+- `components/game/StatCardGrid.test.tsx` - StatCardGrid component tests (created in Task 4.9)
+- `components/game/ScoreComparisonBar.test.tsx` - ScoreComparisonBar component tests (created in Task 4.9)
+- `lib/markdown/parser.test.ts` - Markdown parser tests (existing)
+- `lib/markdown/validator.test.ts` - Schema validation tests (existing)
+- `lib/markdown/template.test.ts` - Template validation tests (existing)
+- `jest.config.js` - Jest configuration (existing)
+- `jest.setup.js` - Jest setup file (existing)
 
 **Performance and optimization:**
 - `next-sitemap.config.js` - Sitemap generation (optional)
@@ -156,7 +159,7 @@
   - [x] 3.9 Create helper function to get game by slug: `lib/markdown/getGameBySlug.ts`
   - [x] 3.10 Write unit tests for parser, validator, and template enforcement
 
-- [ ] 4.0 **Core Visual Components (Score Bar, Stat Cards, Charts)**
+- [x] 4.0 **Core Visual Components (Score Bar, Stat Cards, Charts)**
   - [x] 4.1 Create `components/game/ScoreComparisonBar.tsx`:
     - Team logos in circular containers on left/right edges
     - Win-loss records displayed prominently
@@ -196,7 +199,7 @@
   - [x] 4.6 Add team logo assets to `public/images/logos/` (Clemson paw, opponent logos)
   - [x] 4.7 Create `components/ui/TeamLogo.tsx` component for consistent logo rendering
   - [x] 4.8 Test all components in isolation with sample data
-  - [ ] 4.9 Write component tests for StatCard, StatCardGrid, and ScoreComparisonBar
+  - [x] 4.9 Write component tests for StatCard, StatCardGrid, and ScoreComparisonBar
 
 - [ ] 5.0 **Game List, Navigation, and Search Features**
   - [ ] 5.1 Create `components/layout/Header.tsx`:
