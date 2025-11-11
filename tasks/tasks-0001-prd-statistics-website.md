@@ -35,7 +35,7 @@
 - `components.json` - Shadcn UI configuration (created in Task 1.3)
 
 **Markdown parsing and validation:**
-- `lib/markdown/parser.ts` - Markdown file parsing with gray-matter
+- `lib/markdown/parser.ts` - Markdown file parsing with gray-matter and HTML sanitization (enhanced in Task 6.5)
 - `lib/markdown/validator.ts` - Zod schema validation for frontmatter
 - `lib/markdown/template.ts` - Template structure enforcement logic
 - `lib/markdown/types.ts` - TypeScript types for game data
@@ -59,6 +59,7 @@
 **Utilities and helpers:**
 - `lib/utils/cn.ts` - Class name utility with Clemson-specific helpers (created in Task 2.6)
 - `lib/utils/index.ts` - Utility functions index/re-exports (created in Task 2.6)
+- `lib/utils/sanitize.ts` - HTML sanitization utilities for markdown content (created in Task 6.5)
 - `lib/utils/colors.ts` - Color utility functions
 - `lib/utils/animations.ts` - GSAP animation helpers
 - `lib/constants/colors.ts` - Clemson brand color constants (created in Task 2.2)
@@ -259,7 +260,12 @@
     - Styled as metadata cards or list
     - Grid and list layout variants
     - Compact variant for smaller displays
-  - [ ] 6.5 Implement Markdown content rendering with proper HTML sanitization
+  - [x] 6.5 Implement Markdown content rendering with proper HTML sanitization
+    - Installed sanitize-html library for server-side sanitization
+    - Created sanitization utility with markdown-specific configuration
+    - Updated markdown parser to sanitize HTML output
+    - Configured to allow safe markdown elements (tables, lists, headings, etc.)
+    - Prevents XSS attacks while preserving game statistics formatting
   - [ ] 6.6 Add SEO metadata using Next.js `metadata` API:
     - Dynamic page titles: "Clemson vs [Opponent] - [Date]"
     - Meta descriptions with game summary
