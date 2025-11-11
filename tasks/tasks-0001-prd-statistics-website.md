@@ -190,7 +190,7 @@
     - Implement sortable columns with sort indicators
     - Clemson brand styling (borders, text colors)
     - Responsive horizontal scroll on mobile
-  - [ ] 4.6 Add team logo assets to `public/images/logos/` (Clemson paw, opponent logos)
+  - [x] 4.6 Add team logo assets to `public/images/logos/` (Clemson paw, opponent logos)
   - [ ] 4.7 Create `components/ui/TeamLogo.tsx` component for consistent logo rendering
   - [ ] 4.8 Test all components in isolation with sample data
   - [ ] 4.9 Write component tests for StatCard, StatCardGrid, and ScoreComparisonBar
