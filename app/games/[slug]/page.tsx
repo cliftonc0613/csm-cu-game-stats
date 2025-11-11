@@ -2,7 +2,7 @@ import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
 import { getGameBySlug, getAllGameSlugs } from '@/lib/markdown/getGameBySlug';
 import { Breadcrumbs } from '@/components/layout/Breadcrumbs';
-import { ScoreComparisonBar } from '@/components/game/ScoreComparisonBar';
+import { GameDetailHeader } from '@/components/game/GameDetailHeader';
 import { GameMetadata } from '@/components/game/GameMetadata';
 
 /**
@@ -104,9 +104,6 @@ export default async function GameDetailPage({ params }: { params: { slug: strin
   const isWin = frontmatter.score.clemson > frontmatter.score.opponent;
   const result = frontmatter.score.clemson > frontmatter.score.opponent ? 'W' : frontmatter.score.clemson < frontmatter.score.opponent ? 'L' : 'T';
 
-  // Convert opponent name to slug for logo (e.g., "Louisville" -> "louisville")
-  const opponentSlug = frontmatter.opponent.toLowerCase().replace(/\s+/g, '-');
-
   // Breadcrumb navigation
   const breadcrumbItems = [
     { label: 'Games', href: '/' },
@@ -122,36 +119,13 @@ export default async function GameDetailPage({ params }: { params: { slug: strin
         </div>
 
         {/* Game Header Section */}
-        <div className="bg-white rounded-lg shadow-sm p-6 mb-8">
-          <div className="text-center mb-6">
-            <h1 className="text-4xl md:text-5xl font-bold mb-2">
-              Clemson vs {frontmatter.opponent}
-            </h1>
-            <p className="text-lg text-gray-600">{gameDate}</p>
-            {frontmatter.location && (
-              <p className="text-sm text-gray-500 mt-1">{frontmatter.location}</p>
-            )}
-          </div>
-
-          {/* Score Comparison Bar */}
-          <ScoreComparisonBar
-            clemson={{
-              score: frontmatter.score.clemson,
-            }}
-            opponent={{
-              name: frontmatter.opponent,
-              score: frontmatter.score.opponent,
-              teamSlug: opponentSlug,
-            }}
-            winStreak={
-              'win_streak' in frontmatter && frontmatter.win_streak
-                ? frontmatter.win_streak
-                : undefined
-            }
-            isWin={isWin}
-            gamesListLink="/"
-          />
-        </div>
+        <GameDetailHeader
+          frontmatter={frontmatter}
+          formattedDate={gameDate}
+          isWin={isWin}
+          gamesListLink="/"
+          className="mb-8"
+        />
 
         {/* Game Metadata Section */}
         {frontmatter.content_type === 'statistics' && (
