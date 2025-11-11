@@ -35,12 +35,18 @@ export const GameStatsFrontmatterSchema = z.object({
     .int()
     .min(1896, 'season must be 1896 or later') // Clemson football started in 1896
     .max(new Date().getFullYear() + 1, 'season cannot be more than one year in the future'),
-  game_type: z.enum(['regular_season', 'bowl', 'playoff', 'championship']),
-  content_type: z.literal('statistics'),
+  game_type: z.enum(['regular_season', 'bowl', 'playoff', 'championship'], {
+    message: 'game_type must be one of: regular_season, bowl, playoff, championship',
+  }),
+  content_type: z.literal('statistics', {
+    message: 'content_type must be "statistics" for game statistics files',
+  }),
   location: z.string().optional(),
   attendance: z.number().int().min(0).optional(),
   weather: z.string().optional(),
-  home_away: z.enum(['home', 'away', 'neutral']),
+  home_away: z.enum(['home', 'away', 'neutral'], {
+    message: 'home_away must be one of: home, away, neutral',
+  }),
   win_streak: z.number().int().min(0).optional(),
   slug: z.string().optional(),
 });
@@ -61,10 +67,16 @@ export const GameEvaluationFrontmatterSchema = z.object({
     .int()
     .min(1896, 'season must be 1896 or later')
     .max(new Date().getFullYear() + 1, 'season cannot be more than one year in the future'),
-  game_type: z.enum(['regular_season', 'bowl', 'playoff', 'championship']),
-  content_type: z.literal('evaluation'),
+  game_type: z.enum(['regular_season', 'bowl', 'playoff', 'championship'], {
+    message: 'game_type must be one of: regular_season, bowl, playoff, championship',
+  }),
+  content_type: z.literal('evaluation', {
+    message: 'content_type must be "evaluation" for game evaluation files',
+  }),
   location: z.string().optional(),
-  home_away: z.enum(['home', 'away', 'neutral']),
+  home_away: z.enum(['home', 'away', 'neutral'], {
+    message: 'home_away must be one of: home, away, neutral',
+  }),
   slug: z.string().optional(),
 });
 

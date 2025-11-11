@@ -1,552 +1,287 @@
 'use client';
 
-import { Container } from "@/components/ui/container";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { ScoreComparisonBar } from "@/components/game/ScoreComparisonBar";
-import { StatCard } from "@/components/game/StatCard";
-import { StatCardGrid } from "@/components/game/StatCardGrid";
-import { HistoricalChart } from "@/components/game/HistoricalChart";
-import { GameTable } from "@/components/game/GameTable";
-import { TeamLogo, TeamLogoWithName } from "@/components/ui/TeamLogo";
-import { createOrdinalStats, createStatsFromValues } from "@/lib/utils/stats";
-import { createChartData } from "@/lib/utils/charts";
-import { createTableColumns } from "@/lib/utils/tables";
+import { useEffect, useState, useMemo } from 'react';
+import { Container } from '@/components/ui/container';
+import { SearchBar } from '@/components/search/SearchBar';
+import { FilterPanel, FilterState } from '@/components/filters/FilterPanel';
+import { GameListItem } from '@/components/game/GameListItem';
+import { CLEMSON_COLORS } from '@/lib/constants/colors';
+import type { GameListItem as GameListItemType } from '@/lib/markdown/types';
 
-export default function Home() {
+export default function HomePage() {
+  const [games, setGames] = useState<GameListItemType[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [filters, setFilters] = useState<FilterState>({
+    seasons: [],
+    opponents: [],
+    gameTypes: [],
+    contentTypes: [],
+  });
+
+  // Fetch games on mount
+  useEffect(() => {
+    async function fetchGames() {
+      try {
+        setError(null);
+        const response = await fetch('/api/games');
+        if (response.ok) {
+          const data = await response.json();
+          // Convert date strings back to Date objects
+          const gamesWithDates = data.map((game: any) => ({
+            ...game,
+            gameDate: new Date(game.gameDate),
+          }));
+          setGames(gamesWithDates);
+        } else {
+          setError('Failed to load games. Please try again later.');
+        }
+      } catch (err) {
+        console.error('Error fetching games:', err);
+        setError('Unable to connect to the server. Please check your connection and try again.');
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchGames();
+  }, []);
+
+  // Extract unique values for filters
+  const availableSeasons = useMemo(() => {
+    const seasons = new Set(games.map((game) => game.season));
+    return Array.from(seasons).sort((a, b) => b - a);
+  }, [games]);
+
+  const availableOpponents = useMemo(() => {
+    const opponents = new Set(games.map((game) => game.opponent));
+    return Array.from(opponents).sort();
+  }, [games]);
+
+  // Filter and search games
+  const filteredGames = useMemo(() => {
+    let result = [...games];
+
+    // Apply filters
+    if (filters.seasons.length > 0) {
+      result = result.filter((game) => filters.seasons.includes(game.season));
+    }
+
+    if (filters.opponents.length > 0) {
+      result = result.filter((game) => filters.opponents.includes(game.opponent));
+    }
+
+    if (filters.gameTypes.length > 0) {
+      result = result.filter((game) => filters.gameTypes.includes(game.gameType));
+    }
+
+    if (filters.contentTypes.length > 0) {
+      result = result.filter((game) => filters.contentTypes.includes(game.contentType));
+    }
+
+    // Apply search query
+    if (searchQuery.trim()) {
+      const query = searchQuery.toLowerCase();
+      result = result.filter((game) => {
+        const opponent = game.opponent.toLowerCase();
+        const opponentShort = game.opponentShort?.toLowerCase() || '';
+        const dateStr = game.gameDate.toISOString().split('T')[0];
+        const season = game.season.toString();
+
+        return (
+          opponent.includes(query) ||
+          opponentShort.includes(query) ||
+          dateStr.includes(query) ||
+          season.includes(query)
+        );
+      });
+    }
+
+    return result;
+  }, [games, filters, searchQuery]);
+
+  // Calculate statistics
+  const stats = useMemo(() => {
+    const total = filteredGames.length;
+    const wins = filteredGames.filter((game) => game.result === 'win').length;
+    const losses = filteredGames.filter((game) => game.result === 'loss').length;
+    const winPercentage = total > 0 ? ((wins / total) * 100).toFixed(1) : '0.0';
+
+    return { total, wins, losses, winPercentage };
+  }, [filteredGames]);
+
+  if (loading) {
+    return (
+      <div className="flex min-h-[60vh] items-center justify-center">
+        <div className="text-center">
+          <div
+            className="mx-auto mb-4 h-12 w-12 animate-spin rounded-full border-4 border-gray-200"
+            style={{
+              borderTopColor: CLEMSON_COLORS.orange,
+            }}
+          />
+          <p className="text-lg font-medium text-gray-600">Loading games...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="flex min-h-[60vh] items-center justify-center p-4">
+        <div className="max-w-md text-center">
+          <div
+            className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full"
+            style={{ backgroundColor: CLEMSON_COLORS.purple }}
+          >
+            <svg
+              className="h-10 w-10 text-white"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
+              />
+            </svg>
+          </div>
+          <h2 className="mb-2 text-2xl font-bold" style={{ color: CLEMSON_COLORS.dark }}>
+            Unable to Load Games
+          </h2>
+          <p className="mb-6 text-gray-600">{error}</p>
+          <button
+            onClick={() => window.location.reload()}
+            className="rounded-md px-6 py-2.5 text-sm font-medium text-white transition-opacity hover:opacity-90"
+            style={{ backgroundColor: CLEMSON_COLORS.orange }}
+          >
+            Retry
+          </button>
+        </div>
+      </div>
+    );
+  }
+
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-gray-50">
       {/* Hero Section */}
-      <Container maxWidth="2xl" padding="lg" className="py-12">
-        <div className="text-center space-y-4">
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-clemson-orange">
-            Clemson Sports Statistics
-          </h1>
-          <p className="text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto">
-            Comprehensive Clemson Tigers athletics statistics and game data
-          </p>
-        </div>
-      </Container>
-
-      {/* Typography Test */}
-      <Container maxWidth="xl" padding="md" className="py-8">
-        <Card>
-          <CardHeader>
-            <CardTitle>Typography System Test</CardTitle>
-            <CardDescription>Testing responsive typography at all breakpoints</CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <div>
-              <h1>Heading 1 - Display</h1>
-              <h2>Heading 2 - Section</h2>
-              <h3>Heading 3 - Subsection</h3>
-              <h4>Heading 4 - Component</h4>
-              <h5>Heading 5 - Small</h5>
-              <h6>Heading 6 - Metadata</h6>
-            </div>
-            <div>
-              <p className="text-body">Body text (16px) - Regular paragraph content</p>
-              <p className="text-body-sm">Small body text (14px) - Secondary content</p>
-              <p className="text-metadata">Metadata text (14px) - Info labels</p>
-              <p className="text-metadata-sm">Small metadata (12px) - Captions</p>
-            </div>
-            <div className="space-y-2">
-              <div className="display-number text-clemson-orange">99<span className="ordinal-superscript">th</span></div>
-              <p className="text-sm text-muted-foreground">Display number with ordinal</p>
-            </div>
-          </CardContent>
-        </Card>
-      </Container>
-
-      {/* ScoreComparisonBar Test */}
-      <Container maxWidth="2xl" padding="md" className="py-8">
-        <Card>
-          <CardHeader>
-            <CardTitle>ScoreComparisonBar Component Test</CardTitle>
-            <CardDescription>Testing score comparison bar with team logos and win streak</CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-8">
-            {/* Win Scenario */}
-            <div>
-              <h3 className="text-lg font-semibold mb-4">Win Scenario</h3>
-              <ScoreComparisonBar
-                clemson={{
-                  score: 42,
-                  record: "10-2",
-                }}
-                opponent={{
-                  name: "South Carolina",
-                  teamSlug: "south-carolina",
-                  score: 17,
-                  record: "8-4",
-                }}
-                winStreak={5}
-                isWin={true}
-              />
-            </div>
-
-            {/* Loss Scenario */}
-            <div>
-              <h3 className="text-lg font-semibold mb-4">Loss Scenario</h3>
-              <ScoreComparisonBar
-                clemson={{
-                  score: 21,
-                  record: "9-3",
-                }}
-                opponent={{
-                  name: "Georgia",
-                  teamSlug: "georgia",
-                  score: 28,
-                  record: "12-0",
-                }}
-                isWin={false}
-              />
-            </div>
-
-            {/* Close Game */}
-            <div>
-              <h3 className="text-lg font-semibold mb-4">Close Game</h3>
-              <ScoreComparisonBar
-                clemson={{
-                  score: 31,
-                  record: "11-1",
-                }}
-                opponent={{
-                  name: "Florida State",
-                  teamSlug: "florida-state",
-                  score: 28,
-                  record: "10-2",
-                }}
-                winStreak={3}
-              />
-            </div>
-          </CardContent>
-        </Card>
-      </Container>
-
-      {/* TeamLogo Test */}
-      <Container maxWidth="2xl" padding="md" className="py-8">
-        <Card>
-          <CardHeader>
-            <CardTitle>TeamLogo Component Test</CardTitle>
-            <CardDescription>Testing team logo rendering with various configurations</CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-8">
-            {/* Basic Logos */}
-            <div>
-              <h3 className="text-lg font-semibold mb-4">Basic Logos</h3>
-              <div className="flex flex-wrap gap-6 items-center">
-                <TeamLogo team="clemson" size={48} />
-                <TeamLogo team="south-carolina" size={48} />
-                <TeamLogo team="georgia" size={48} />
-                <TeamLogo team="florida-state" size={48} />
-                <TeamLogo team="notre-dame" size={48} />
-                <TeamLogo team="miami" size={48} />
-              </div>
-            </div>
-
-            {/* Circular Logos */}
-            <div>
-              <h3 className="text-lg font-semibold mb-4">Circular Logos</h3>
-              <div className="flex flex-wrap gap-6 items-center">
-                <TeamLogo team="clemson" size={64} circular />
-                <TeamLogo team="south-carolina" size={64} circular />
-                <TeamLogo team="georgia" size={64} circular />
-                <TeamLogo team="florida-state" size={64} circular />
-                <TeamLogo team="notre-dame" size={64} circular />
-                <TeamLogo team="miami" size={64} circular />
-              </div>
-            </div>
-
-            {/* Logos with Names */}
-            <div>
-              <h3 className="text-lg font-semibold mb-4">Logos with Team Names</h3>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                <TeamLogoWithName team="clemson" size={40} />
-                <TeamLogoWithName team="south-carolina" size={40} />
-                <TeamLogoWithName team="georgia" size={40} />
-                <TeamLogoWithName team="florida-state" size={40} />
-                <TeamLogoWithName team="notre-dame" size={40} />
-                <TeamLogoWithName team="miami" size={40} />
-              </div>
-            </div>
-
-            {/* Different Sizes */}
-            <div>
-              <h3 className="text-lg font-semibold mb-4">Size Variations</h3>
-              <div className="flex flex-wrap gap-6 items-end">
-                <TeamLogo team="clemson" size={32} circular />
-                <TeamLogo team="clemson" size={48} circular />
-                <TeamLogo team="clemson" size={64} circular />
-                <TeamLogo team="clemson" size={80} circular />
-                <TeamLogo team="clemson" size={96} circular />
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-      </Container>
-
-      {/* StatCard Test */}
-      <Container maxWidth="2xl" padding="md" className="py-8">
-        <Card>
-          <CardHeader>
-            <CardTitle>StatCard Component Test</CardTitle>
-            <CardDescription>Testing stat cards with orange and purple backgrounds</CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-8">
-            {/* Ordinal Stats */}
-            <div>
-              <h3 className="text-lg font-semibold mb-4">Ordinal Stats</h3>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                <StatCard
-                  value={99}
-                  ordinal="th"
-                  label="National Ranking"
-                  description="of 134 teams"
-                  variant="orange"
-                />
-                <StatCard
-                  value={1}
-                  ordinal="st"
-                  label="ACC Standing"
-                  description="in conference"
-                  variant="purple"
-                />
-                <StatCard
-                  value={3}
-                  ordinal="rd"
-                  label="Total Defense"
-                  description="nationally"
-                  variant="orange"
-                />
-                <StatCard
-                  value={22}
-                  ordinal="nd"
-                  label="Scoring Offense"
-                  description="in FBS"
-                  variant="purple"
-                />
-              </div>
-            </div>
-
-            {/* Regular Stats (no ordinals) */}
-            <div>
-              <h3 className="text-lg font-semibold mb-4">Regular Stats</h3>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                <StatCard
-                  value={42}
-                  label="Points Scored"
-                  variant="orange"
-                  size="md"
-                />
-                <StatCard
-                  value={17}
-                  label="Points Allowed"
-                  variant="purple"
-                  size="md"
-                />
-                <StatCard
-                  value={489}
-                  label="Total Yards"
-                  description="offense"
-                  variant="orange"
-                  size="md"
-                />
-              </div>
-            </div>
-
-            {/* Size Variations */}
-            <div>
-              <h3 className="text-lg font-semibold mb-4">Size Variations</h3>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                <StatCard value={85} label="Small" variant="orange" size="sm" />
-                <StatCard value={72} label="Medium" variant="purple" size="md" />
-                <StatCard value={99} ordinal="th" label="Default" variant="orange" />
-                <StatCard value={1} ordinal="st" label="Large" variant="purple" size="lg" />
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-      </Container>
-
-      {/* StatCardGrid Test */}
-      <Container maxWidth="2xl" padding="md" className="py-8">
-        <Card>
-          <CardHeader>
-            <CardTitle>StatCardGrid Component Test</CardTitle>
-            <CardDescription>Testing responsive grid layout with automatic color alternation</CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-8">
-            {/* 4-Column Grid with Ordinal Stats */}
-            <div>
-              <h3 className="text-lg font-semibold mb-4">4-Column Grid (Auto-Alternating Colors)</h3>
-              <StatCardGrid
-                stats={createOrdinalStats([
-                  [1, "ACC Standing", "in conference"],
-                  [3, "Total Defense", "nationally"],
-                  [12, "Rushing Offense", "in FBS"],
-                  [7, "Pass Efficiency", "in nation"],
-                ])}
-                columns={4}
-              />
-            </div>
-
-            {/* 3-Column Grid with Regular Stats */}
-            <div>
-              <h3 className="text-lg font-semibold mb-4">3-Column Grid (Starting with Purple)</h3>
-              <StatCardGrid
-                stats={createStatsFromValues([
-                  [489, "Total Yards", "offense"],
-                  [287, "Passing Yards"],
-                  [202, "Rushing Yards"],
-                ])}
-                columns={3}
-                startColor="purple"
-              />
-            </div>
-
-            {/* 2-Column Grid with Mixed Data */}
-            <div>
-              <h3 className="text-lg font-semibold mb-4">2-Column Grid (Large Numbers)</h3>
-              <StatCardGrid
-                stats={[
-                  { value: 42, label: "Points Scored", size: "lg" },
-                  { value: 17, label: "Points Allowed", size: "lg" },
-                ]}
-                columns={2}
-                gap="lg"
-              />
-            </div>
-
-            {/* Custom Variant Override */}
-            <div>
-              <h3 className="text-lg font-semibold mb-4">Custom Variants (Manual Colors)</h3>
-              <StatCardGrid
-                stats={[
-                  { value: 10, label: "Wins", variant: "orange" },
-                  { value: 2, label: "Losses", variant: "purple" },
-                  { value: 85, label: "Win %", description: "season", variant: "orange" },
-                  { value: 456, label: "Points", description: "total", variant: "purple" },
-                ]}
-                columns={4}
-                autoAlternate={false}
-              />
-            </div>
-          </CardContent>
-        </Card>
-      </Container>
-
-      {/* HistoricalChart Test */}
-      <Container maxWidth="2xl" padding="md" className="py-8">
-        <Card>
-          <CardHeader>
-            <CardTitle>HistoricalChart Component Test</CardTitle>
-            <CardDescription>Testing historical data visualization with Recharts</CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-8">
-            {/* Area Chart */}
-            <div>
-              <HistoricalChart
-                title="Clemson vs South Carolina - Historical Scores"
-                data={createChartData(
-                  [2018, 2019, 2020, 2021, 2022, 2023, 2024],
-                  [56, 38, 34, 30, 31, 16, 42],
-                  [35, 3, 23, 0, 30, 7, 17]
-                )}
-                type="area"
-                height={350}
-                clemsonLabel="Clemson Tigers"
-                opponentLabel="South Carolina Gamecocks"
-                yAxisLabel="Points"
-              />
-            </div>
-
-            {/* Line Chart */}
-            <div>
-              <HistoricalChart
-                title="Season Comparison - Points Per Game"
-                data={createChartData(
-                  [2020, 2021, 2022, 2023, 2024],
-                  [35, 32, 28, 31, 36],
-                  [21, 18, 24, 22, 19]
-                )}
-                type="line"
-                height={300}
-                yAxisLabel="Average Points"
-                showGrid={true}
-              />
-            </div>
-          </CardContent>
-        </Card>
-      </Container>
-
-      {/* GameTable Test */}
-      <Container maxWidth="2xl" padding="md" className="py-8">
-        <Card>
-          <CardHeader>
-            <CardTitle>GameTable Component Test</CardTitle>
-            <CardDescription>Testing sortable table with Clemson branding</CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-8">
-            {/* Player Statistics Table */}
-            <div>
-              <h3 className="text-lg font-semibold mb-4">Player Statistics (Sortable)</h3>
-              <GameTable
-                columns={createTableColumns([
-                  { key: 'player', label: 'Player', sortable: true },
-                  { key: 'position', label: 'Position', sortable: true, align: 'center' },
-                  { key: 'yards', label: 'Yards', sortable: true, align: 'right' },
-                  { key: 'touchdowns', label: 'TDs', sortable: true, align: 'center' },
-                  { key: 'average', label: 'Avg', sortable: true, align: 'right' },
-                ])}
-                data={[
-                  { id: 1, player: 'Cade Klubnik', position: 'QB', yards: 2844, touchdowns: 24, average: 8.2 },
-                  { id: 2, player: 'Phil Mafah', position: 'RB', yards: 1245, touchdowns: 15, average: 5.8 },
-                  { id: 3, player: 'Antonio Williams', position: 'RB', yards: 678, touchdowns: 8, average: 4.9 },
-                  { id: 4, player: 'Bryant Wesco', position: 'WR', yards: 892, touchdowns: 10, average: 15.2 },
-                  { id: 5, player: 'Tyler Brown', position: 'WR', yards: 734, touchdowns: 6, average: 12.8 },
-                ]}
-                striped
-                hoverable
-              />
-            </div>
-
-            {/* Game Results Table */}
-            <div>
-              <h3 className="text-lg font-semibold mb-4">Season Game Results</h3>
-              <GameTable
-                columns={createTableColumns([
-                  { key: 'date', label: 'Date', sortable: true },
-                  { key: 'opponent', label: 'Opponent', sortable: true },
-                  {
-                    key: 'result',
-                    label: 'Result',
-                    sortable: false,
-                    align: 'center',
-                    render: (value) => (
-                      <span className={value === 'W' ? 'text-clemson-orange font-bold' : 'text-clemson-purple font-bold'}>
-                        {value}
-                      </span>
-                    )
-                  },
-                  { key: 'score', label: 'Score', sortable: false, align: 'center' },
-                  { key: 'location', label: 'Location', sortable: true },
-                ])}
-                data={[
-                  { id: 1, date: '9/2/2024', opponent: 'Georgia', result: 'W', score: '34-3', location: 'Home' },
-                  { id: 2, date: '9/9/2024', opponent: 'App State', result: 'W', score: '66-20', location: 'Home' },
-                  { id: 3, date: '9/21/2024', opponent: 'NC State', result: 'L', score: '24-29', location: 'Away' },
-                  { id: 4, date: '9/28/2024', opponent: 'Stanford', result: 'W', score: '40-14', location: 'Home' },
-                  { id: 5, date: '10/5/2024', opponent: 'FSU', result: 'W', score: '29-13', location: 'Away' },
-                ]}
-                showBorders
-                hoverable
-              />
-            </div>
-          </CardContent>
-        </Card>
-      </Container>
-
-      {/* Button Test */}
-      <Container maxWidth="lg" padding="md" className="py-8">
-        <Card>
-          <CardHeader>
-            <CardTitle>Button Component Test</CardTitle>
-            <CardDescription>Testing Clemson-branded buttons</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="flex flex-wrap gap-4">
-              <Button variant="default">Primary (Orange)</Button>
-              <Button variant="secondary">Secondary</Button>
-              <Button variant="outline">Outline</Button>
-              <Button variant="ghost">Ghost</Button>
-              <Button variant="link">Link</Button>
-            </div>
-          </CardContent>
-        </Card>
-      </Container>
-
-      {/* Responsive Grid Test */}
-      <Container maxWidth="2xl" padding="md" className="py-8">
-        <h2 className="text-2xl font-bold mb-6">Responsive Grid Test</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-          {[1, 2, 3, 4, 5, 6, 7, 8].map((i) => (
-            <Card key={i} className={i % 2 === 0 ? "bg-clemson-orange text-white" : "bg-clemson-purple text-white"}>
-              <CardHeader>
-                <CardTitle>Card {i}</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-sm">
-                  Responsive grid: 1 col (mobile), 2 cols (sm), 3 cols (md), 4 cols (lg)
-                </p>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
-      </Container>
-
-      {/* Container Width Test */}
-      <div className="py-8 space-y-4 bg-muted/30">
-        <Container maxWidth="sm" padding="md">
-          <Card>
-            <CardContent className="pt-6">
-              <p className="font-semibold">Container SM (640px max)</p>
-            </CardContent>
-          </Card>
-        </Container>
-        <Container maxWidth="md" padding="md">
-          <Card>
-            <CardContent className="pt-6">
-              <p className="font-semibold">Container MD (768px max)</p>
-            </CardContent>
-          </Card>
-        </Container>
-        <Container maxWidth="lg" padding="md">
-          <Card>
-            <CardContent className="pt-6">
-              <p className="font-semibold">Container LG (1024px max)</p>
-            </CardContent>
-          </Card>
-        </Container>
-        <Container maxWidth="xl" padding="md">
-          <Card>
-            <CardContent className="pt-6">
-              <p className="font-semibold">Container XL (1280px max)</p>
-            </CardContent>
-          </Card>
-        </Container>
-        <Container maxWidth="2xl" padding="md">
-          <Card>
-            <CardContent className="pt-6">
-              <p className="font-semibold">Container 2XL (1536px max)</p>
-            </CardContent>
-          </Card>
+      <div style={{ backgroundColor: CLEMSON_COLORS.orange }}>
+        <Container maxWidth="2xl" padding="lg" className="py-12 text-white">
+          <div className="text-center space-y-4">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold">
+              Clemson Sports Statistics
+            </h1>
+            <p className="text-lg md:text-xl opacity-90 max-w-3xl mx-auto">
+              Comprehensive Clemson Tigers athletics statistics and game data
+            </p>
+          </div>
         </Container>
       </div>
 
-      {/* Breakpoint Indicator */}
-      <Container maxWidth="xl" padding="md" className="py-8">
-        <Card className="bg-clemson-dark text-white">
-          <CardContent className="pt-6">
-            <p className="text-center font-bold text-lg">
-              <span className="xs:hidden">Current breakpoint: &lt; 320px (xs)</span>
-              <span className="hidden xs:inline sm:hidden">Current breakpoint: 320px+ (xs)</span>
-              <span className="hidden sm:inline md:hidden">Current breakpoint: 640px+ (sm)</span>
-              <span className="hidden md:inline lg:hidden">Current breakpoint: 768px+ (md)</span>
-              <span className="hidden lg:inline xl:hidden">Current breakpoint: 1024px+ (lg)</span>
-              <span className="hidden xl:inline 2xl:hidden">Current breakpoint: 1280px+ (xl)</span>
-              <span className="hidden 2xl:inline 3xl:hidden">Current breakpoint: 1536px+ (2xl)</span>
-              <span className="hidden 3xl:inline">Current breakpoint: 2560px+ (3xl)</span>
-            </p>
-          </CardContent>
-        </Card>
-      </Container>
+      {/* Stats Bar */}
+      <div className="border-b bg-white shadow-sm">
+        <Container maxWidth="2xl" padding="lg" className="py-6">
+          <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
+            <div className="text-center">
+              <div className="text-3xl font-bold" style={{ color: CLEMSON_COLORS.orange }}>
+                {stats.total}
+              </div>
+              <div className="text-sm text-gray-600">Total Games</div>
+            </div>
+            <div className="text-center">
+              <div className="text-3xl font-bold" style={{ color: CLEMSON_COLORS.orange }}>
+                {stats.wins}
+              </div>
+              <div className="text-sm text-gray-600">Wins</div>
+            </div>
+            <div className="text-center">
+              <div className="text-3xl font-bold" style={{ color: CLEMSON_COLORS.purple }}>
+                {stats.losses}
+              </div>
+              <div className="text-sm text-gray-600">Losses</div>
+            </div>
+            <div className="text-center">
+              <div className="text-3xl font-bold" style={{ color: CLEMSON_COLORS.dark }}>
+                {stats.winPercentage}%
+              </div>
+              <div className="text-sm text-gray-600">Win Rate</div>
+            </div>
+          </div>
+        </Container>
+      </div>
 
-      {/* Footer */}
-      <Container maxWidth="xl" padding="md" className="py-12">
-        <div className="text-center text-muted-foreground">
-          <p>Design System Foundation - Task 2.9 Responsive Test</p>
-          <p className="text-sm mt-2">Testing breakpoints: 320px - 2560px</p>
+      {/* Main Content */}
+      <Container maxWidth="2xl" padding="lg" className="py-8">
+        <div className="grid gap-6 lg:grid-cols-[300px_1fr]">
+          {/* Sidebar - Filters */}
+          <aside>
+            <FilterPanel
+              availableSeasons={availableSeasons}
+              availableOpponents={availableOpponents}
+              onFilterChange={setFilters}
+            />
+          </aside>
+
+          {/* Main Content - Search and Games List */}
+          <main>
+            <div className="space-y-6">
+              {/* Search Bar */}
+              <SearchBar onSearch={setSearchQuery} className="w-full" />
+
+              {/* Results Count */}
+              <div className="flex items-center justify-between">
+                <p className="text-sm text-gray-600">
+                  {filteredGames.length === games.length
+                    ? `Showing all ${games.length} games`
+                    : `Showing ${filteredGames.length} of ${games.length} games`}
+                </p>
+              </div>
+
+              {/* Games List */}
+              {filteredGames.length > 0 ? (
+                <div className="space-y-4">
+                  {filteredGames.map((game) => (
+                    <GameListItem
+                      key={game.slug}
+                      slug={game.slug}
+                      opponent={game.opponent}
+                      opponentShort={game.opponentShort}
+                      gameDate={game.gameDate.toISOString().split('T')[0]}
+                      score={game.score}
+                      season={game.season}
+                      gameType={game.gameType as any}
+                      homeAway={game.homeAway}
+                    />
+                  ))}
+                </div>
+              ) : (
+                /* Empty State */
+                <div className="rounded-lg border-2 border-dashed border-gray-300 bg-white p-12 text-center">
+                  <svg
+                    className="mx-auto h-12 w-12 text-gray-400"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    aria-hidden="true"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                    />
+                  </svg>
+                  <h3 className="mt-4 text-lg font-medium text-gray-900">No games found</h3>
+                  <p className="mt-2 text-sm text-gray-600">
+                    Try adjusting your search query or filters to find what you're looking for.
+                  </p>
+                </div>
+              )}
+            </div>
+          </main>
         </div>
       </Container>
     </div>
