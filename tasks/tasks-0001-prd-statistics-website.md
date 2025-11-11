@@ -81,11 +81,12 @@
 - `app/api/export/route.ts` - API route for data export
 
 **Testing:**
-- `lib/markdown/parser.test.ts` - Markdown parser tests
-- `lib/markdown/validator.test.ts` - Schema validation tests
-- `components/game/StatCard.test.tsx` - Component tests
-- `jest.config.js` - Jest configuration
-- `jest.setup.js` - Jest setup file
+- `COMPONENT_TESTING.md` - Component testing documentation for Task 4.8 (manual/visual testing)
+- `lib/markdown/parser.test.ts` - Markdown parser tests (will be created)
+- `lib/markdown/validator.test.ts` - Schema validation tests (will be created)
+- `components/game/StatCard.test.tsx` - Component tests (will be created)
+- `jest.config.js` - Jest configuration (will be created)
+- `jest.setup.js` - Jest setup file (will be created)
 
 **Performance and optimization:**
 - `next-sitemap.config.js` - Sitemap generation (optional)
@@ -194,7 +195,7 @@
     - Responsive horizontal scroll on mobile
   - [x] 4.6 Add team logo assets to `public/images/logos/` (Clemson paw, opponent logos)
   - [x] 4.7 Create `components/ui/TeamLogo.tsx` component for consistent logo rendering
-  - [ ] 4.8 Test all components in isolation with sample data
+  - [x] 4.8 Test all components in isolation with sample data
   - [ ] 4.9 Write component tests for StatCard, StatCardGrid, and ScoreComparisonBar
 
 - [ ] 5.0 **Game List, Navigation, and Search Features**
