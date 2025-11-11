@@ -2,6 +2,7 @@
 
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
+import { TeamLogo, type TeamSlug } from '@/components/ui/TeamLogo';
 
 export interface ScoreComparisonBarProps {
   /**
@@ -10,6 +11,7 @@ export interface ScoreComparisonBarProps {
   clemson: {
     score: number;
     record?: string;
+    /** @deprecated Use team slug instead */
     logo?: string;
   };
   /**
@@ -19,7 +21,10 @@ export interface ScoreComparisonBarProps {
     name: string;
     score: number;
     record?: string;
+    /** @deprecated Use team slug instead */
     logo?: string;
+    /** Team slug for logo rendering (e.g., 'south-carolina', 'georgia') */
+    teamSlug?: TeamSlug | string;
   };
   /**
    * Current win streak after this game (optional)
@@ -75,17 +80,13 @@ export function ScoreComparisonBar({
           {/* Clemson Side */}
           <div className="flex items-center gap-3 md:gap-4">
             {/* Logo Circle */}
-            <div className="relative w-12 h-12 md:w-16 md:h-16 rounded-full bg-clemson-orange flex items-center justify-center overflow-hidden shadow-lg">
-              {clemson.logo ? (
-                <img
-                  src={clemson.logo}
-                  alt="Clemson"
-                  className="w-8 h-8 md:w-10 md:h-10 object-contain"
-                />
-              ) : (
-                <span className="text-white font-bold text-lg md:text-xl">C</span>
-              )}
-            </div>
+            <TeamLogo
+              team="clemson"
+              size={64}
+              circular
+              priority
+              className="w-12 h-12 md:w-16 md:h-16 shadow-lg"
+            />
             {/* Record and Score */}
             <div className="flex flex-col">
               <span className="text-xs md:text-sm text-muted-foreground uppercase tracking-wide">
@@ -105,19 +106,13 @@ export function ScoreComparisonBar({
           {/* Opponent Side */}
           <div className="flex items-center gap-3 md:gap-4 flex-row-reverse">
             {/* Logo Circle */}
-            <div className="relative w-12 h-12 md:w-16 md:h-16 rounded-full bg-clemson-purple flex items-center justify-center overflow-hidden shadow-lg">
-              {opponent.logo ? (
-                <img
-                  src={opponent.logo}
-                  alt={opponent.name}
-                  className="w-8 h-8 md:w-10 md:h-10 object-contain"
-                />
-              ) : (
-                <span className="text-white font-bold text-lg md:text-xl">
-                  {opponent.name.charAt(0)}
-                </span>
-              )}
-            </div>
+            <TeamLogo
+              team={opponent.teamSlug || opponent.name}
+              size={64}
+              circular
+              priority
+              className="w-12 h-12 md:w-16 md:h-16 shadow-lg"
+            />
             {/* Record and Score */}
             <div className="flex flex-col items-end">
               <span className="text-xs md:text-sm text-muted-foreground uppercase tracking-wide">

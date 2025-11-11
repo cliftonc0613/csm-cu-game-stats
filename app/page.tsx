@@ -8,6 +8,7 @@ import { StatCard } from "@/components/game/StatCard";
 import { StatCardGrid } from "@/components/game/StatCardGrid";
 import { HistoricalChart } from "@/components/game/HistoricalChart";
 import { GameTable } from "@/components/game/GameTable";
+import { TeamLogo, TeamLogoWithName } from "@/components/ui/TeamLogo";
 import { createOrdinalStats, createStatsFromValues } from "@/lib/utils/stats";
 import { createChartData } from "@/lib/utils/charts";
 import { createTableColumns } from "@/lib/utils/tables";
@@ -75,6 +76,7 @@ export default function Home() {
                 }}
                 opponent={{
                   name: "South Carolina",
+                  teamSlug: "south-carolina",
                   score: 17,
                   record: "8-4",
                 }}
@@ -93,6 +95,7 @@ export default function Home() {
                 }}
                 opponent={{
                   name: "Georgia",
+                  teamSlug: "georgia",
                   score: 28,
                   record: "12-0",
                 }}
@@ -110,11 +113,74 @@ export default function Home() {
                 }}
                 opponent={{
                   name: "Florida State",
+                  teamSlug: "florida-state",
                   score: 28,
                   record: "10-2",
                 }}
                 winStreak={3}
               />
+            </div>
+          </CardContent>
+        </Card>
+      </Container>
+
+      {/* TeamLogo Test */}
+      <Container maxWidth="2xl" padding="md" className="py-8">
+        <Card>
+          <CardHeader>
+            <CardTitle>TeamLogo Component Test</CardTitle>
+            <CardDescription>Testing team logo rendering with various configurations</CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-8">
+            {/* Basic Logos */}
+            <div>
+              <h3 className="text-lg font-semibold mb-4">Basic Logos</h3>
+              <div className="flex flex-wrap gap-6 items-center">
+                <TeamLogo team="clemson" size={48} />
+                <TeamLogo team="south-carolina" size={48} />
+                <TeamLogo team="georgia" size={48} />
+                <TeamLogo team="florida-state" size={48} />
+                <TeamLogo team="notre-dame" size={48} />
+                <TeamLogo team="miami" size={48} />
+              </div>
+            </div>
+
+            {/* Circular Logos */}
+            <div>
+              <h3 className="text-lg font-semibold mb-4">Circular Logos</h3>
+              <div className="flex flex-wrap gap-6 items-center">
+                <TeamLogo team="clemson" size={64} circular />
+                <TeamLogo team="south-carolina" size={64} circular />
+                <TeamLogo team="georgia" size={64} circular />
+                <TeamLogo team="florida-state" size={64} circular />
+                <TeamLogo team="notre-dame" size={64} circular />
+                <TeamLogo team="miami" size={64} circular />
+              </div>
+            </div>
+
+            {/* Logos with Names */}
+            <div>
+              <h3 className="text-lg font-semibold mb-4">Logos with Team Names</h3>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                <TeamLogoWithName team="clemson" size={40} />
+                <TeamLogoWithName team="south-carolina" size={40} />
+                <TeamLogoWithName team="georgia" size={40} />
+                <TeamLogoWithName team="florida-state" size={40} />
+                <TeamLogoWithName team="notre-dame" size={40} />
+                <TeamLogoWithName team="miami" size={40} />
+              </div>
+            </div>
+
+            {/* Different Sizes */}
+            <div>
+              <h3 className="text-lg font-semibold mb-4">Size Variations</h3>
+              <div className="flex flex-wrap gap-6 items-end">
+                <TeamLogo team="clemson" size={32} circular />
+                <TeamLogo team="clemson" size={48} circular />
+                <TeamLogo team="clemson" size={64} circular />
+                <TeamLogo team="clemson" size={80} circular />
+                <TeamLogo team="clemson" size={96} circular />
+              </div>
             </div>
           </CardContent>
         </Card>
