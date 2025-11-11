@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { CLEMSON_COLORS } from '@/lib/constants/colors';
 
@@ -31,6 +31,11 @@ export function FilterPanel({
     contentTypes: [],
   });
 
+  // Notify parent of filter changes
+  useEffect(() => {
+    onFilterChange(filters);
+  }, [filters, onFilterChange]);
+
   const gameTypeOptions = [
     { value: 'regular_season', label: 'Regular Season' },
     { value: 'bowl', label: 'Bowl' },
@@ -49,11 +54,9 @@ export function FilterPanel({
         ? prev.seasons.filter((s) => s !== season)
         : [...prev.seasons, season];
 
-      const newFilters = { ...prev, seasons: newSeasons };
-      onFilterChange(newFilters);
-      return newFilters;
+      return { ...prev, seasons: newSeasons };
     });
-  }, [onFilterChange]);
+  }, []);
 
   const handleOpponentToggle = useCallback((opponent: string) => {
     setFilters((prev) => {
@@ -61,11 +64,9 @@ export function FilterPanel({
         ? prev.opponents.filter((o) => o !== opponent)
         : [...prev.opponents, opponent];
 
-      const newFilters = { ...prev, opponents: newOpponents };
-      onFilterChange(newFilters);
-      return newFilters;
+      return { ...prev, opponents: newOpponents };
     });
-  }, [onFilterChange]);
+  }, []);
 
   const handleGameTypeToggle = useCallback((gameType: string) => {
     setFilters((prev) => {
@@ -73,11 +74,9 @@ export function FilterPanel({
         ? prev.gameTypes.filter((g) => g !== gameType)
         : [...prev.gameTypes, gameType];
 
-      const newFilters = { ...prev, gameTypes: newGameTypes };
-      onFilterChange(newFilters);
-      return newFilters;
+      return { ...prev, gameTypes: newGameTypes };
     });
-  }, [onFilterChange]);
+  }, []);
 
   const handleContentTypeToggle = useCallback((contentType: string) => {
     setFilters((prev) => {
@@ -85,22 +84,18 @@ export function FilterPanel({
         ? prev.contentTypes.filter((c) => c !== contentType)
         : [...prev.contentTypes, contentType];
 
-      const newFilters = { ...prev, contentTypes: newContentTypes };
-      onFilterChange(newFilters);
-      return newFilters;
+      return { ...prev, contentTypes: newContentTypes };
     });
-  }, [onFilterChange]);
+  }, []);
 
   const handleClearFilters = useCallback(() => {
-    const clearedFilters: FilterState = {
+    setFilters({
       seasons: [],
       opponents: [],
       gameTypes: [],
       contentTypes: [],
-    };
-    setFilters(clearedFilters);
-    onFilterChange(clearedFilters);
-  }, [onFilterChange]);
+    });
+  }, []);
 
   const hasActiveFilters =
     filters.seasons.length > 0 ||

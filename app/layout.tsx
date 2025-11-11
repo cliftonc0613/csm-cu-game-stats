@@ -16,7 +16,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="antialiased flex min-h-screen flex-col">
+      <body className="antialiased flex min-h-screen flex-col" suppressHydrationWarning>
         <Header />
         <ErrorBoundary>
           <main className="flex-1">{children}</main>
