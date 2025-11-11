@@ -36,16 +36,16 @@ export const GameStatsFrontmatterSchema = z.object({
     .min(1896, 'season must be 1896 or later') // Clemson football started in 1896
     .max(new Date().getFullYear() + 1, 'season cannot be more than one year in the future'),
   game_type: z.enum(['regular_season', 'bowl', 'playoff', 'championship'], {
-    errorMap: () => ({ message: 'game_type must be one of: regular_season, bowl, playoff, championship' }),
+    message: 'game_type must be one of: regular_season, bowl, playoff, championship',
   }),
   content_type: z.literal('statistics', {
-    errorMap: () => ({ message: 'content_type must be "statistics" for game statistics files' }),
+    message: 'content_type must be "statistics" for game statistics files',
   }),
   location: z.string().optional(),
   attendance: z.number().int().min(0).optional(),
   weather: z.string().optional(),
   home_away: z.enum(['home', 'away', 'neutral'], {
-    errorMap: () => ({ message: 'home_away must be one of: home, away, neutral' }),
+    message: 'home_away must be one of: home, away, neutral',
   }),
   win_streak: z.number().int().min(0).optional(),
   slug: z.string().optional(),
@@ -68,14 +68,14 @@ export const GameEvaluationFrontmatterSchema = z.object({
     .min(1896, 'season must be 1896 or later')
     .max(new Date().getFullYear() + 1, 'season cannot be more than one year in the future'),
   game_type: z.enum(['regular_season', 'bowl', 'playoff', 'championship'], {
-    errorMap: () => ({ message: 'game_type must be one of: regular_season, bowl, playoff, championship' }),
+    message: 'game_type must be one of: regular_season, bowl, playoff, championship',
   }),
   content_type: z.literal('evaluation', {
-    errorMap: () => ({ message: 'content_type must be "evaluation" for game evaluation files' }),
+    message: 'content_type must be "evaluation" for game evaluation files',
   }),
   location: z.string().optional(),
   home_away: z.enum(['home', 'away', 'neutral'], {
-    errorMap: () => ({ message: 'home_away must be one of: home, away, neutral' }),
+    message: 'home_away must be one of: home, away, neutral',
   }),
   slug: z.string().optional(),
 });
@@ -91,7 +91,7 @@ export const GameFrontmatterSchema = z.union([GameStatsFrontmatterSchema, GameEv
  * @returns Array of ValidationError objects
  */
 function zodErrorToValidationErrors(zodError: z.ZodError): ValidationError[] {
-  return zodError.errors.map((error) => ({
+  return zodError.issues.map((error) => ({
     field: error.path.join('.'),
     message: error.message,
     path: error.path.map(String),
@@ -176,7 +176,7 @@ export function validateGameFrontmatterStrict(data: unknown): GameFrontmatter {
     throw new Error(`Frontmatter validation failed:\n${errorMessages}`);
   }
 
-  return result.data;
+  return result.data!;
 }
 
 /**
