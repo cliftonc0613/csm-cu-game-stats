@@ -3,6 +3,8 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { ScoreComparisonBar } from "@/components/game/ScoreComparisonBar";
 import { StatCard } from "@/components/game/StatCard";
+import { StatCardGrid } from "@/components/game/StatCardGrid";
+import { createOrdinalStats, createStatsFromValues } from "@/lib/utils/stats";
 
 export default function Home() {
   return (
@@ -190,6 +192,73 @@ export default function Home() {
                 <StatCard value={99} ordinal="th" label="Default" variant="orange" />
                 <StatCard value={1} ordinal="st" label="Large" variant="purple" size="lg" />
               </div>
+            </div>
+          </CardContent>
+        </Card>
+      </Container>
+
+      {/* StatCardGrid Test */}
+      <Container maxWidth="2xl" padding="md" className="py-8">
+        <Card>
+          <CardHeader>
+            <CardTitle>StatCardGrid Component Test</CardTitle>
+            <CardDescription>Testing responsive grid layout with automatic color alternation</CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-8">
+            {/* 4-Column Grid with Ordinal Stats */}
+            <div>
+              <h3 className="text-lg font-semibold mb-4">4-Column Grid (Auto-Alternating Colors)</h3>
+              <StatCardGrid
+                stats={createOrdinalStats([
+                  [1, "ACC Standing", "in conference"],
+                  [3, "Total Defense", "nationally"],
+                  [12, "Rushing Offense", "in FBS"],
+                  [7, "Pass Efficiency", "in nation"],
+                ])}
+                columns={4}
+              />
+            </div>
+
+            {/* 3-Column Grid with Regular Stats */}
+            <div>
+              <h3 className="text-lg font-semibold mb-4">3-Column Grid (Starting with Purple)</h3>
+              <StatCardGrid
+                stats={createStatsFromValues([
+                  [489, "Total Yards", "offense"],
+                  [287, "Passing Yards"],
+                  [202, "Rushing Yards"],
+                ])}
+                columns={3}
+                startColor="purple"
+              />
+            </div>
+
+            {/* 2-Column Grid with Mixed Data */}
+            <div>
+              <h3 className="text-lg font-semibold mb-4">2-Column Grid (Large Numbers)</h3>
+              <StatCardGrid
+                stats={[
+                  { value: 42, label: "Points Scored", size: "lg" },
+                  { value: 17, label: "Points Allowed", size: "lg" },
+                ]}
+                columns={2}
+                gap="lg"
+              />
+            </div>
+
+            {/* Custom Variant Override */}
+            <div>
+              <h3 className="text-lg font-semibold mb-4">Custom Variants (Manual Colors)</h3>
+              <StatCardGrid
+                stats={[
+                  { value: 10, label: "Wins", variant: "orange" },
+                  { value: 2, label: "Losses", variant: "purple" },
+                  { value: 85, label: "Win %", description: "season", variant: "orange" },
+                  { value: 456, label: "Points", description: "total", variant: "purple" },
+                ]}
+                columns={4}
+                autoAlternate={false}
+              />
             </div>
           </CardContent>
         </Card>

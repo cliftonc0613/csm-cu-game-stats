@@ -43,7 +43,7 @@
 **Visual components (based on reference images):**
 - `components/game/ScoreComparisonBar.tsx` - Horizontal score bar with team logos, win-loss records, and progress bar (created in Task 4.1)
 - `components/game/StatCard.tsx` - Individual stat card with large display numbers, ordinal suffixes, and orange/purple backgrounds (created in Task 4.2)
-- `components/game/StatCardGrid.tsx` - Grid layout for multiple stat cards
+- `components/game/StatCardGrid.tsx` - Responsive grid layout for multiple stat cards with auto-alternating colors (created in Task 4.3)
 - `components/game/HistoricalChart.tsx` - Line/area charts with Recharts
 - `components/game/GameTable.tsx` - Sortable statistics tables
 
@@ -57,6 +57,7 @@
 **Utilities and helpers:**
 - `lib/utils/cn.ts` - Class name utility with Clemson-specific helpers (created in Task 2.6)
 - `lib/utils/index.ts` - Utility functions index/re-exports (created in Task 2.6)
+- `lib/utils/stats.ts` - Stat data utility functions (createOrdinalStats, createStatsFromValues, getOrdinalSuffix) (created in Task 4.3)
 - `lib/utils/colors.ts` - Color utility functions
 - `lib/utils/animations.ts` - GSAP animation helpers
 - `lib/constants/colors.ts` - Clemson brand color constants (created in Task 2.2)
@@ -167,7 +168,7 @@
     - Secondary descriptor text below (e.g., "of 134")
     - White text on colored backgrounds
     - Consistent padding using Tailwind
-  - [ ] 4.3 Create `components/game/StatCardGrid.tsx`:
+  - [x] 4.3 Create `components/game/StatCardGrid.tsx`:
     - Responsive grid layout: 1 col (mobile), 2 cols (tablet), 3-4 cols (desktop)
     - Accept array of stat objects as props
     - Automatically alternate orange/purple backgrounds
