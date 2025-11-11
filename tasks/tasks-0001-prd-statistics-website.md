@@ -25,9 +25,10 @@
 - `zod` - Schema validation library (installed in Task 1.9)
 
 **Application structure:**
-- `app/layout.tsx` - Root layout with Clemson branding, system fonts, Header, and Footer components with flex layout (created in Task 1.1, updated in Task 2.9, updated in Task 5.1, updated in Task 5.2)
-- `app/page.tsx` - Homepage with search, filters, and game list (created in Task 1.1, updated to test page in Task 2.9, rebuilt in Task 5.7)
+- `app/layout.tsx` - Root layout with Clemson branding, system fonts, Header, Footer, and ErrorBoundary (created in Task 1.1, updated in Task 2.9, updated in Task 5.1, updated in Task 5.2, updated in Task 5.8)
+- `app/page.tsx` - Homepage with search, filters, game list, loading and error states (created in Task 1.1, updated to test page in Task 2.9, rebuilt in Task 5.7, error handling added in Task 5.8)
 - `app/api/games/route.ts` - API endpoint to fetch all games as list items (created in Task 5.7)
+- `components/error/ErrorBoundary.tsx` - React Error Boundary for catching and displaying errors gracefully (created in Task 5.8)
 - `app/globals.css` - Global styles with Shadcn CSS variables, typography, spacing, and shadows (updated in Task 1.3, enhanced in Task 2.3, customized with Clemson colors in Task 2.5, CSS custom properties added in Task 2.7)
 - `app/favicon.ico` - Site favicon (created in Task 1.1)
 - `app/games/[slug]/page.tsx` - Dynamic game detail page (SSG)
@@ -233,7 +234,7 @@
     - Map games to GameListItem components
     - Implement search and filter logic
     - Show empty state when no games match filters
-  - [ ] 5.8 Add loading states and error boundaries
+  - [x] 5.8 Add loading states and error boundaries
   - [ ] 5.9 Test navigation flow and filter interactions
 
 - [ ] 6.0 **Game Detail Pages with SSG**

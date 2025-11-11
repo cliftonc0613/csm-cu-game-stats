@@ -11,6 +11,7 @@ import type { GameListItem as GameListItemType } from '@/lib/markdown/types';
 export default function HomePage() {
   const [games, setGames] = useState<GameListItemType[]>([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
   const [filters, setFilters] = useState<FilterState>({
     seasons: [],
@@ -23,6 +24,7 @@ export default function HomePage() {
   useEffect(() => {
     async function fetchGames() {
       try {
+        setError(null);
         const response = await fetch('/api/games');
         if (response.ok) {
           const data = await response.json();
@@ -32,9 +34,12 @@ export default function HomePage() {
             gameDate: new Date(game.gameDate),
           }));
           setGames(gamesWithDates);
+        } else {
+          setError('Failed to load games. Please try again later.');
         }
-      } catch (error) {
-        console.error('Error fetching games:', error);
+      } catch (err) {
+        console.error('Error fetching games:', err);
+        setError('Unable to connect to the server. Please check your connection and try again.');
       } finally {
         setLoading(false);
       }
@@ -117,6 +122,44 @@ export default function HomePage() {
             }}
           />
           <p className="text-lg font-medium text-gray-600">Loading games...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="flex min-h-[60vh] items-center justify-center p-4">
+        <div className="max-w-md text-center">
+          <div
+            className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full"
+            style={{ backgroundColor: CLEMSON_COLORS.purple }}
+          >
+            <svg
+              className="h-10 w-10 text-white"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
+              />
+            </svg>
+          </div>
+          <h2 className="mb-2 text-2xl font-bold" style={{ color: CLEMSON_COLORS.dark }}>
+            Unable to Load Games
+          </h2>
+          <p className="mb-6 text-gray-600">{error}</p>
+          <button
+            onClick={() => window.location.reload()}
+            className="rounded-md px-6 py-2.5 text-sm font-medium text-white transition-opacity hover:opacity-90"
+            style={{ backgroundColor: CLEMSON_COLORS.orange }}
+          >
+            Retry
+          </button>
         </div>
       </div>
     );
