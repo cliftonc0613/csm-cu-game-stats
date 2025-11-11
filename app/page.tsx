@@ -1,6 +1,7 @@
 import { Container } from "@/components/ui/container";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { ScoreComparisonBar } from "@/components/game/ScoreComparisonBar";
 
 export default function Home() {
   return (
@@ -42,6 +43,69 @@ export default function Home() {
             <div className="space-y-2">
               <div className="display-number text-clemson-orange">99<span className="ordinal-superscript">th</span></div>
               <p className="text-sm text-muted-foreground">Display number with ordinal</p>
+            </div>
+          </CardContent>
+        </Card>
+      </Container>
+
+      {/* ScoreComparisonBar Test */}
+      <Container maxWidth="2xl" padding="md" className="py-8">
+        <Card>
+          <CardHeader>
+            <CardTitle>ScoreComparisonBar Component Test</CardTitle>
+            <CardDescription>Testing score comparison bar with team logos and win streak</CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-8">
+            {/* Win Scenario */}
+            <div>
+              <h3 className="text-lg font-semibold mb-4">Win Scenario</h3>
+              <ScoreComparisonBar
+                clemson={{
+                  score: 42,
+                  record: "10-2",
+                }}
+                opponent={{
+                  name: "South Carolina",
+                  score: 17,
+                  record: "8-4",
+                }}
+                winStreak={5}
+                isWin={true}
+              />
+            </div>
+
+            {/* Loss Scenario */}
+            <div>
+              <h3 className="text-lg font-semibold mb-4">Loss Scenario</h3>
+              <ScoreComparisonBar
+                clemson={{
+                  score: 21,
+                  record: "9-3",
+                }}
+                opponent={{
+                  name: "Georgia",
+                  score: 28,
+                  record: "12-0",
+                }}
+                isWin={false}
+              />
+            </div>
+
+            {/* Close Game */}
+            <div>
+              <h3 className="text-lg font-semibold mb-4">Close Game</h3>
+              <ScoreComparisonBar
+                clemson={{
+                  score: 31,
+                  record: "11-1",
+                }}
+                opponent={{
+                  name: "Florida State",
+                  score: 28,
+                  record: "10-2",
+                }}
+                winStreak={3}
+              />
             </div>
           </CardContent>
         </Card>

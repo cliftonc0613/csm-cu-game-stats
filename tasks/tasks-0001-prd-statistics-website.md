@@ -41,7 +41,7 @@
 - `lib/markdown/types.ts` - TypeScript types for game data
 
 **Visual components (based on reference images):**
-- `components/game/ScoreComparisonBar.tsx` - Horizontal score bar with team logos
+- `components/game/ScoreComparisonBar.tsx` - Horizontal score bar with team logos, win-loss records, and progress bar (created in Task 4.1)
 - `components/game/StatCard.tsx` - Individual stat card with orange/purple backgrounds
 - `components/game/StatCardGrid.tsx` - Grid layout for multiple stat cards
 - `components/game/HistoricalChart.tsx` - Line/area charts with Recharts
@@ -151,7 +151,7 @@
   - [x] 3.10 Write unit tests for parser, validator, and template enforcement
 
 - [ ] 4.0 **Core Visual Components (Score Bar, Stat Cards, Charts)**
-  - [ ] 4.1 Create `components/game/ScoreComparisonBar.tsx`:
+  - [x] 4.1 Create `components/game/ScoreComparisonBar.tsx`:
     - Team logos in circular containers on left/right edges
     - Win-loss records displayed prominently
     - Horizontal progress bar showing score distribution (orange vs purple sections)

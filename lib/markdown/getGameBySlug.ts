@@ -2,10 +2,9 @@
  * Helper function to retrieve a single game by its slug
  */
 
-import path from 'path';
 import { parseMarkdownFile, getMarkdownFiles, CONTENT_DIRS } from './parser';
 import { validateGameFrontmatterStrict } from './validator';
-import type { ParsedGame, GameFrontmatter } from './types';
+import type { ParsedGame } from './types';
 
 /**
  * Get a single game by its slug
