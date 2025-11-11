@@ -46,6 +46,7 @@
 - `components/game/StatCardGrid.tsx` - Grid layout for multiple stat cards
 - `components/game/HistoricalChart.tsx` - Line/area charts with Recharts
 - `components/game/GameTable.tsx` - Sortable statistics tables
+- `components/game/GameListItem.tsx` - Game preview card with opponent, score, date, W/L badge, and link to detail page (created in Task 5.6)
 
 **Layout and navigation:**
 - `components/layout/Header.tsx` - Site header with Clemson branding, navigation links, and responsive mobile menu (created in Task 5.1)
@@ -218,7 +219,7 @@
     - Filter by content type (statistics vs evaluation)
     - "Clear Filters" button
     - Apply filters to game list dynamically
-  - [ ] 5.6 Create `components/game/GameListItem.tsx`:
+  - [x] 5.6 Create `components/game/GameListItem.tsx`:
     - Card layout showing game preview
     - Opponent name and logos
     - Game date and score
