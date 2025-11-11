@@ -25,7 +25,7 @@
 - `zod` - Schema validation library (installed in Task 1.9)
 
 **Application structure:**
-- `app/layout.tsx` - Root layout with Clemson branding and system fonts (created in Task 1.1, updated in Task 2.9)
+- `app/layout.tsx` - Root layout with Clemson branding, system fonts, and Header component (created in Task 1.1, updated in Task 2.9, updated in Task 5.1)
 - `app/page.tsx` - Responsive design test page with component demonstrations (created in Task 1.1, updated to test page in Task 2.9)
 - `app/globals.css` - Global styles with Shadcn CSS variables, typography, spacing, and shadows (updated in Task 1.3, enhanced in Task 2.3, customized with Clemson colors in Task 2.5, CSS custom properties added in Task 2.7)
 - `app/favicon.ico` - Site favicon (created in Task 1.1)
@@ -48,7 +48,7 @@
 - `components/game/GameTable.tsx` - Sortable statistics tables
 
 **Layout and navigation:**
-- `components/layout/Header.tsx` - Site header with navigation
+- `components/layout/Header.tsx` - Site header with Clemson branding, navigation links, and responsive mobile menu (created in Task 5.1)
 - `components/layout/Footer.tsx` - Site footer
 - `components/layout/Breadcrumbs.tsx` - Breadcrumb navigation
 - `components/search/SearchBar.tsx` - Game search functionality
@@ -193,7 +193,7 @@
   - [ ] 4.9 Write component tests for StatCard, StatCardGrid, and ScoreComparisonBar
 
 - [ ] 5.0 **Game List, Navigation, and Search Features**
-  - [ ] 5.1 Create `components/layout/Header.tsx`:
+  - [x] 5.1 Create `components/layout/Header.tsx`:
     - Clemson Sports branding/logo
     - Navigation links (Home, Games, About)
     - Responsive mobile menu (hamburger)
