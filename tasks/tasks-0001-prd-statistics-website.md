@@ -44,7 +44,7 @@
 - `components/game/ScoreComparisonBar.tsx` - Horizontal score bar with team logos, win-loss records, and progress bar (created in Task 4.1)
 - `components/game/StatCard.tsx` - Individual stat card with large display numbers, ordinal suffixes, and orange/purple backgrounds (created in Task 4.2)
 - `components/game/StatCardGrid.tsx` - Responsive grid layout for multiple stat cards with auto-alternating colors (created in Task 4.3)
-- `components/game/HistoricalChart.tsx` - Line/area charts with Recharts
+- `components/game/HistoricalChart.tsx` - Line/area charts with Recharts, dual-color overlays, tooltips, and responsive design (created in Task 4.4)
 - `components/game/GameTable.tsx` - Sortable statistics tables
 
 **Layout and navigation:**
@@ -58,6 +58,7 @@
 - `lib/utils/cn.ts` - Class name utility with Clemson-specific helpers (created in Task 2.6)
 - `lib/utils/index.ts` - Utility functions index/re-exports (created in Task 2.6)
 - `lib/utils/stats.ts` - Stat data utility functions (createOrdinalStats, createStatsFromValues, getOrdinalSuffix) (created in Task 4.3)
+- `lib/utils/charts.ts` - Chart data utility functions (createChartData, formatGameDataForChart) (created in Task 4.4)
 - `lib/utils/colors.ts` - Color utility functions
 - `lib/utils/animations.ts` - GSAP animation helpers
 - `lib/constants/colors.ts` - Clemson brand color constants (created in Task 2.2)
@@ -173,7 +174,7 @@
     - Accept array of stat objects as props
     - Automatically alternate orange/purple backgrounds
     - Map stat data to StatCard components
-  - [ ] 4.4 Create `components/game/HistoricalChart.tsx`:
+  - [x] 4.4 Create `components/game/HistoricalChart.tsx`:
     - Install and configure Recharts
     - Line/area chart with dual-color overlays (orange for Clemson, purple for opponent)
     - Semi-transparent area fills for overlap visibility

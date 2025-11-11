@@ -4,7 +4,9 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { ScoreComparisonBar } from "@/components/game/ScoreComparisonBar";
 import { StatCard } from "@/components/game/StatCard";
 import { StatCardGrid } from "@/components/game/StatCardGrid";
+import { HistoricalChart } from "@/components/game/HistoricalChart";
 import { createOrdinalStats, createStatsFromValues } from "@/lib/utils/stats";
+import { createChartData } from "@/lib/utils/charts";
 
 export default function Home() {
   return (
@@ -258,6 +260,50 @@ export default function Home() {
                 ]}
                 columns={4}
                 autoAlternate={false}
+              />
+            </div>
+          </CardContent>
+        </Card>
+      </Container>
+
+      {/* HistoricalChart Test */}
+      <Container maxWidth="2xl" padding="md" className="py-8">
+        <Card>
+          <CardHeader>
+            <CardTitle>HistoricalChart Component Test</CardTitle>
+            <CardDescription>Testing historical data visualization with Recharts</CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-8">
+            {/* Area Chart */}
+            <div>
+              <HistoricalChart
+                title="Clemson vs South Carolina - Historical Scores"
+                data={createChartData(
+                  [2018, 2019, 2020, 2021, 2022, 2023, 2024],
+                  [56, 38, 34, 30, 31, 16, 42],
+                  [35, 3, 23, 0, 30, 7, 17]
+                )}
+                type="area"
+                height={350}
+                clemsonLabel="Clemson Tigers"
+                opponentLabel="South Carolina Gamecocks"
+                yAxisLabel="Points"
+              />
+            </div>
+
+            {/* Line Chart */}
+            <div>
+              <HistoricalChart
+                title="Season Comparison - Points Per Game"
+                data={createChartData(
+                  [2020, 2021, 2022, 2023, 2024],
+                  [35, 32, 28, 31, 36],
+                  [21, 18, 24, 22, 19]
+                )}
+                type="line"
+                height={300}
+                yAxisLabel="Average Points"
+                showGrid={true}
               />
             </div>
           </CardContent>
