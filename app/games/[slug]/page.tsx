@@ -3,6 +3,7 @@ import { Metadata } from 'next';
 import { getGameBySlug, getAllGameSlugs } from '@/lib/markdown/getGameBySlug';
 import { Breadcrumbs } from '@/components/layout/Breadcrumbs';
 import { ScoreComparisonBar } from '@/components/game/ScoreComparisonBar';
+import { GameMetadata } from '@/components/game/GameMetadata';
 
 /**
  * Generate static params for all game pages at build time
@@ -153,48 +154,9 @@ export default async function GameDetailPage({ params }: { params: { slug: strin
         </div>
 
         {/* Game Metadata Section */}
-        {frontmatter.content_type === 'statistics' &&
-          ('attendance' in frontmatter ||
-            'weather' in frontmatter ||
-            'win_streak' in frontmatter) && (
-            <div className="bg-white rounded-lg shadow-sm p-6 mb-8">
-              <h2 className="text-2xl font-bold mb-4">Game Information</h2>
-              <dl className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                {'attendance' in frontmatter && frontmatter.attendance && (
-                  <div className="bg-gray-50 rounded-lg p-4">
-                    <dt className="text-sm font-medium text-gray-500 uppercase tracking-wide mb-1">
-                      Attendance
-                    </dt>
-                    <dd className="text-2xl font-bold text-gray-900">
-                      {frontmatter.attendance.toLocaleString()}
-                    </dd>
-                  </div>
-                )}
-                {'weather' in frontmatter && frontmatter.weather && (
-                  <div className="bg-gray-50 rounded-lg p-4">
-                    <dt className="text-sm font-medium text-gray-500 uppercase tracking-wide mb-1">
-                      Weather
-                    </dt>
-                    <dd className="text-2xl font-bold text-gray-900">{frontmatter.weather}</dd>
-                  </div>
-                )}
-                {frontmatter.home_away && (
-                  <div className="bg-gray-50 rounded-lg p-4">
-                    <dt className="text-sm font-medium text-gray-500 uppercase tracking-wide mb-1">
-                      Location
-                    </dt>
-                    <dd className="text-2xl font-bold text-gray-900 capitalize">
-                      {frontmatter.home_away === 'home'
-                        ? 'Home'
-                        : frontmatter.home_away === 'away'
-                          ? 'Away'
-                          : 'Neutral Site'}
-                    </dd>
-                  </div>
-                )}
-              </dl>
-            </div>
-          )}
+        {frontmatter.content_type === 'statistics' && (
+          <GameMetadata frontmatter={frontmatter} className="mb-8" />
+        )}
 
         {/* Game Statistics and Content */}
         <div className="bg-white rounded-lg shadow-sm p-6 md:p-8">
