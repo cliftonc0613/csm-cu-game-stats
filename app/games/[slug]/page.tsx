@@ -1,6 +1,8 @@
 import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
 import { getGameBySlug, getAllGameSlugs } from '@/lib/markdown/getGameBySlug';
+import { Breadcrumbs } from '@/components/layout/Breadcrumbs';
+import { ScoreComparisonBar } from '@/components/game/ScoreComparisonBar';
 
 /**
  * Generate static params for all game pages at build time
@@ -98,101 +100,122 @@ export default async function GameDetailPage({ params }: { params: { slug: strin
   });
 
   // Determine game result
-  const result =
-    frontmatter.score.clemson > frontmatter.score.opponent
-      ? 'W'
-      : frontmatter.score.clemson < frontmatter.score.opponent
-        ? 'L'
-        : 'T';
+  const isWin = frontmatter.score.clemson > frontmatter.score.opponent;
+  const result = frontmatter.score.clemson > frontmatter.score.opponent ? 'W' : frontmatter.score.clemson < frontmatter.score.opponent ? 'L' : 'T';
+
+  // Convert opponent name to slug for logo (e.g., "Louisville" -> "louisville")
+  const opponentSlug = frontmatter.opponent.toLowerCase().replace(/\s+/g, '-');
+
+  // Breadcrumb navigation
+  const breadcrumbItems = [
+    { label: 'Games', href: '/' },
+    { label: `${frontmatter.opponent} (${result})` },
+  ];
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      {/* Temporary basic layout - will be enhanced in Task 6.2 */}
-      <div className="max-w-4xl mx-auto">
-        {/* Game Header */}
-        <div className="mb-8">
-          <h1 className="text-4xl font-bold mb-2">
-            Clemson vs {frontmatter.opponent}
-          </h1>
-          <p className="text-lg text-gray-600">{gameDate}</p>
-          {frontmatter.location && (
-            <p className="text-sm text-gray-500">{frontmatter.location}</p>
-          )}
+    <div className="min-h-screen bg-gray-50">
+      <div className="container mx-auto px-4 py-8">
+        {/* Breadcrumbs */}
+        <div className="mb-6">
+          <Breadcrumbs items={breadcrumbItems} />
         </div>
 
-        {/* Score Display */}
-        <div className="bg-white rounded-lg shadow-md p-6 mb-8">
-          <div className="flex items-center justify-between">
-            <div className="text-center flex-1">
-              <h2 className="text-2xl font-bold mb-2">Clemson</h2>
-              <div className="text-5xl font-extrabold text-clemson-orange">
-                {frontmatter.score.clemson}
-              </div>
-            </div>
-            <div className="text-3xl font-bold text-gray-400 mx-4">-</div>
-            <div className="text-center flex-1">
-              <h2 className="text-2xl font-bold mb-2">{frontmatter.opponent}</h2>
-              <div className="text-5xl font-extrabold text-clemson-purple">
-                {frontmatter.score.opponent}
-              </div>
-            </div>
+        {/* Game Header Section */}
+        <div className="bg-white rounded-lg shadow-sm p-6 mb-8">
+          <div className="text-center mb-6">
+            <h1 className="text-4xl md:text-5xl font-bold mb-2">
+              Clemson vs {frontmatter.opponent}
+            </h1>
+            <p className="text-lg text-gray-600">{gameDate}</p>
+            {frontmatter.location && (
+              <p className="text-sm text-gray-500 mt-1">{frontmatter.location}</p>
+            )}
           </div>
-          <div className="text-center mt-4">
-            <span
-              className={`inline-block px-4 py-2 rounded-full text-white font-bold ${
-                result === 'W'
-                  ? 'bg-green-600'
-                  : result === 'L'
-                    ? 'bg-red-600'
-                    : 'bg-gray-600'
-              }`}
-            >
-              {result === 'W' ? 'WIN' : result === 'L' ? 'LOSS' : 'TIE'}
-            </span>
-          </div>
+
+          {/* Score Comparison Bar */}
+          <ScoreComparisonBar
+            clemson={{
+              score: frontmatter.score.clemson,
+            }}
+            opponent={{
+              name: frontmatter.opponent,
+              score: frontmatter.score.opponent,
+              teamSlug: opponentSlug,
+            }}
+            winStreak={
+              'win_streak' in frontmatter && frontmatter.win_streak
+                ? frontmatter.win_streak
+                : undefined
+            }
+            isWin={isWin}
+            gamesListLink="/"
+          />
         </div>
 
-        {/* Game Metadata */}
+        {/* Game Metadata Section */}
         {frontmatter.content_type === 'statistics' &&
           ('attendance' in frontmatter ||
             'weather' in frontmatter ||
             'win_streak' in frontmatter) && (
-            <div className="bg-gray-50 rounded-lg p-6 mb-8">
-              <h3 className="text-xl font-bold mb-4">Game Information</h3>
-              <dl className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="bg-white rounded-lg shadow-sm p-6 mb-8">
+              <h2 className="text-2xl font-bold mb-4">Game Information</h2>
+              <dl className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 {'attendance' in frontmatter && frontmatter.attendance && (
-                  <div>
-                    <dt className="text-sm font-medium text-gray-500">Attendance</dt>
-                    <dd className="text-lg font-semibold">
+                  <div className="bg-gray-50 rounded-lg p-4">
+                    <dt className="text-sm font-medium text-gray-500 uppercase tracking-wide mb-1">
+                      Attendance
+                    </dt>
+                    <dd className="text-2xl font-bold text-gray-900">
                       {frontmatter.attendance.toLocaleString()}
                     </dd>
                   </div>
                 )}
                 {'weather' in frontmatter && frontmatter.weather && (
-                  <div>
-                    <dt className="text-sm font-medium text-gray-500">Weather</dt>
-                    <dd className="text-lg font-semibold">{frontmatter.weather}</dd>
+                  <div className="bg-gray-50 rounded-lg p-4">
+                    <dt className="text-sm font-medium text-gray-500 uppercase tracking-wide mb-1">
+                      Weather
+                    </dt>
+                    <dd className="text-2xl font-bold text-gray-900">{frontmatter.weather}</dd>
                   </div>
                 )}
-                {'win_streak' in frontmatter &&
-                  frontmatter.win_streak &&
-                  frontmatter.win_streak > 0 && (
-                    <div>
-                      <dt className="text-sm font-medium text-gray-500">Win Streak</dt>
-                      <dd className="text-lg font-semibold">
-                        {frontmatter.win_streak} games
-                      </dd>
-                    </div>
-                  )}
+                {frontmatter.home_away && (
+                  <div className="bg-gray-50 rounded-lg p-4">
+                    <dt className="text-sm font-medium text-gray-500 uppercase tracking-wide mb-1">
+                      Location
+                    </dt>
+                    <dd className="text-2xl font-bold text-gray-900 capitalize">
+                      {frontmatter.home_away === 'home'
+                        ? 'Home'
+                        : frontmatter.home_away === 'away'
+                          ? 'Away'
+                          : 'Neutral Site'}
+                    </dd>
+                  </div>
+                )}
               </dl>
             </div>
           )}
 
-        {/* Game Content (Markdown rendered as HTML) */}
-        <div
-          className="prose prose-lg max-w-none"
-          dangerouslySetInnerHTML={{ __html: content }}
-        />
+        {/* Game Statistics and Content */}
+        <div className="bg-white rounded-lg shadow-sm p-6 md:p-8">
+          {/* Markdown content with statistics tables */}
+          <div
+            className="prose prose-lg max-w-none
+              prose-headings:text-clemson-dark
+              prose-h2:text-3xl prose-h2:font-bold prose-h2:mb-4 prose-h2:mt-8 prose-h2:border-b prose-h2:border-gray-200 prose-h2:pb-2
+              prose-h3:text-2xl prose-h3:font-bold prose-h3:mb-3 prose-h3:mt-6
+              prose-h4:text-xl prose-h4:font-semibold prose-h4:mb-2 prose-h4:mt-4
+              prose-table:w-full prose-table:border-collapse
+              prose-th:bg-gray-100 prose-th:border prose-th:border-gray-300 prose-th:px-4 prose-th:py-3 prose-th:text-left prose-th:font-semibold prose-th:text-gray-900
+              prose-td:border prose-td:border-gray-300 prose-td:px-4 prose-td:py-3
+              prose-strong:text-clemson-orange prose-strong:font-bold
+              prose-ul:list-disc prose-ul:pl-6
+              prose-ol:list-decimal prose-ol:pl-6
+              prose-li:my-1
+              prose-p:text-gray-700 prose-p:leading-relaxed"
+            dangerouslySetInnerHTML={{ __html: content }}
+          />
+        </div>
       </div>
     </div>
   );
