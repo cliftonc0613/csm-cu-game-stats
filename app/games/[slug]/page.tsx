@@ -25,7 +25,8 @@ export async function generateStaticParams() {
 }
 
 /**
- * Generate metadata for each game page (SEO)
+ * Generate comprehensive SEO metadata for each game page
+ * Includes Open Graph, Twitter Cards, and structured data
  */
 export async function generateMetadata({
   params,
@@ -42,13 +43,16 @@ export async function generateMetadata({
       };
     }
 
-    const { frontmatter } = game;
+    const { frontmatter, excerpt } = game;
+
+    // Format date for display
     const gameDate = new Date(frontmatter.game_date).toLocaleDateString('en-US', {
       year: 'numeric',
       month: 'long',
       day: 'numeric',
     });
 
+    // Determine game result
     const result =
       frontmatter.score.clemson > frontmatter.score.opponent
         ? 'W'
@@ -56,16 +60,91 @@ export async function generateMetadata({
           ? 'L'
           : 'T';
 
+    const resultText = result === 'W' ? 'Win' : result === 'L' ? 'Loss' : 'Tie';
+
+    // Create comprehensive title and description
     const title = `Clemson vs ${frontmatter.opponent} - ${gameDate} (${result} ${frontmatter.score.clemson}-${frontmatter.score.opponent})`;
-    const description = `Game statistics and details for Clemson vs ${frontmatter.opponent} on ${gameDate}. Final score: Clemson ${frontmatter.score.clemson}, ${frontmatter.opponent} ${frontmatter.score.opponent}.`;
+    const description = excerpt || `Game statistics and details for Clemson vs ${frontmatter.opponent} on ${gameDate}. Final score: Clemson ${frontmatter.score.clemson}, ${frontmatter.opponent} ${frontmatter.score.opponent}. ${resultText} for Clemson Tigers.`;
+
+    // Generate keywords based on game data
+    const keywords = [
+      'Clemson Tigers',
+      'Clemson Football',
+      frontmatter.opponent,
+      `Clemson vs ${frontmatter.opponent}`,
+      frontmatter.season.toString(),
+      `${frontmatter.season} Football Season`,
+      frontmatter.game_type.replace('_', ' '),
+      'Game Statistics',
+      'ACC Football',
+    ];
+
+    // Base URL for the site (can be configured via environment variable)
+    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://clemson-stats.netlify.app';
+    const canonicalUrl = `${baseUrl}/games/${params.slug}`;
 
     return {
       title,
       description,
+      keywords: keywords.join(', '),
+      authors: [{ name: 'Clemson Sports Media' }],
+
+      // Robots directives
+      robots: {
+        index: true,
+        follow: true,
+        googleBot: {
+          index: true,
+          follow: true,
+          'max-video-preview': -1,
+          'max-image-preview': 'large',
+          'max-snippet': -1,
+        },
+      },
+
+      // Open Graph metadata for social sharing
       openGraph: {
         title,
         description,
         type: 'article',
+        url: canonicalUrl,
+        siteName: 'Clemson Football Statistics',
+        locale: 'en_US',
+        publishedTime: frontmatter.game_date,
+        authors: ['Clemson Sports Media'],
+        tags: keywords,
+        images: [
+          {
+            url: `${baseUrl}/images/logos/clemson.svg`,
+            width: 400,
+            height: 400,
+            alt: 'Clemson Tigers Logo',
+          },
+        ],
+      },
+
+      // Twitter Card metadata
+      twitter: {
+        card: 'summary_large_image',
+        title,
+        description,
+        site: '@ClemsonFB',
+        creator: '@ClemsonFB',
+        images: [`${baseUrl}/images/logos/clemson.svg`],
+      },
+
+      // Alternate languages (if needed in future)
+      alternates: {
+        canonical: canonicalUrl,
+      },
+
+      // Additional metadata
+      other: {
+        'game-date': frontmatter.game_date,
+        'game-result': result,
+        'clemson-score': frontmatter.score.clemson.toString(),
+        'opponent-score': frontmatter.score.opponent.toString(),
+        season: frontmatter.season.toString(),
       },
     };
   } catch (error) {
