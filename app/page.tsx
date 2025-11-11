@@ -1,65 +1,154 @@
-import Image from "next/image";
+import { Container } from "@/components/ui/container";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 
 export default function Home() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
+    <div className="min-h-screen bg-background">
+      {/* Hero Section */}
+      <Container maxWidth="2xl" padding="lg" className="py-12">
+        <div className="text-center space-y-4">
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-clemson-orange">
+            Clemson Sports Statistics
           </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+          <p className="text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto">
+            Comprehensive Clemson Tigers athletics statistics and game data
           </p>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+      </Container>
+
+      {/* Typography Test */}
+      <Container maxWidth="xl" padding="md" className="py-8">
+        <Card>
+          <CardHeader>
+            <CardTitle>Typography System Test</CardTitle>
+            <CardDescription>Testing responsive typography at all breakpoints</CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <div>
+              <h1>Heading 1 - Display</h1>
+              <h2>Heading 2 - Section</h2>
+              <h3>Heading 3 - Subsection</h3>
+              <h4>Heading 4 - Component</h4>
+              <h5>Heading 5 - Small</h5>
+              <h6>Heading 6 - Metadata</h6>
+            </div>
+            <div>
+              <p className="text-body">Body text (16px) - Regular paragraph content</p>
+              <p className="text-body-sm">Small body text (14px) - Secondary content</p>
+              <p className="text-metadata">Metadata text (14px) - Info labels</p>
+              <p className="text-metadata-sm">Small metadata (12px) - Captions</p>
+            </div>
+            <div className="space-y-2">
+              <div className="display-number text-clemson-orange">99<span className="ordinal-superscript">th</span></div>
+              <p className="text-sm text-muted-foreground">Display number with ordinal</p>
+            </div>
+          </CardContent>
+        </Card>
+      </Container>
+
+      {/* Button Test */}
+      <Container maxWidth="lg" padding="md" className="py-8">
+        <Card>
+          <CardHeader>
+            <CardTitle>Button Component Test</CardTitle>
+            <CardDescription>Testing Clemson-branded buttons</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="flex flex-wrap gap-4">
+              <Button variant="default">Primary (Orange)</Button>
+              <Button variant="secondary">Secondary</Button>
+              <Button variant="outline">Outline</Button>
+              <Button variant="ghost">Ghost</Button>
+              <Button variant="link">Link</Button>
+            </div>
+          </CardContent>
+        </Card>
+      </Container>
+
+      {/* Responsive Grid Test */}
+      <Container maxWidth="2xl" padding="md" className="py-8">
+        <h2 className="text-2xl font-bold mb-6">Responsive Grid Test</h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+          {[1, 2, 3, 4, 5, 6, 7, 8].map((i) => (
+            <Card key={i} className={i % 2 === 0 ? "bg-clemson-orange text-white" : "bg-clemson-purple text-white"}>
+              <CardHeader>
+                <CardTitle>Card {i}</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-sm">
+                  Responsive grid: 1 col (mobile), 2 cols (sm), 3 cols (md), 4 cols (lg)
+                </p>
+              </CardContent>
+            </Card>
+          ))}
         </div>
-      </main>
+      </Container>
+
+      {/* Container Width Test */}
+      <div className="py-8 space-y-4 bg-muted/30">
+        <Container maxWidth="sm" padding="md">
+          <Card>
+            <CardContent className="pt-6">
+              <p className="font-semibold">Container SM (640px max)</p>
+            </CardContent>
+          </Card>
+        </Container>
+        <Container maxWidth="md" padding="md">
+          <Card>
+            <CardContent className="pt-6">
+              <p className="font-semibold">Container MD (768px max)</p>
+            </CardContent>
+          </Card>
+        </Container>
+        <Container maxWidth="lg" padding="md">
+          <Card>
+            <CardContent className="pt-6">
+              <p className="font-semibold">Container LG (1024px max)</p>
+            </CardContent>
+          </Card>
+        </Container>
+        <Container maxWidth="xl" padding="md">
+          <Card>
+            <CardContent className="pt-6">
+              <p className="font-semibold">Container XL (1280px max)</p>
+            </CardContent>
+          </Card>
+        </Container>
+        <Container maxWidth="2xl" padding="md">
+          <Card>
+            <CardContent className="pt-6">
+              <p className="font-semibold">Container 2XL (1536px max)</p>
+            </CardContent>
+          </Card>
+        </Container>
+      </div>
+
+      {/* Breakpoint Indicator */}
+      <Container maxWidth="xl" padding="md" className="py-8">
+        <Card className="bg-clemson-dark text-white">
+          <CardContent className="pt-6">
+            <p className="text-center font-bold text-lg">
+              <span className="xs:hidden">Current breakpoint: &lt; 320px (xs)</span>
+              <span className="hidden xs:inline sm:hidden">Current breakpoint: 320px+ (xs)</span>
+              <span className="hidden sm:inline md:hidden">Current breakpoint: 640px+ (sm)</span>
+              <span className="hidden md:inline lg:hidden">Current breakpoint: 768px+ (md)</span>
+              <span className="hidden lg:inline xl:hidden">Current breakpoint: 1024px+ (lg)</span>
+              <span className="hidden xl:inline 2xl:hidden">Current breakpoint: 1280px+ (xl)</span>
+              <span className="hidden 2xl:inline 3xl:hidden">Current breakpoint: 1536px+ (2xl)</span>
+              <span className="hidden 3xl:inline">Current breakpoint: 2560px+ (3xl)</span>
+            </p>
+          </CardContent>
+        </Card>
+      </Container>
+
+      {/* Footer */}
+      <Container maxWidth="xl" padding="md" className="py-12">
+        <div className="text-center text-muted-foreground">
+          <p>Design System Foundation - Task 2.9 Responsive Test</p>
+          <p className="text-sm mt-2">Testing breakpoints: 320px - 2560px</p>
+        </div>
+      </Container>
     </div>
   );
 }
