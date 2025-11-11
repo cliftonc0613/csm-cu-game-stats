@@ -1,0 +1,279 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 0 0% 20%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 20%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 20%;
+    /* Clemson Orange as primary */
+    --primary: 25 100% 48%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 0 0% 96.1%;
+    --secondary-foreground: 0 0% 20%;
+    --muted: 0 0% 96.1%;
+    --muted-foreground: 0 0% 45.1%;
+    /* Clemson Purple as accent */
+    --accent: 267 48% 34%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 89.8%;
+    --input: 0 0% 89.8%;
+    --ring: 25 100% 48%;
+    --radius: 0.5rem;
+    /* Clemson brand colors for charts */
+    --chart-1: 25 100% 48%;
+    --chart-2: 267 48% 34%;
+    --chart-3: 0 0% 20%;
+    --chart-4: 25 100% 58%;
+    --chart-5: 267 48% 44%;
+
+    /* Spacing scale */
+    --spacing-xs: 0.25rem;
+    --spacing-sm: 0.5rem;
+    --spacing-md: 1rem;
+    --spacing-lg: 1.5rem;
+    --spacing-xl: 2rem;
+    --spacing-2xl: 3rem;
+    --spacing-3xl: 4rem;
+
+    /* Shadow system */
+    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+    --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+    --shadow-2xl: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+    --shadow-inner: inset 0 2px 4px 0 rgb(0 0 0 / 0.05);
+
+    /* Container widths */
+    --container-sm: 640px;
+    --container-md: 768px;
+    --container-lg: 1024px;
+    --container-xl: 1280px;
+    --container-2xl: 1536px;
+
+    /* Z-index scale */
+    --z-base: 0;
+    --z-dropdown: 1000;
+    --z-sticky: 1100;
+    --z-fixed: 1200;
+    --z-modal-backdrop: 1300;
+    --z-modal: 1400;
+    --z-popover: 1500;
+    --z-tooltip: 1600;
+  }
+
+  .dark {
+    --background: 0 0% 10%;
+    --foreground: 0 0% 98%;
+    --card: 0 0% 10%;
+    --card-foreground: 0 0% 98%;
+    --popover: 0 0% 10%;
+    --popover-foreground: 0 0% 98%;
+    /* Clemson Orange as primary (lighter in dark mode) */
+    --primary: 25 100% 58%;
+    --primary-foreground: 0 0% 10%;
+    --secondary: 0 0% 14.9%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 0 0% 14.9%;
+    --muted-foreground: 0 0% 63.9%;
+    /* Clemson Purple as accent (lighter in dark mode) */
+    --accent: 267 48% 44%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 20%;
+    --input: 0 0% 20%;
+    --ring: 25 100% 58%;
+    /* Clemson brand colors for charts in dark mode */
+    --chart-1: 25 100% 58%;
+    --chart-2: 267 48% 54%;
+    --chart-3: 0 0% 70%;
+    --chart-4: 25 100% 68%;
+    --chart-5: 267 48% 64%;
+  }
+}
+
+@layer base {
+  * {
+    border-color: hsl(var(--border));
+  }
+
+  /* Typography: Sans-serif font stack */
+  body {
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+      'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+      sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Display number styles for stat cards (80-120px, ultra-bold) */
+  .display-number {
+    font-size: clamp(80px, 10vw, 120px);
+    font-weight: 900;
+    line-height: 1;
+    letter-spacing: -0.02em;
+  }
+
+  .display-number-lg {
+    font-size: clamp(100px, 12vw, 120px);
+    font-weight: 900;
+    line-height: 1;
+    letter-spacing: -0.02em;
+  }
+
+  .display-number-md {
+    font-size: clamp(60px, 8vw, 100px);
+    font-weight: 900;
+    line-height: 1;
+    letter-spacing: -0.02em;
+  }
+
+  .display-number-sm {
+    font-size: clamp(48px, 6vw, 80px);
+    font-weight: 900;
+    line-height: 1;
+    letter-spacing: -0.02em;
+  }
+
+  /* Ordinal superscript styles */
+  .ordinal {
+    font-feature-settings: 'ordn' 1;
+  }
+
+  .ordinal-superscript {
+    font-size: 0.6em;
+    vertical-align: super;
+    line-height: 0;
+    font-weight: 900;
+  }
+
+  /* Base font sizes */
+  .text-body {
+    font-size: 16px;
+    line-height: 1.6;
+  }
+
+  .text-body-sm {
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  .text-metadata {
+    font-size: 14px;
+    line-height: 1.4;
+    color: hsl(var(--muted-foreground));
+  }
+
+  .text-metadata-sm {
+    font-size: 12px;
+    line-height: 1.4;
+    color: hsl(var(--muted-foreground));
+  }
+
+  /* Headings */
+  h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+  }
+
+  h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    line-height: 1.3;
+    letter-spacing: -0.01em;
+  }
+
+  h3 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    line-height: 1.4;
+  }
+
+  h4 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    line-height: 1.4;
+  }
+
+  h5 {
+    font-size: 1rem;
+    font-weight: 600;
+    line-height: 1.5;
+  }
+
+  h6 {
+    font-size: 0.875rem;
+    font-weight: 600;
+    line-height: 1.5;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+}
+
+@layer utilities {
+  /* Spacing utilities */
+  .spacing-xs { padding: var(--spacing-xs); }
+  .spacing-sm { padding: var(--spacing-sm); }
+  .spacing-md { padding: var(--spacing-md); }
+  .spacing-lg { padding: var(--spacing-lg); }
+  .spacing-xl { padding: var(--spacing-xl); }
+  .spacing-2xl { padding: var(--spacing-2xl); }
+  .spacing-3xl { padding: var(--spacing-3xl); }
+
+  /* Shadow utilities */
+  .shadow-custom-sm { box-shadow: var(--shadow-sm); }
+  .shadow-custom-md { box-shadow: var(--shadow-md); }
+  .shadow-custom-lg { box-shadow: var(--shadow-lg); }
+  .shadow-custom-xl { box-shadow: var(--shadow-xl); }
+  .shadow-custom-2xl { box-shadow: var(--shadow-2xl); }
+  .shadow-custom-inner { box-shadow: var(--shadow-inner); }
+
+  /* Container utilities */
+  .container-custom {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: var(--spacing-md);
+    padding-right: var(--spacing-md);
+  }
+
+  @media (min-width: 640px) {
+    .container-custom { max-width: var(--container-sm); }
+  }
+
+  @media (min-width: 768px) {
+    .container-custom { max-width: var(--container-md); }
+  }
+
+  @media (min-width: 1024px) {
+    .container-custom { max-width: var(--container-lg); }
+  }
+
+  @media (min-width: 1280px) {
+    .container-custom { max-width: var(--container-xl); }
+  }
+
+  @media (min-width: 1536px) {
+    .container-custom { max-width: var(--container-2xl); }
+  }
+
+  /* Z-index utilities */
+  .z-dropdown { z-index: var(--z-dropdown); }
+  .z-sticky { z-index: var(--z-sticky); }
+  .z-fixed { z-index: var(--z-fixed); }
+  .z-modal-backdrop { z-index: var(--z-modal-backdrop); }
+  .z-modal { z-index: var(--z-modal); }
+  .z-popover { z-index: var(--z-popover); }
+  .z-tooltip { z-index: var(--z-tooltip); }
+}

@@ -14,19 +14,25 @@
 ## Relevant Files
 
 **Initial setup and configuration:**
-- `package.json` - Project dependencies and scripts
-- `next.config.js` - Next.js configuration for SSG optimization
-- `tailwind.config.ts` - Custom Clemson color palette and design tokens
-- `tsconfig.json` - TypeScript configuration
-- `.eslintrc.json` - ESLint configuration
-- `postcss.config.js` - PostCSS configuration for TailwindCSS
+- `package.json` - Project dependencies and scripts (created in Task 1.1, updated in 1.2, 1.4, 1.6, 1.9)
+- `next.config.ts` - Next.js configuration for SSG optimization (created in Task 1.1)
+- `tailwind.config.ts` - Custom Clemson color palette and design tokens (created in Task 2.1)
+- `tsconfig.json` - TypeScript configuration with strict mode and additional strict options (created in Task 1.1, enhanced in Task 1.5)
+- `eslint.config.mjs` - ESLint configuration with Next.js best practices (created in Task 1.1)
+- `.prettierrc` - Prettier configuration for code formatting (created in Task 1.6)
+- `.prettierignore` - Prettier ignore patterns (created in Task 1.6)
+- `postcss.config.mjs` - PostCSS configuration for TailwindCSS (created in Task 1.1)
+- `zod` - Schema validation library (installed in Task 1.9)
 
 **Application structure:**
-- `app/layout.tsx` - Root layout with brand colors and typography
-- `app/page.tsx` - Homepage with game list and filters
+- `app/layout.tsx` - Root layout with Clemson branding and system fonts (created in Task 1.1, updated in Task 2.9)
+- `app/page.tsx` - Responsive design test page with component demonstrations (created in Task 1.1, updated to test page in Task 2.9)
+- `app/globals.css` - Global styles with Shadcn CSS variables, typography, spacing, and shadows (updated in Task 1.3, enhanced in Task 2.3, customized with Clemson colors in Task 2.5, CSS custom properties added in Task 2.7)
+- `app/favicon.ico` - Site favicon (created in Task 1.1)
 - `app/games/[slug]/page.tsx` - Dynamic game detail page (SSG)
-- `app/globals.css` - Global styles and Tailwind imports
-- `components/ui/*` - Shadcn UI components (Button, Card, Table, etc.)
+- `components/ui/*` - Shadcn UI components (Button, Card, Table, Input created in Task 2.4; Container created in Task 2.8)
+- `lib/utils/` - Utility functions directory with cn and helper functions (created in Task 1.3, enhanced in Task 2.6)
+- `components.json` - Shadcn UI configuration (created in Task 1.3)
 
 **Markdown parsing and validation:**
 - `lib/markdown/parser.ts` - Markdown file parsing with gray-matter
@@ -49,16 +55,20 @@
 - `components/filters/FilterPanel.tsx` - Season/opponent/type filters
 
 **Utilities and helpers:**
-- `lib/utils/cn.ts` - Class name utility (from Shadcn)
+- `lib/utils/cn.ts` - Class name utility with Clemson-specific helpers (created in Task 2.6)
+- `lib/utils/index.ts` - Utility functions index/re-exports (created in Task 2.6)
 - `lib/utils/colors.ts` - Color utility functions
 - `lib/utils/animations.ts` - GSAP animation helpers
-- `lib/constants/colors.ts` - Clemson brand color constants
+- `lib/constants/colors.ts` - Clemson brand color constants (created in Task 2.2)
 
 **Data and content:**
-- `content/games/*.md` - Markdown files for game statistics
-- `content/evaluations/*.md` - Markdown files for game evaluations
-- `content/templates/game-stats-template.md` - Template structure reference
-- `public/images/logos/*.svg` - Team logos (Clemson and opponents)
+- `content/games/` - Directory for game statistics markdown files (created in Task 1.7)
+- `content/evaluations/` - Directory for game evaluation markdown files (created in Task 1.7)
+- `content/templates/` - Directory for template reference files (created in Task 1.7)
+- `content/games/*.md` - Markdown files for game statistics (will be created)
+- `content/evaluations/*.md` - Markdown files for game evaluations (will be created)
+- `content/templates/game-stats-template.md` - Template structure reference (will be created)
+- `public/images/logos/*.svg` - Team logos (Clemson and opponents) (will be created)
 
 **Export functionality:**
 - `lib/export/csv.ts` - CSV export logic
@@ -87,34 +97,34 @@
 
 ## Tasks
 
-- [ ] 1.0 **Project Initialization and Setup**
-  - [ ] 1.1 Initialize Next.js 14+ project with TypeScript using `npx create-next-app@latest` with App Router enabled
-  - [ ] 1.2 Install core dependencies: `tailwindcss`, `postcss`, `autoprefixer`, `gsap`, `gray-matter`, `remark`, `remark-html`, `recharts`
-  - [ ] 1.3 Install Shadcn UI CLI and initialize: `npx shadcn-ui@latest init`
-  - [ ] 1.4 Install development dependencies: `@types/node`, `@types/react`, `eslint`, `prettier`, `jest`, `@testing-library/react`, `@testing-library/jest-dom`
-  - [ ] 1.5 Configure TypeScript with strict mode in `tsconfig.json`
-  - [ ] 1.6 Set up ESLint and Prettier configurations for code quality
-  - [ ] 1.7 Create project directory structure: `app/`, `components/`, `lib/`, `content/`, `public/`
-  - [ ] 1.8 Initialize Git repository and create `.gitignore` for Next.js (if not already done)
-  - [ ] 1.9 Install Zod for schema validation: `npm install zod`
-  - [ ] 1.10 Verify development server runs successfully: `npm run dev`
+- [x] 1.0 **Project Initialization and Setup**
+  - [x] 1.1 Initialize Next.js 14+ project with TypeScript using `npx create-next-app@latest` with App Router enabled
+  - [x] 1.2 Install core dependencies: `tailwindcss`, `postcss`, `autoprefixer`, `gsap`, `gray-matter`, `remark`, `remark-html`, `recharts`
+  - [x] 1.3 Install Shadcn UI CLI and initialize: `npx shadcn-ui@latest init`
+  - [x] 1.4 Install development dependencies: `@types/node`, `@types/react`, `eslint`, `prettier`, `jest`, `@testing-library/react`, `@testing-library/jest-dom`
+  - [x] 1.5 Configure TypeScript with strict mode in `tsconfig.json`
+  - [x] 1.6 Set up ESLint and Prettier configurations for code quality
+  - [x] 1.7 Create project directory structure: `app/`, `components/`, `lib/`, `content/`, `public/`
+  - [x] 1.8 Initialize Git repository and create `.gitignore` for Next.js (if not already done)
+  - [x] 1.9 Install Zod for schema validation: `npm install zod`
+  - [x] 1.10 Verify development server runs successfully: `npm run dev`
 
-- [ ] 2.0 **Design System and Component Library Foundation**
-  - [ ] 2.1 Configure Tailwind with Clemson brand colors in `tailwind.config.ts`:
+- [x] 2.0 **Design System and Component Library Foundation**
+  - [x] 2.1 Configure Tailwind with Clemson brand colors in `tailwind.config.ts`:
     - Add custom colors: `clemson-orange: '#F56600'`, `clemson-purple: '#522D80'`, `clemson-dark: '#333333'`
     - Configure responsive breakpoints to match PRD specs
-  - [ ] 2.2 Create `lib/constants/colors.ts` with brand color constants and utility functions
-  - [ ] 2.3 Set up global typography system in `app/globals.css`:
+  - [x] 2.2 Create `lib/constants/colors.ts` with brand color constants and utility functions
+  - [x] 2.3 Set up global typography system in `app/globals.css`:
     - Configure sans-serif font stack
     - Define display number styles (80-120px, ultra-bold)
     - Create ordinal superscript styles
     - Set base font sizes (14-16px body, 12-14px metadata)
-  - [ ] 2.4 Install base Shadcn UI components: `npx shadcn-ui@latest add button card table input`
-  - [ ] 2.5 Customize Shadcn component themes to use Clemson colors in `components/ui/` files
-  - [ ] 2.6 Create utility class helpers in `lib/utils/cn.ts` for conditional class names
-  - [ ] 2.7 Set up CSS custom properties for consistent spacing and shadows
-  - [ ] 2.8 Create `components/ui/Container.tsx` for max-width content wrapper
-  - [ ] 2.9 Test responsive design at all breakpoints (320px-2560px)
+  - [x] 2.4 Install base Shadcn UI components: `npx shadcn-ui@latest add button card table input`
+  - [x] 2.5 Customize Shadcn component themes to use Clemson colors in `components/ui/` files
+  - [x] 2.6 Create utility class helpers in `lib/utils/cn.ts` for conditional class names
+  - [x] 2.7 Set up CSS custom properties for consistent spacing and shadows
+  - [x] 2.8 Create `components/ui/Container.tsx` for max-width content wrapper
+  - [x] 2.9 Test responsive design at all breakpoints (320px-2560px)
 
 - [ ] 3.0 **Markdown Parsing Engine and Content Infrastructure**
   - [ ] 3.1 Create TypeScript types in `lib/markdown/types.ts`:
