@@ -25,8 +25,10 @@
 - `zod` - Schema validation library (installed in Task 1.9)
 
 **Application structure:**
-- `app/layout.tsx` - Root layout with Clemson branding and system fonts (created in Task 1.1, updated in Task 2.9)
-- `app/page.tsx` - Responsive design test page with component demonstrations (created in Task 1.1, updated to test page in Task 2.9)
+- `app/layout.tsx` - Root layout with Clemson branding, system fonts, Header, Footer, and ErrorBoundary (created in Task 1.1, updated in Task 2.9, updated in Task 5.1, updated in Task 5.2, updated in Task 5.8)
+- `app/page.tsx` - Homepage with search, filters, game list, loading and error states (created in Task 1.1, updated to test page in Task 2.9, rebuilt in Task 5.7, error handling added in Task 5.8)
+- `app/api/games/route.ts` - API endpoint to fetch all games as list items (created in Task 5.7)
+- `components/error/ErrorBoundary.tsx` - React Error Boundary for catching and displaying errors gracefully (created in Task 5.8)
 - `app/globals.css` - Global styles with Shadcn CSS variables, typography, spacing, and shadows (updated in Task 1.3, enhanced in Task 2.3, customized with Clemson colors in Task 2.5, CSS custom properties added in Task 2.7)
 - `app/favicon.ico` - Site favicon (created in Task 1.1)
 - `app/games/[slug]/page.tsx` - Dynamic game detail page (SSG)
@@ -47,13 +49,14 @@
 - `components/game/HistoricalChart.tsx` - Line/area charts with Recharts, dual-color overlays, tooltips, and responsive design (created in Task 4.4)
 - `components/game/GameTable.tsx` - Sortable statistics tables with Clemson branding and responsive design (created in Task 4.5)
 - `components/ui/TeamLogo.tsx` - Reusable team logo component with circular/square variants, size options, and name display (created in Task 4.7)
+- `components/game/GameListItem.tsx` - Game preview card with opponent, score, date, W/L badge, and link to detail page (created in Task 5.6)
 
 **Layout and navigation:**
-- `components/layout/Header.tsx` - Site header with navigation
-- `components/layout/Footer.tsx` - Site footer
-- `components/layout/Breadcrumbs.tsx` - Breadcrumb navigation
-- `components/search/SearchBar.tsx` - Game search functionality
-- `components/filters/FilterPanel.tsx` - Season/opponent/type filters
+- `components/layout/Header.tsx` - Site header with Clemson branding, navigation links, and responsive mobile menu (created in Task 5.1)
+- `components/layout/Footer.tsx` - Site footer with copyright, quick links, social media icons, and Clemson Sports Media link (created in Task 5.2)
+- `components/layout/Breadcrumbs.tsx` - Breadcrumb navigation with Clemson color scheme (orange for active, dark for links) (created in Task 5.3)
+- `components/search/SearchBar.tsx` - Debounced search input with search icon and clear button (created in Task 5.4)
+- `components/filters/FilterPanel.tsx` - Multi-select filter panel for season, opponent, game type, and content type with clear all button (created in Task 5.5)
 
 **Utilities and helpers:**
 - `lib/utils/cn.ts` - Class name utility with Clemson-specific helpers (created in Task 2.6)
@@ -82,6 +85,7 @@
 
 **Testing:**
 - `COMPONENT_TESTING.md` - Component testing documentation for Task 4.8 (manual/visual testing)
+- `TESTING_TASK_5.md` - Testing documentation and verification for Task 5.9 (navigation, search, filters) (created in Task 5.9)
 - `components/game/StatCard.test.tsx` - StatCard component tests (created in Task 4.9)
 - `components/game/StatCardGrid.test.tsx` - StatCardGrid component tests (created in Task 4.9)
 - `components/game/ScoreComparisonBar.test.tsx` - ScoreComparisonBar component tests (created in Task 4.9)
@@ -201,47 +205,47 @@
   - [x] 4.8 Test all components in isolation with sample data
   - [x] 4.9 Write component tests for StatCard, StatCardGrid, and ScoreComparisonBar
 
-- [ ] 5.0 **Game List, Navigation, and Search Features**
-  - [ ] 5.1 Create `components/layout/Header.tsx`:
+- [x] 5.0 **Game List, Navigation, and Search Features**
+  - [x] 5.1 Create `components/layout/Header.tsx`:
     - Clemson Sports branding/logo
     - Navigation links (Home, Games, About)
     - Responsive mobile menu (hamburger)
     - Link to Clemson Sports Media (https://clemsonsportsmedia.com/)
-  - [ ] 5.2 Create `components/layout/Footer.tsx`:
+  - [x] 5.2 Create `components/layout/Footer.tsx`:
     - Copyright information
     - Links to Clemson Sports Media
     - Social media links (if applicable)
-  - [ ] 5.3 Create `components/layout/Breadcrumbs.tsx`:
+  - [x] 5.3 Create `components/layout/Breadcrumbs.tsx`:
     - Accept path array as props
     - Render navigable breadcrumb trail
     - Clemson color scheme for active/inactive states
-  - [ ] 5.4 Create `components/search/SearchBar.tsx`:
+  - [x] 5.4 Create `components/search/SearchBar.tsx`:
     - Input field with search icon
     - Client-side search functionality (filter games by opponent, date, keywords)
     - Debounced search input for performance
     - Display search results dynamically
-  - [ ] 5.5 Create `components/filters/FilterPanel.tsx`:
+  - [x] 5.5 Create `components/filters/FilterPanel.tsx`:
     - Filter by season/year (dropdown or buttons)
     - Filter by opponent (multi-select)
     - Filter by game type (regular season, bowl)
     - Filter by content type (statistics vs evaluation)
     - "Clear Filters" button
     - Apply filters to game list dynamically
-  - [ ] 5.6 Create `components/game/GameListItem.tsx`:
+  - [x] 5.6 Create `components/game/GameListItem.tsx`:
     - Card layout showing game preview
     - Opponent name and logos
     - Game date and score
     - Link to full game detail page
     - Clemson brand styling
-  - [ ] 5.7 Build homepage `app/page.tsx`:
+  - [x] 5.7 Build homepage `app/page.tsx`:
     - Render Header and Footer
     - Display SearchBar and FilterPanel
     - Fetch all games using `getAllGames()`
     - Map games to GameListItem components
     - Implement search and filter logic
     - Show empty state when no games match filters
-  - [ ] 5.8 Add loading states and error boundaries
-  - [ ] 5.9 Test navigation flow and filter interactions
+  - [x] 5.8 Add loading states and error boundaries
+  - [x] 5.9 Test navigation flow and filter interactions
 
 - [ ] 6.0 **Game Detail Pages with SSG**
   - [ ] 6.1 Create dynamic route `app/games/[slug]/page.tsx`:
