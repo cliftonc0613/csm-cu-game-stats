@@ -15,7 +15,7 @@
 
 **Initial setup and configuration:**
 - `package.json` - Project dependencies and scripts (created in Task 1.1, updated in 1.2, 1.4, 1.6, 1.9)
-- `next.config.ts` - Next.js configuration for SSG optimization (created in Task 1.1)
+- `next.config.ts` - Next.js configuration with comprehensive SSG optimizations, image optimization, and performance settings (created in Task 1.1, enhanced in Task 6.7)
 - `tailwind.config.ts` - Custom Clemson color palette and design tokens (created in Task 2.1)
 - `tsconfig.json` - TypeScript configuration with strict mode and additional strict options (created in Task 1.1, enhanced in Task 1.5)
 - `eslint.config.mjs` - ESLint configuration with Next.js best practices (created in Task 1.1)
@@ -276,9 +276,16 @@
     - Keywords meta tags based on game data
     - Author information and published dates
     - Custom meta tags for game-specific data
-  - [ ] 6.7 Configure Next.js for optimal SSG in `next.config.js`:
-    - Enable image optimization
-    - Configure output: 'export' if deploying as static site
+  - [x] 6.7 Configure Next.js for optimal SSG in `next.config.ts`:
+    - Enabled image optimization with AVIF and WebP formats
+    - Configured responsive image sizes for different devices
+    - Added static export option (commented, ready to enable)
+    - Enabled React strict mode for better practices
+    - Added compiler optimizations (remove console logs in production)
+    - Enabled experimental package import optimizations
+    - Configured compression and ETag generation
+    - Disabled powered-by header for security
+    - Optimized for static site deployment
   - [ ] 6.8 Test SSG build process: `npm run build` and verify all pages generated
   - [ ] 6.9 Test game detail pages with various data scenarios (wins, losses, different stat sets)
 
