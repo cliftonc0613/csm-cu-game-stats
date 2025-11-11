@@ -1,3 +1,5 @@
+'use client';
+
 import { Container } from "@/components/ui/container";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -5,8 +7,10 @@ import { ScoreComparisonBar } from "@/components/game/ScoreComparisonBar";
 import { StatCard } from "@/components/game/StatCard";
 import { StatCardGrid } from "@/components/game/StatCardGrid";
 import { HistoricalChart } from "@/components/game/HistoricalChart";
+import { GameTable } from "@/components/game/GameTable";
 import { createOrdinalStats, createStatsFromValues } from "@/lib/utils/stats";
 import { createChartData } from "@/lib/utils/charts";
+import { createTableColumns } from "@/lib/utils/tables";
 
 export default function Home() {
   return (
@@ -304,6 +308,73 @@ export default function Home() {
                 height={300}
                 yAxisLabel="Average Points"
                 showGrid={true}
+              />
+            </div>
+          </CardContent>
+        </Card>
+      </Container>
+
+      {/* GameTable Test */}
+      <Container maxWidth="2xl" padding="md" className="py-8">
+        <Card>
+          <CardHeader>
+            <CardTitle>GameTable Component Test</CardTitle>
+            <CardDescription>Testing sortable table with Clemson branding</CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-8">
+            {/* Player Statistics Table */}
+            <div>
+              <h3 className="text-lg font-semibold mb-4">Player Statistics (Sortable)</h3>
+              <GameTable
+                columns={createTableColumns([
+                  { key: 'player', label: 'Player', sortable: true },
+                  { key: 'position', label: 'Position', sortable: true, align: 'center' },
+                  { key: 'yards', label: 'Yards', sortable: true, align: 'right' },
+                  { key: 'touchdowns', label: 'TDs', sortable: true, align: 'center' },
+                  { key: 'average', label: 'Avg', sortable: true, align: 'right' },
+                ])}
+                data={[
+                  { id: 1, player: 'Cade Klubnik', position: 'QB', yards: 2844, touchdowns: 24, average: 8.2 },
+                  { id: 2, player: 'Phil Mafah', position: 'RB', yards: 1245, touchdowns: 15, average: 5.8 },
+                  { id: 3, player: 'Antonio Williams', position: 'RB', yards: 678, touchdowns: 8, average: 4.9 },
+                  { id: 4, player: 'Bryant Wesco', position: 'WR', yards: 892, touchdowns: 10, average: 15.2 },
+                  { id: 5, player: 'Tyler Brown', position: 'WR', yards: 734, touchdowns: 6, average: 12.8 },
+                ]}
+                striped
+                hoverable
+              />
+            </div>
+
+            {/* Game Results Table */}
+            <div>
+              <h3 className="text-lg font-semibold mb-4">Season Game Results</h3>
+              <GameTable
+                columns={createTableColumns([
+                  { key: 'date', label: 'Date', sortable: true },
+                  { key: 'opponent', label: 'Opponent', sortable: true },
+                  {
+                    key: 'result',
+                    label: 'Result',
+                    sortable: false,
+                    align: 'center',
+                    render: (value) => (
+                      <span className={value === 'W' ? 'text-clemson-orange font-bold' : 'text-clemson-purple font-bold'}>
+                        {value}
+                      </span>
+                    )
+                  },
+                  { key: 'score', label: 'Score', sortable: false, align: 'center' },
+                  { key: 'location', label: 'Location', sortable: true },
+                ])}
+                data={[
+                  { id: 1, date: '9/2/2024', opponent: 'Georgia', result: 'W', score: '34-3', location: 'Home' },
+                  { id: 2, date: '9/9/2024', opponent: 'App State', result: 'W', score: '66-20', location: 'Home' },
+                  { id: 3, date: '9/21/2024', opponent: 'NC State', result: 'L', score: '24-29', location: 'Away' },
+                  { id: 4, date: '9/28/2024', opponent: 'Stanford', result: 'W', score: '40-14', location: 'Home' },
+                  { id: 5, date: '10/5/2024', opponent: 'FSU', result: 'W', score: '29-13', location: 'Away' },
+                ]}
+                showBorders
+                hoverable
               />
             </div>
           </CardContent>

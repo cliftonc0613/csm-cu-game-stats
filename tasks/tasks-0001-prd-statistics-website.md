@@ -45,7 +45,7 @@
 - `components/game/StatCard.tsx` - Individual stat card with large display numbers, ordinal suffixes, and orange/purple backgrounds (created in Task 4.2)
 - `components/game/StatCardGrid.tsx` - Responsive grid layout for multiple stat cards with auto-alternating colors (created in Task 4.3)
 - `components/game/HistoricalChart.tsx` - Line/area charts with Recharts, dual-color overlays, tooltips, and responsive design (created in Task 4.4)
-- `components/game/GameTable.tsx` - Sortable statistics tables
+- `components/game/GameTable.tsx` - Sortable statistics tables with Clemson branding and responsive design (created in Task 4.5)
 
 **Layout and navigation:**
 - `components/layout/Header.tsx` - Site header with navigation
@@ -59,6 +59,7 @@
 - `lib/utils/index.ts` - Utility functions index/re-exports (created in Task 2.6)
 - `lib/utils/stats.ts` - Stat data utility functions (createOrdinalStats, createStatsFromValues, getOrdinalSuffix) (created in Task 4.3)
 - `lib/utils/charts.ts` - Chart data utility functions (createChartData, formatGameDataForChart) (created in Task 4.4)
+- `lib/utils/tables.ts` - Table utility functions (createTableColumns) (created in Task 4.5)
 - `lib/utils/colors.ts` - Color utility functions
 - `lib/utils/animations.ts` - GSAP animation helpers
 - `lib/constants/colors.ts` - Clemson brand color constants (created in Task 2.2)
@@ -183,7 +184,7 @@
     - Chart title in uppercase with consistent spacing
     - Responsive sizing
     - Hover tooltips showing precise values
-  - [ ] 4.5 Create `components/game/GameTable.tsx`:
+  - [x] 4.5 Create `components/game/GameTable.tsx`:
     - Use Shadcn Table component as base
     - Accept table data as props (columns and rows)
     - Implement sortable columns with sort indicators
