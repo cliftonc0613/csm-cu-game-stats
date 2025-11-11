@@ -30,7 +30,7 @@
 - `app/globals.css` - Global styles with Shadcn CSS variables, typography, spacing, and shadows (updated in Task 1.3, enhanced in Task 2.3, customized with Clemson colors in Task 2.5, CSS custom properties added in Task 2.7)
 - `app/favicon.ico` - Site favicon (created in Task 1.1)
 - `app/games/[slug]/page.tsx` - Dynamic game detail page (SSG)
-- `components/ui/*` - Shadcn UI components (Button, Card, Table, Input created in Task 2.4; Container created in Task 2.8)
+- `components/ui/*` - Shadcn UI components (Button, Card, Table, Input created in Task 2.4; Container created in Task 2.8; TeamLogo created in Task 4.7)
 - `lib/utils/` - Utility functions directory with cn and helper functions (created in Task 1.3, enhanced in Task 2.6)
 - `components.json` - Shadcn UI configuration (created in Task 1.3)
 
@@ -41,11 +41,12 @@
 - `lib/markdown/types.ts` - TypeScript types for game data
 
 **Visual components (based on reference images):**
-- `components/game/ScoreComparisonBar.tsx` - Horizontal score bar with team logos
-- `components/game/StatCard.tsx` - Individual stat card with orange/purple backgrounds
-- `components/game/StatCardGrid.tsx` - Grid layout for multiple stat cards
-- `components/game/HistoricalChart.tsx` - Line/area charts with Recharts
-- `components/game/GameTable.tsx` - Sortable statistics tables
+- `components/game/ScoreComparisonBar.tsx` - Horizontal score bar with team logos, win-loss records, and progress bar (created in Task 4.1, updated in Task 4.7 to use TeamLogo)
+- `components/game/StatCard.tsx` - Individual stat card with large display numbers, ordinal suffixes, and orange/purple backgrounds (created in Task 4.2)
+- `components/game/StatCardGrid.tsx` - Responsive grid layout for multiple stat cards with auto-alternating colors (created in Task 4.3)
+- `components/game/HistoricalChart.tsx` - Line/area charts with Recharts, dual-color overlays, tooltips, and responsive design (created in Task 4.4)
+- `components/game/GameTable.tsx` - Sortable statistics tables with Clemson branding and responsive design (created in Task 4.5)
+- `components/ui/TeamLogo.tsx` - Reusable team logo component with circular/square variants, size options, and name display (created in Task 4.7)
 
 **Layout and navigation:**
 - `components/layout/Header.tsx` - Site header with navigation
@@ -57,6 +58,9 @@
 **Utilities and helpers:**
 - `lib/utils/cn.ts` - Class name utility with Clemson-specific helpers (created in Task 2.6)
 - `lib/utils/index.ts` - Utility functions index/re-exports (created in Task 2.6)
+- `lib/utils/stats.ts` - Stat data utility functions (createOrdinalStats, createStatsFromValues, getOrdinalSuffix) (created in Task 4.3)
+- `lib/utils/charts.ts` - Chart data utility functions (createChartData, formatGameDataForChart) (created in Task 4.4)
+- `lib/utils/tables.ts` - Table utility functions (createTableColumns) (created in Task 4.5)
 - `lib/utils/colors.ts` - Color utility functions
 - `lib/utils/animations.ts` - GSAP animation helpers
 - `lib/constants/colors.ts` - Clemson brand color constants (created in Task 2.2)
@@ -68,7 +72,8 @@
 - `content/games/*.md` - Markdown files for game statistics (will be created)
 - `content/evaluations/*.md` - Markdown files for game evaluations (will be created)
 - `content/templates/game-stats-template.md` - Template structure reference (will be created)
-- `public/images/logos/*.svg` - Team logos (Clemson and opponents) (will be created)
+- `public/images/logos/*.svg` - Team logos for Clemson and 9 ACC opponents (created in Task 4.6)
+- `public/images/logos/README.md` - Logo usage documentation (created in Task 4.6)
 
 **Export functionality:**
 - `lib/export/csv.ts` - CSV export logic
@@ -76,11 +81,15 @@
 - `app/api/export/route.ts` - API route for data export
 
 **Testing:**
-- `lib/markdown/parser.test.ts` - Markdown parser tests
-- `lib/markdown/validator.test.ts` - Schema validation tests
-- `components/game/StatCard.test.tsx` - Component tests
-- `jest.config.js` - Jest configuration
-- `jest.setup.js` - Jest setup file
+- `COMPONENT_TESTING.md` - Component testing documentation for Task 4.8 (manual/visual testing)
+- `components/game/StatCard.test.tsx` - StatCard component tests (created in Task 4.9)
+- `components/game/StatCardGrid.test.tsx` - StatCardGrid component tests (created in Task 4.9)
+- `components/game/ScoreComparisonBar.test.tsx` - ScoreComparisonBar component tests (created in Task 4.9)
+- `lib/markdown/parser.test.ts` - Markdown parser tests (existing)
+- `lib/markdown/validator.test.ts` - Schema validation tests (existing)
+- `lib/markdown/template.test.ts` - Template validation tests (existing)
+- `jest.config.js` - Jest configuration (existing)
+- `jest.setup.js` - Jest setup file (existing)
 
 **Performance and optimization:**
 - `next-sitemap.config.js` - Sitemap generation (optional)
@@ -150,8 +159,8 @@
   - [x] 3.9 Create helper function to get game by slug: `lib/markdown/getGameBySlug.ts`
   - [x] 3.10 Write unit tests for parser, validator, and template enforcement
 
-- [ ] 4.0 **Core Visual Components (Score Bar, Stat Cards, Charts)**
-  - [ ] 4.1 Create `components/game/ScoreComparisonBar.tsx`:
+- [x] 4.0 **Core Visual Components (Score Bar, Stat Cards, Charts)**
+  - [x] 4.1 Create `components/game/ScoreComparisonBar.tsx`:
     - Team logos in circular containers on left/right edges
     - Win-loss records displayed prominently
     - Horizontal progress bar showing score distribution (orange vs purple sections)
@@ -159,7 +168,7 @@
     - Current win streak text centered below bar
     - "Full Games List Page" CTA button
     - Fully responsive design
-  - [ ] 4.2 Create `components/game/StatCard.tsx`:
+  - [x] 4.2 Create `components/game/StatCard.tsx`:
     - Support alternating orange/purple backgrounds via props
     - Large display number (80-120px) with ultra-bold weight
     - Ordinal suffix in superscript matching number font
@@ -167,12 +176,12 @@
     - Secondary descriptor text below (e.g., "of 134")
     - White text on colored backgrounds
     - Consistent padding using Tailwind
-  - [ ] 4.3 Create `components/game/StatCardGrid.tsx`:
+  - [x] 4.3 Create `components/game/StatCardGrid.tsx`:
     - Responsive grid layout: 1 col (mobile), 2 cols (tablet), 3-4 cols (desktop)
     - Accept array of stat objects as props
     - Automatically alternate orange/purple backgrounds
     - Map stat data to StatCard components
-  - [ ] 4.4 Create `components/game/HistoricalChart.tsx`:
+  - [x] 4.4 Create `components/game/HistoricalChart.tsx`:
     - Install and configure Recharts
     - Line/area chart with dual-color overlays (orange for Clemson, purple for opponent)
     - Semi-transparent area fills for overlap visibility
@@ -181,16 +190,16 @@
     - Chart title in uppercase with consistent spacing
     - Responsive sizing
     - Hover tooltips showing precise values
-  - [ ] 4.5 Create `components/game/GameTable.tsx`:
+  - [x] 4.5 Create `components/game/GameTable.tsx`:
     - Use Shadcn Table component as base
     - Accept table data as props (columns and rows)
     - Implement sortable columns with sort indicators
     - Clemson brand styling (borders, text colors)
     - Responsive horizontal scroll on mobile
-  - [ ] 4.6 Add team logo assets to `public/images/logos/` (Clemson paw, opponent logos)
-  - [ ] 4.7 Create `components/ui/TeamLogo.tsx` component for consistent logo rendering
-  - [ ] 4.8 Test all components in isolation with sample data
-  - [ ] 4.9 Write component tests for StatCard, StatCardGrid, and ScoreComparisonBar
+  - [x] 4.6 Add team logo assets to `public/images/logos/` (Clemson paw, opponent logos)
+  - [x] 4.7 Create `components/ui/TeamLogo.tsx` component for consistent logo rendering
+  - [x] 4.8 Test all components in isolation with sample data
+  - [x] 4.9 Write component tests for StatCard, StatCardGrid, and ScoreComparisonBar
 
 - [ ] 5.0 **Game List, Navigation, and Search Features**
   - [ ] 5.1 Create `components/layout/Header.tsx`:
