@@ -2,6 +2,7 @@ import { Container } from "@/components/ui/container";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { ScoreComparisonBar } from "@/components/game/ScoreComparisonBar";
+import { StatCard } from "@/components/game/StatCard";
 
 export default function Home() {
   return (
@@ -106,6 +107,89 @@ export default function Home() {
                 }}
                 winStreak={3}
               />
+            </div>
+          </CardContent>
+        </Card>
+      </Container>
+
+      {/* StatCard Test */}
+      <Container maxWidth="2xl" padding="md" className="py-8">
+        <Card>
+          <CardHeader>
+            <CardTitle>StatCard Component Test</CardTitle>
+            <CardDescription>Testing stat cards with orange and purple backgrounds</CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-8">
+            {/* Ordinal Stats */}
+            <div>
+              <h3 className="text-lg font-semibold mb-4">Ordinal Stats</h3>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                <StatCard
+                  value={99}
+                  ordinal="th"
+                  label="National Ranking"
+                  description="of 134 teams"
+                  variant="orange"
+                />
+                <StatCard
+                  value={1}
+                  ordinal="st"
+                  label="ACC Standing"
+                  description="in conference"
+                  variant="purple"
+                />
+                <StatCard
+                  value={3}
+                  ordinal="rd"
+                  label="Total Defense"
+                  description="nationally"
+                  variant="orange"
+                />
+                <StatCard
+                  value={22}
+                  ordinal="nd"
+                  label="Scoring Offense"
+                  description="in FBS"
+                  variant="purple"
+                />
+              </div>
+            </div>
+
+            {/* Regular Stats (no ordinals) */}
+            <div>
+              <h3 className="text-lg font-semibold mb-4">Regular Stats</h3>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                <StatCard
+                  value={42}
+                  label="Points Scored"
+                  variant="orange"
+                  size="md"
+                />
+                <StatCard
+                  value={17}
+                  label="Points Allowed"
+                  variant="purple"
+                  size="md"
+                />
+                <StatCard
+                  value={489}
+                  label="Total Yards"
+                  description="offense"
+                  variant="orange"
+                  size="md"
+                />
+              </div>
+            </div>
+
+            {/* Size Variations */}
+            <div>
+              <h3 className="text-lg font-semibold mb-4">Size Variations</h3>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                <StatCard value={85} label="Small" variant="orange" size="sm" />
+                <StatCard value={72} label="Medium" variant="purple" size="md" />
+                <StatCard value={99} ordinal="th" label="Default" variant="orange" />
+                <StatCard value={1} ordinal="st" label="Large" variant="purple" size="lg" />
+              </div>
             </div>
           </CardContent>
         </Card>

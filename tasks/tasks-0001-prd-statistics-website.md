@@ -42,7 +42,7 @@
 
 **Visual components (based on reference images):**
 - `components/game/ScoreComparisonBar.tsx` - Horizontal score bar with team logos, win-loss records, and progress bar (created in Task 4.1)
-- `components/game/StatCard.tsx` - Individual stat card with orange/purple backgrounds
+- `components/game/StatCard.tsx` - Individual stat card with large display numbers, ordinal suffixes, and orange/purple backgrounds (created in Task 4.2)
 - `components/game/StatCardGrid.tsx` - Grid layout for multiple stat cards
 - `components/game/HistoricalChart.tsx` - Line/area charts with Recharts
 - `components/game/GameTable.tsx` - Sortable statistics tables
@@ -159,7 +159,7 @@
     - Current win streak text centered below bar
     - "Full Games List Page" CTA button
     - Fully responsive design
-  - [ ] 4.2 Create `components/game/StatCard.tsx`:
+  - [x] 4.2 Create `components/game/StatCard.tsx`:
     - Support alternating orange/purple backgrounds via props
     - Large display number (80-120px) with ultra-bold weight
     - Ordinal suffix in superscript matching number font
