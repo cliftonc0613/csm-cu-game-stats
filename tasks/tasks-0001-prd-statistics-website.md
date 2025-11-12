@@ -115,6 +115,9 @@
 - `docs/ENVIRONMENT-VARIABLES.md` - Comprehensive environment variables guide with Netlify setup instructions, security best practices, and troubleshooting (created in Task 9.2)
 - `docs/DEPLOYMENT.md` - Complete Netlify deployment guide with step-by-step instructions for initial setup, automatic deployments, deploy previews, custom domains, post-deployment verification, troubleshooting, and deployment workflow (created in Task 9.4)
 
+**Project documentation:**
+- `README.md` - Comprehensive project documentation with table of contents, project overview, technology stack, getting started guide, development workflow, content management instructions, testing guide, deployment guide, performance targets, project structure, contributing guidelines, and complete documentation index (enhanced in Task 9.5)
+
 ### Notes
 
 - Unit tests should be placed alongside the code files they are testing
@@ -539,14 +542,23 @@
     - Added post-deployment verification checklist (accessibility, SEO, performance, APIs)
     - Included troubleshooting section for common deployment issues
     - Documented standard development workflow and rollback procedures
-  - [ ] 9.5 Update `README.md` with comprehensive documentation:
-    - Project overview and purpose
-    - Technology stack
-    - Installation instructions
-    - Development workflow (`npm run dev`, `npm run build`, `npm run test`)
-    - How to add new game statistics (Markdown file format)
-    - Deployment process
-    - Contributing guidelines
+  - [x] 9.5 Update `README.md` with comprehensive documentation:
+    - Updated README.md with 850+ lines of comprehensive documentation
+    - Added table of contents for easy navigation
+    - Expanded project overview with problem statement, solution, and goals
+    - Documented complete technology stack with all dependencies and versions
+    - Created detailed "Getting Started" section with prerequisites and installation steps
+    - Documented all development workflow scripts (dev, build, test, lint, format)
+    - Created comprehensive "Content Management" section with step-by-step guide for adding game statistics
+    - Included Markdown frontmatter examples and validation rules
+    - Added "Testing" section with coverage information and manual testing references
+    - Created "Deployment" section with quick deploy guide and links to detailed docs
+    - Documented performance targets, Core Web Vitals, and optimization strategies
+    - Added complete project structure visualization
+    - Created detailed "Contributing" section for both internal and external contributors
+    - Included contribution guidelines, code of conduct, and help resources
+    - Listed all documentation guides with links and descriptions
+    - Updated roadmap with v1.0 completion status
   - [ ] 9.6 Create `CONTRIBUTING.md` if open to external contributions
   - [ ] 9.7 Document Markdown template structure in `content/templates/README.md`
   - [ ] 9.8 Create content authoring guide for adding new games
