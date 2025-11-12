@@ -8,6 +8,7 @@ import path from 'path';
 import matter from 'gray-matter';
 import { remark } from 'remark';
 import html from 'remark-html';
+import { sanitizeHtml as sanitize } from '@/lib/utils/sanitize';
 import type { GameFrontmatter, ParsedGame } from './types';
 
 /**
@@ -71,16 +72,21 @@ export function extractExcerpt(content: string, maxLength = 200): string {
 }
 
 /**
- * Parse markdown content to HTML
+ * Parse markdown content to HTML with sanitization
  * @param markdownContent - Raw markdown content
- * @returns Processed HTML string
+ * @returns Sanitized HTML string safe for rendering
  */
 export async function markdownToHtml(markdownContent: string): Promise<string> {
+  // Convert markdown to HTML using remark
   const result = await remark()
-    .use(html, { sanitize: false }) // We trust our own content
+    .use(html, { sanitize: false }) // Disable remark's sanitization (we'll use our own)
     .process(markdownContent);
 
-  return result.toString();
+  const htmlString = result.toString();
+
+  // Apply HTML sanitization to prevent XSS attacks
+  // This removes potentially dangerous HTML while preserving safe markdown elements
+  return sanitize(htmlString);
 }
 
 /**

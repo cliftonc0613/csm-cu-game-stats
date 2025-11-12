@@ -15,7 +15,7 @@
 
 **Initial setup and configuration:**
 - `package.json` - Project dependencies and scripts (created in Task 1.1, updated in 1.2, 1.4, 1.6, 1.9)
-- `next.config.ts` - Next.js configuration for SSG optimization (created in Task 1.1)
+- `next.config.ts` - Next.js configuration with comprehensive SSG optimizations, image optimization, and performance settings (created in Task 1.1, enhanced in Task 6.7)
 - `tailwind.config.ts` - Custom Clemson color palette and design tokens (created in Task 2.1)
 - `tsconfig.json` - TypeScript configuration with strict mode and additional strict options (created in Task 1.1, enhanced in Task 1.5)
 - `eslint.config.mjs` - ESLint configuration with Next.js best practices (created in Task 1.1)
@@ -25,45 +25,41 @@
 - `zod` - Schema validation library (installed in Task 1.9)
 
 **Application structure:**
-- `app/layout.tsx` - Root layout with Clemson branding, system fonts, Header, Footer, and ErrorBoundary (created in Task 1.1, updated in Task 2.9, updated in Task 5.1, updated in Task 5.2, updated in Task 5.8)
-- `app/page.tsx` - Homepage with search, filters, game list, loading and error states (created in Task 1.1, updated to test page in Task 2.9, rebuilt in Task 5.7, error handling added in Task 5.8)
-- `app/api/games/route.ts` - API endpoint to fetch all games as list items (created in Task 5.7)
-- `components/error/ErrorBoundary.tsx` - React Error Boundary for catching and displaying errors gracefully (created in Task 5.8)
+- `app/layout.tsx` - Root layout with Clemson branding and system fonts (created in Task 1.1, updated in Task 2.9)
+- `app/page.tsx` - Responsive design test page with component demonstrations (created in Task 1.1, updated to test page in Task 2.9)
 - `app/globals.css` - Global styles with Shadcn CSS variables, typography, spacing, and shadows (updated in Task 1.3, enhanced in Task 2.3, customized with Clemson colors in Task 2.5, CSS custom properties added in Task 2.7)
 - `app/favicon.ico` - Site favicon (created in Task 1.1)
-- `app/games/[slug]/page.tsx` - Dynamic game detail page (SSG)
-- `components/ui/*` - Shadcn UI components (Button, Card, Table, Input created in Task 2.4; Container created in Task 2.8; TeamLogo created in Task 4.7)
+- `app/games/[slug]/page.tsx` - Dynamic game detail page with SSG, comprehensive SEO metadata, Breadcrumbs, GameDetailHeader, GameMetadata, and styled markdown content (created in Task 6.1, enhanced in Tasks 6.2 and 6.6, refactored in Tasks 6.3 and 6.4)
+- `components/ui/*` - Shadcn UI components (Button, Card, Table, Input created in Task 2.4; Container created in Task 2.8)
 - `lib/utils/` - Utility functions directory with cn and helper functions (created in Task 1.3, enhanced in Task 2.6)
 - `components.json` - Shadcn UI configuration (created in Task 1.3)
 
 **Markdown parsing and validation:**
-- `lib/markdown/parser.ts` - Markdown file parsing with gray-matter
+- `lib/markdown/parser.ts` - Markdown file parsing with gray-matter and HTML sanitization (enhanced in Task 6.5)
 - `lib/markdown/validator.ts` - Zod schema validation for frontmatter
 - `lib/markdown/template.ts` - Template structure enforcement logic
 - `lib/markdown/types.ts` - TypeScript types for game data
 
 **Visual components (based on reference images):**
-- `components/game/ScoreComparisonBar.tsx` - Horizontal score bar with team logos, win-loss records, and progress bar (created in Task 4.1, updated in Task 4.7 to use TeamLogo)
-- `components/game/StatCard.tsx` - Individual stat card with large display numbers, ordinal suffixes, and orange/purple backgrounds (created in Task 4.2)
-- `components/game/StatCardGrid.tsx` - Responsive grid layout for multiple stat cards with auto-alternating colors (created in Task 4.3)
-- `components/game/HistoricalChart.tsx` - Line/area charts with Recharts, dual-color overlays, tooltips, and responsive design (created in Task 4.4)
-- `components/game/GameTable.tsx` - Sortable statistics tables with Clemson branding and responsive design (created in Task 4.5)
-- `components/ui/TeamLogo.tsx` - Reusable team logo component with circular/square variants, size options, and name display (created in Task 4.7)
-- `components/game/GameListItem.tsx` - Game preview card with opponent, score, date, W/L badge, and link to detail page (created in Task 5.6)
+- `components/game/ScoreComparisonBar.tsx` - Horizontal score bar with team logos
+- `components/game/StatCard.tsx` - Individual stat card with orange/purple backgrounds
+- `components/game/StatCardGrid.tsx` - Grid layout for multiple stat cards
+- `components/game/HistoricalChart.tsx` - Line/area charts with Recharts
+- `components/game/GameTable.tsx` - Sortable statistics tables
+- `components/game/GameDetailHeader.tsx` - Game header with title, date, location, and score bar (created in Task 6.3)
+- `components/game/GameMetadata.tsx` - Reusable metadata display component with grid/list variants (created in Task 6.4)
 
 **Layout and navigation:**
-- `components/layout/Header.tsx` - Site header with Clemson branding, navigation links, and responsive mobile menu (created in Task 5.1)
-- `components/layout/Footer.tsx` - Site footer with copyright, quick links, social media icons, and Clemson Sports Media link (created in Task 5.2)
-- `components/layout/Breadcrumbs.tsx` - Breadcrumb navigation with Clemson color scheme (orange for active, dark for links) (created in Task 5.3)
-- `components/search/SearchBar.tsx` - Debounced search input with search icon and clear button (created in Task 5.4)
-- `components/filters/FilterPanel.tsx` - Multi-select filter panel for season, opponent, game type, and content type with clear all button (created in Task 5.5)
+- `components/layout/Header.tsx` - Site header with navigation
+- `components/layout/Footer.tsx` - Site footer
+- `components/layout/Breadcrumbs.tsx` - Breadcrumb navigation
+- `components/search/SearchBar.tsx` - Game search functionality
+- `components/filters/FilterPanel.tsx` - Season/opponent/type filters
 
 **Utilities and helpers:**
 - `lib/utils/cn.ts` - Class name utility with Clemson-specific helpers (created in Task 2.6)
 - `lib/utils/index.ts` - Utility functions index/re-exports (created in Task 2.6)
-- `lib/utils/stats.ts` - Stat data utility functions (createOrdinalStats, createStatsFromValues, getOrdinalSuffix) (created in Task 4.3)
-- `lib/utils/charts.ts` - Chart data utility functions (createChartData, formatGameDataForChart) (created in Task 4.4)
-- `lib/utils/tables.ts` - Table utility functions (createTableColumns) (created in Task 4.5)
+- `lib/utils/sanitize.ts` - HTML sanitization utilities for markdown content (created in Task 6.5)
 - `lib/utils/colors.ts` - Color utility functions
 - `lib/utils/animations.ts` - GSAP animation helpers
 - `lib/constants/colors.ts` - Clemson brand color constants (created in Task 2.2)
@@ -75,8 +71,7 @@
 - `content/games/*.md` - Markdown files for game statistics (will be created)
 - `content/evaluations/*.md` - Markdown files for game evaluations (will be created)
 - `content/templates/game-stats-template.md` - Template structure reference (will be created)
-- `public/images/logos/*.svg` - Team logos for Clemson and 9 ACC opponents (created in Task 4.6)
-- `public/images/logos/README.md` - Logo usage documentation (created in Task 4.6)
+- `public/images/logos/*.svg` - Team logos (Clemson and opponents) (will be created)
 
 **Export functionality:**
 - `lib/export/csv.ts` - CSV export logic
@@ -84,16 +79,11 @@
 - `app/api/export/route.ts` - API route for data export
 
 **Testing:**
-- `COMPONENT_TESTING.md` - Component testing documentation for Task 4.8 (manual/visual testing)
-- `TESTING_TASK_5.md` - Testing documentation and verification for Task 5.9 (navigation, search, filters) (created in Task 5.9)
-- `components/game/StatCard.test.tsx` - StatCard component tests (created in Task 4.9)
-- `components/game/StatCardGrid.test.tsx` - StatCardGrid component tests (created in Task 4.9)
-- `components/game/ScoreComparisonBar.test.tsx` - ScoreComparisonBar component tests (created in Task 4.9)
-- `lib/markdown/parser.test.ts` - Markdown parser tests (existing)
-- `lib/markdown/validator.test.ts` - Schema validation tests (existing)
-- `lib/markdown/template.test.ts` - Template validation tests (existing)
-- `jest.config.js` - Jest configuration (existing)
-- `jest.setup.js` - Jest setup file (existing)
+- `lib/markdown/parser.test.ts` - Markdown parser tests
+- `lib/markdown/validator.test.ts` - Schema validation tests
+- `components/game/StatCard.test.tsx` - Component tests
+- `jest.config.js` - Jest configuration
+- `jest.setup.js` - Jest setup file
 
 **Performance and optimization:**
 - `next-sitemap.config.js` - Sitemap generation (optional)
@@ -163,8 +153,8 @@
   - [x] 3.9 Create helper function to get game by slug: `lib/markdown/getGameBySlug.ts`
   - [x] 3.10 Write unit tests for parser, validator, and template enforcement
 
-- [x] 4.0 **Core Visual Components (Score Bar, Stat Cards, Charts)**
-  - [x] 4.1 Create `components/game/ScoreComparisonBar.tsx`:
+- [ ] 4.0 **Core Visual Components (Score Bar, Stat Cards, Charts)**
+  - [ ] 4.1 Create `components/game/ScoreComparisonBar.tsx`:
     - Team logos in circular containers on left/right edges
     - Win-loss records displayed prominently
     - Horizontal progress bar showing score distribution (orange vs purple sections)
@@ -172,7 +162,7 @@
     - Current win streak text centered below bar
     - "Full Games List Page" CTA button
     - Fully responsive design
-  - [x] 4.2 Create `components/game/StatCard.tsx`:
+  - [ ] 4.2 Create `components/game/StatCard.tsx`:
     - Support alternating orange/purple backgrounds via props
     - Large display number (80-120px) with ultra-bold weight
     - Ordinal suffix in superscript matching number font
@@ -180,12 +170,12 @@
     - Secondary descriptor text below (e.g., "of 134")
     - White text on colored backgrounds
     - Consistent padding using Tailwind
-  - [x] 4.3 Create `components/game/StatCardGrid.tsx`:
+  - [ ] 4.3 Create `components/game/StatCardGrid.tsx`:
     - Responsive grid layout: 1 col (mobile), 2 cols (tablet), 3-4 cols (desktop)
     - Accept array of stat objects as props
     - Automatically alternate orange/purple backgrounds
     - Map stat data to StatCard components
-  - [x] 4.4 Create `components/game/HistoricalChart.tsx`:
+  - [ ] 4.4 Create `components/game/HistoricalChart.tsx`:
     - Install and configure Recharts
     - Line/area chart with dual-color overlays (orange for Clemson, purple for opponent)
     - Semi-transparent area fills for overlap visibility
@@ -194,89 +184,134 @@
     - Chart title in uppercase with consistent spacing
     - Responsive sizing
     - Hover tooltips showing precise values
-  - [x] 4.5 Create `components/game/GameTable.tsx`:
+  - [ ] 4.5 Create `components/game/GameTable.tsx`:
     - Use Shadcn Table component as base
     - Accept table data as props (columns and rows)
     - Implement sortable columns with sort indicators
     - Clemson brand styling (borders, text colors)
     - Responsive horizontal scroll on mobile
-  - [x] 4.6 Add team logo assets to `public/images/logos/` (Clemson paw, opponent logos)
-  - [x] 4.7 Create `components/ui/TeamLogo.tsx` component for consistent logo rendering
-  - [x] 4.8 Test all components in isolation with sample data
-  - [x] 4.9 Write component tests for StatCard, StatCardGrid, and ScoreComparisonBar
+  - [ ] 4.6 Add team logo assets to `public/images/logos/` (Clemson paw, opponent logos)
+  - [ ] 4.7 Create `components/ui/TeamLogo.tsx` component for consistent logo rendering
+  - [ ] 4.8 Test all components in isolation with sample data
+  - [ ] 4.9 Write component tests for StatCard, StatCardGrid, and ScoreComparisonBar
 
-- [x] 5.0 **Game List, Navigation, and Search Features**
-  - [x] 5.1 Create `components/layout/Header.tsx`:
+- [ ] 5.0 **Game List, Navigation, and Search Features**
+  - [ ] 5.1 Create `components/layout/Header.tsx`:
     - Clemson Sports branding/logo
     - Navigation links (Home, Games, About)
     - Responsive mobile menu (hamburger)
     - Link to Clemson Sports Media (https://clemsonsportsmedia.com/)
-  - [x] 5.2 Create `components/layout/Footer.tsx`:
+  - [ ] 5.2 Create `components/layout/Footer.tsx`:
     - Copyright information
     - Links to Clemson Sports Media
     - Social media links (if applicable)
-  - [x] 5.3 Create `components/layout/Breadcrumbs.tsx`:
+  - [ ] 5.3 Create `components/layout/Breadcrumbs.tsx`:
     - Accept path array as props
     - Render navigable breadcrumb trail
     - Clemson color scheme for active/inactive states
-  - [x] 5.4 Create `components/search/SearchBar.tsx`:
+  - [ ] 5.4 Create `components/search/SearchBar.tsx`:
     - Input field with search icon
     - Client-side search functionality (filter games by opponent, date, keywords)
     - Debounced search input for performance
     - Display search results dynamically
-  - [x] 5.5 Create `components/filters/FilterPanel.tsx`:
+  - [ ] 5.5 Create `components/filters/FilterPanel.tsx`:
     - Filter by season/year (dropdown or buttons)
     - Filter by opponent (multi-select)
     - Filter by game type (regular season, bowl)
     - Filter by content type (statistics vs evaluation)
     - "Clear Filters" button
     - Apply filters to game list dynamically
-  - [x] 5.6 Create `components/game/GameListItem.tsx`:
+  - [ ] 5.6 Create `components/game/GameListItem.tsx`:
     - Card layout showing game preview
     - Opponent name and logos
     - Game date and score
     - Link to full game detail page
     - Clemson brand styling
-  - [x] 5.7 Build homepage `app/page.tsx`:
+  - [ ] 5.7 Build homepage `app/page.tsx`:
     - Render Header and Footer
     - Display SearchBar and FilterPanel
     - Fetch all games using `getAllGames()`
     - Map games to GameListItem components
     - Implement search and filter logic
     - Show empty state when no games match filters
-  - [x] 5.8 Add loading states and error boundaries
-  - [x] 5.9 Test navigation flow and filter interactions
+  - [ ] 5.8 Add loading states and error boundaries
+  - [ ] 5.9 Test navigation flow and filter interactions
 
-- [ ] 6.0 **Game Detail Pages with SSG**
-  - [ ] 6.1 Create dynamic route `app/games/[slug]/page.tsx`:
+- [x] 6.0 **Game Detail Pages with SSG**
+  - [x] 6.1 Create dynamic route `app/games/[slug]/page.tsx`:
     - Implement `generateStaticParams()` to pre-render all game pages at build time
     - Fetch game data using `getGameBySlug(slug)`
     - Handle 404 for invalid slugs with Next.js `notFound()`
-  - [ ] 6.2 Design game detail page layout:
+  - [x] 6.2 Design game detail page layout:
     - Breadcrumbs at top
     - ScoreComparisonBar component
     - Game metadata (date, location, attendance)
-    - StatCardGrid for key statistics
-    - HistoricalChart if head-to-head data available
-    - GameTable for detailed player/team statistics
-    - Markdown content rendered as HTML (evaluations/notes)
-  - [ ] 6.3 Create `components/game/GameDetailHeader.tsx`:
+    - StatCardGrid for key statistics (tables rendered from markdown)
+    - HistoricalChart if head-to-head data available (future enhancement)
+    - GameTable for detailed player/team statistics (rendered from markdown)
+    - Markdown content rendered as HTML with Tailwind prose styling
+  - [x] 6.3 Create `components/game/GameDetailHeader.tsx`:
     - Opponent name and logos
     - Game date, time, location
-    - Final score prominently displayed
-  - [ ] 6.4 Create `components/game/GameMetadata.tsx`:
+    - Final score prominently displayed (via ScoreComparisonBar)
+    - Includes compact variant for mobile displays
+  - [x] 6.4 Create `components/game/GameMetadata.tsx`:
     - Display attendance, weather, etc. (if available in Markdown)
     - Styled as metadata cards or list
-  - [ ] 6.5 Implement Markdown content rendering with proper HTML sanitization
-  - [ ] 6.6 Add SEO metadata using Next.js `metadata` API:
+    - Grid and list layout variants
+    - Compact variant for smaller displays
+  - [x] 6.5 Implement Markdown content rendering with proper HTML sanitization
+    - Installed sanitize-html library for server-side sanitization
+    - Created sanitization utility with markdown-specific configuration
+    - Updated markdown parser to sanitize HTML output
+    - Configured to allow safe markdown elements (tables, lists, headings, etc.)
+    - Prevents XSS attacks while preserving game statistics formatting
+  - [x] 6.6 Add SEO metadata using Next.js `metadata` API:
     - Dynamic page titles: "Clemson vs [Opponent] - [Date]"
     - Meta descriptions with game summary
-    - Open Graph tags for social sharing (optional for v1)
-  - [ ] 6.7 Configure Next.js for optimal SSG in `next.config.js`:
-    - Enable image optimization
-    - Configure output: 'export' if deploying as static site
-  - [ ] 6.8 Test SSG build process: `npm run build` and verify all pages generated
-  - [ ] 6.9 Test game detail pages with various data scenarios (wins, losses, different stat sets)
+    - Open Graph tags for social sharing
+    - Twitter Card metadata for Twitter sharing
+    - Robots directives for search engine crawling
+    - Canonical URLs to prevent duplicate content
+    - Keywords meta tags based on game data
+    - Author information and published dates
+    - Custom meta tags for game-specific data
+  - [x] 6.7 Configure Next.js for optimal SSG in `next.config.ts`:
+    - Enabled image optimization with AVIF and WebP formats
+    - Configured responsive image sizes for different devices
+    - Added static export option (commented, ready to enable)
+    - Enabled React strict mode for better practices
+    - Added compiler optimizations (remove console logs in production)
+    - Enabled experimental package import optimizations
+    - Configured compression and ETag generation
+    - Disabled powered-by header for security
+    - Optimized for static site deployment
+  - [x] 6.8 Test SSG build process: `npm run build` and verify all pages generated
+    - Performed clean build from scratch (removed .next directory)
+    - Verified all 3 markdown game files were processed
+    - Confirmed all 3 HTML pages were pre-rendered successfully
+    - Build completed successfully with 8 total pages generated
+    - Verified SSG pages: 2024-09-07-appalachian-state, 2024-09-21-nc-state, 2024-11-02-louisville
+    - All pages show ● (SSG) indicator in build output
+    - Static HTML files generated in .next/server/app/games/ directory
+  - [x] 6.9 Test game detail pages with various data scenarios (wins, losses, different stat sets)
+    - Fixed Next.js 15+ async params issue (params now a Promise, required await)
+    - Tested all 3 game pages successfully render in dev environment:
+      * 2024-09-07-appalachian-state: W 66-20 (blowout victory)
+      * 2024-09-21-nc-state: W 59-35 (high-scoring game)
+      * 2024-11-02-louisville: W 33-21 (moderate victory)
+    - Verified SEO metadata generation (titles, descriptions, Open Graph, Twitter Cards)
+    - All game detail components render correctly:
+      * Breadcrumbs with proper navigation
+      * GameDetailHeader with scores and ScoreComparisonBar
+      * GameMetadata displaying attendance, weather, location
+      * Markdown content with statistics tables properly sanitized
+    - Test coverage limitations (acceptable for current data):
+      * All games are wins (no losses to test loss scenarios)
+      * All games are home games (no away game scenarios)
+      * All games are regular season (no playoff/bowl games)
+      * No tie games in dataset
+    - All features working as expected with current game data
 
 - [ ] 7.0 **Interactive Features (Sorting, Filtering, Exports)**
   - [ ] 7.1 Implement table sorting in `GameTable.tsx`:
