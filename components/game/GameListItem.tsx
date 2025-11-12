@@ -71,31 +71,14 @@ export function GameListItem({
 
   return (
     <div className={`relative ${className}`}>
-      {/* Comparison Checkbox - positioned absolutely */}
-      {showComparisonCheckbox && onComparisonToggle && (
-        <div
-          className="absolute top-4 left-4 z-10"
-          onClick={(e) => e.stopPropagation()}
-        >
-          <GameCheckbox
-            slug={slug}
-            isSelected={isSelectedForComparison}
-            isDisabled={isComparisonDisabled}
-            onToggle={onComparisonToggle}
-          />
-        </div>
-      )}
-
       <Link href={`/games/${slug}`} className="block">
         <Card
-          className={`transition-all hover:shadow-lg hover:border-clemson-orange ${
-            showComparisonCheckbox ? 'pl-4' : ''
-          }`}
+          className="transition-all hover:shadow-lg hover:border-clemson-orange"
         >
           <CardHeader className="pb-3">
             <div className="flex items-center justify-between">
               {/* Opponent Info */}
-              <div className={`flex items-center space-x-3 ${showComparisonCheckbox ? 'ml-10' : ''}`}>
+              <div className="flex items-center space-x-3">
                 {/* Logo Placeholder */}
                 <div
                   className="flex h-12 w-12 items-center justify-center rounded-full bg-gray-100 text-lg font-bold"
@@ -113,14 +96,29 @@ export function GameListItem({
                 </div>
               </div>
 
-              {/* Result Badge */}
-              <div
-                className="rounded-full px-3 py-1 text-sm font-bold text-white"
-                style={{
-                  backgroundColor: isWin ? CLEMSON_COLORS.orange : CLEMSON_COLORS.purple,
-                }}
-              >
-                {isWin ? 'W' : 'L'}
+              {/* Right side: Checkbox + Result Badge */}
+              <div className="flex items-center gap-3">
+                {/* Comparison Checkbox */}
+                {showComparisonCheckbox && onComparisonToggle && (
+                  <div onClick={(e) => e.stopPropagation()}>
+                    <GameCheckbox
+                      slug={slug}
+                      isSelected={isSelectedForComparison}
+                      isDisabled={isComparisonDisabled}
+                      onToggle={onComparisonToggle}
+                    />
+                  </div>
+                )}
+
+                {/* Result Badge */}
+                <div
+                  className="rounded-full px-3 py-1 text-sm font-bold text-white"
+                  style={{
+                    backgroundColor: isWin ? CLEMSON_COLORS.orange : CLEMSON_COLORS.purple,
+                  }}
+                >
+                  {isWin ? 'W' : 'L'}
+                </div>
               </div>
             </div>
           </CardHeader>

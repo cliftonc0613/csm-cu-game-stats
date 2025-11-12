@@ -57,17 +57,22 @@ export function useGameSelection(minGames = 2, maxGames = 4) {
 
   // Update URL when selection changes
   useEffect(() => {
-    const params = new URLSearchParams(searchParams.toString());
+    const params = new URLSearchParams(window.location.search);
+    const currentCompare = params.get('compare');
+    const newCompare = selectedGames.size > 0 ? Array.from(selectedGames).join(',') : null;
 
-    if (selectedGames.size > 0) {
-      params.set('compare', Array.from(selectedGames).join(','));
-    } else {
-      params.delete('compare');
+    // Only update URL if the compare param actually changed
+    if (currentCompare !== newCompare) {
+      if (newCompare) {
+        params.set('compare', newCompare);
+      } else {
+        params.delete('compare');
+      }
+
+      const newUrl = params.toString() ? `?${params.toString()}` : '';
+      router.replace(newUrl, { scroll: false });
     }
-
-    const newUrl = params.toString() ? `?${params.toString()}` : '';
-    router.replace(newUrl, { scroll: false });
-  }, [selectedGames, router, searchParams]);
+  }, [selectedGames, router]);
 
   const toggleSelection = (slug: string) => {
     setSelectedGames((prev) => {
@@ -175,20 +180,17 @@ export function ComparisonSelector({
   className,
   minGames = 2,
   maxGames = 4,
-  onSelectionChange,
-}: ComparisonSelectorProps) {
+  selectedGames,
+  clearSelection,
+  canCompare,
+  count,
+}: ComparisonSelectorProps & {
+  selectedGames: Set<string>;
+  clearSelection: () => void;
+  canCompare: boolean;
+  count: number;
+}) {
   const router = useRouter();
-  const {
-    selectedGames,
-    clearSelection,
-    canCompare,
-    count,
-  } = useGameSelection(minGames, maxGames);
-
-  // Notify parent of selection changes
-  useEffect(() => {
-    onSelectionChange?.(Array.from(selectedGames));
-  }, [selectedGames, onSelectionChange]);
 
   const handleCompare = () => {
     if (canCompare) {
@@ -260,11 +262,13 @@ export function ComparisonSelector({
               'inline-flex items-center justify-center gap-2 px-6 py-3',
               'font-semibold rounded-lg transition-all',
               'focus:outline-none focus:ring-2 focus:ring-offset-2',
-              canCompare
-                ? 'bg-clemson-orange text-white hover:bg-clemson-orange/90 focus:ring-clemson-orange/50'
-                : 'bg-gray-300 text-gray-500 cursor-not-allowed',
-              'disabled:opacity-50'
+              'disabled:opacity-50 disabled:cursor-not-allowed',
+              canCompare && 'hover:opacity-90 hover:shadow-lg cursor-pointer'
             )}
+            style={{
+              backgroundColor: canCompare ? '#F56600' : '#d1d5db',
+              color: canCompare ? 'white' : '#6b7280',
+            }}
             aria-label="Compare selected games"
           >
             <GitCompare className="h-5 w-5" />

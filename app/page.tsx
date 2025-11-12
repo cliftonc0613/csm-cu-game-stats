@@ -22,7 +22,7 @@ function HomePageContent() {
   });
 
   // Game comparison selection
-  const { selectedGames, toggleSelection, isMaxReached } = useGameSelection();
+  const { selectedGames, toggleSelection, isMaxReached, clearSelection, canCompare, count } = useGameSelection();
 
   // Fetch games on mount
   useEffect(() => {
@@ -294,7 +294,12 @@ function HomePageContent() {
       </Container>
 
       {/* Comparison Selector - Sticky bottom bar */}
-      <ComparisonSelector />
+      <ComparisonSelector
+        selectedGames={selectedGames}
+        clearSelection={clearSelection}
+        canCompare={canCompare}
+        count={count}
+      />
     </div>
   );
 }
