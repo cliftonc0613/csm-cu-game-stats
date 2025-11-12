@@ -109,6 +109,9 @@
 - `docs/BROWSER-TESTING.md` - Cross-browser testing guide with comprehensive checklists for Chrome, Firefox, Safari, and Edge, including browser-specific considerations, performance benchmarks, and issue reporting templates (created in Task 8.12)
 - `docs/DEVICE-TESTING.md` - Mobile and tablet device testing guide for iOS and Android with screen size reference, orientation testing, touch interaction checklists, performance benchmarks, remote debugging setup, and accessibility testing for VoiceOver and TalkBack (created in Task 8.13)
 
+**Deployment configuration:**
+- `netlify.toml` - Netlify deployment configuration with build settings, redirects, security headers, cache control, and deploy contexts (created in Task 9.1)
+
 ### Notes
 
 - Unit tests should be placed alongside the code files they are testing
@@ -513,7 +516,7 @@
     - Note: Manual testing on physical devices should be performed by user/QA team before production deployment
 
 - [ ] 9.0 **Deployment Configuration and Documentation**
-  - [ ] 9.1 Create Netlify configuration file `netlify.toml`:
+  - [x] 9.1 Create Netlify configuration file `netlify.toml`:
     - Set build command: `npm run build`
     - Set publish directory: `out/` (if using static export) or `.next/`
     - Configure redirects and headers if needed
