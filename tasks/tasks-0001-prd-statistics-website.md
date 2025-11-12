@@ -117,6 +117,7 @@
 
 **Project documentation:**
 - `README.md` - Comprehensive project documentation with table of contents, project overview, technology stack, getting started guide, development workflow, content management instructions, testing guide, deployment guide, performance targets, project structure, contributing guidelines, and complete documentation index (enhanced in Task 9.5)
+- `CONTRIBUTING.md` - Detailed contribution guidelines for internal and external contributors with code of conduct, development process, coding standards, commit message guidelines, PR process, testing requirements, documentation standards, issue guidelines, and community resources (created in Task 9.6)
 
 ### Notes
 
@@ -559,7 +560,19 @@
     - Included contribution guidelines, code of conduct, and help resources
     - Listed all documentation guides with links and descriptions
     - Updated roadmap with v1.0 completion status
-  - [ ] 9.6 Create `CONTRIBUTING.md` if open to external contributions
+  - [x] 9.6 Create `CONTRIBUTING.md` if open to external contributions
+    - Created comprehensive CONTRIBUTING.md with 600+ lines of contribution guidelines
+    - Included Code of Conduct with pledge, standards, and enforcement
+    - Documented complete development environment setup for contributors
+    - Explained branching strategy (main, develop, feature/*, fix/*, docs/*)
+    - Created detailed contribution workflow (6 steps from issue to PR)
+    - Documented coding standards for TypeScript, React, CSS, and file organization
+    - Provided Conventional Commits guidelines with examples
+    - Created PR process template with checklist and review process
+    - Included testing requirements with examples and coverage goals
+    - Documented when and how to update documentation
+    - Provided issue guidelines for bug reports and feature requests
+    - Added community section with communication guidelines and recognition
   - [ ] 9.7 Document Markdown template structure in `content/templates/README.md`
   - [ ] 9.8 Create content authoring guide for adding new games
   - [ ] 9.9 Set up sitemap generation with `next-sitemap` (optional):
