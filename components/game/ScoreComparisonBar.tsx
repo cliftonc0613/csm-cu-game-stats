@@ -196,11 +196,16 @@ export function ScoreComparisonBar({
         {/* Full Games List CTA Button */}
         <Button
           asChild
-          variant="default"
           size="lg"
-          className="bg-clemson-orange hover:bg-clemson-orange/90 text-white font-semibold shadow-lg transition-transform hover:scale-105"
+          className="text-white font-semibold shadow-lg transition-transform hover:scale-105"
+          style={{ backgroundColor: '#F56600' }}
         >
-          <a href={gamesListLink}>Full Games List Page</a>
+          <a
+            href={gamesListLink}
+            className="hover:opacity-90"
+          >
+            Full Games List Page
+          </a>
         </Button>
       </div>
     </div>
