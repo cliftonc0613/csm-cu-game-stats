@@ -82,6 +82,7 @@
 - `lib/markdown/parser.test.ts` - Markdown parser tests
 - `lib/markdown/validator.test.ts` - Schema validation tests
 - `components/game/StatCard.test.tsx` - Component tests
+- `components/game/GameTable.test.tsx` - GameTable component tests with comprehensive sorting validation (created in Task 7.1)
 - `jest.config.js` - Jest configuration
 - `jest.setup.js` - Jest setup file
 
@@ -314,7 +315,7 @@
     - All features working as expected with current game data
 
 - [ ] 7.0 **Interactive Features (Sorting, Filtering, Exports)**
-  - [ ] 7.1 Implement table sorting in `GameTable.tsx`:
+  - [x] 7.1 Implement table sorting in `GameTable.tsx`:
     - Add click handlers to column headers
     - Toggle sort direction (ascending/descending)
     - Visual indicators (arrows) for sort state
