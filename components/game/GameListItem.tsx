@@ -1,10 +1,13 @@
 'use client';
 
+import { useRef } from 'react';
+import { useGSAP } from '@gsap/react';
 import Link from 'next/link';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { CLEMSON_COLORS } from '@/lib/constants/colors';
 import type { GameScore } from '@/lib/markdown/types';
 import { GameCheckbox } from './ComparisonSelector';
+import { fadeInUp } from '@/lib/utils/animations';
 
 export interface GameListItemProps {
   slug: string;
@@ -50,8 +53,22 @@ export function GameListItem({
   isComparisonDisabled = false,
   onComparisonToggle,
 }: GameListItemProps) {
+  const itemRef = useRef<HTMLDivElement>(null);
   const isWin = score.clemson > score.opponent;
   const displayOpponent = opponentShort || opponent;
+
+  // Scroll reveal animation
+  useGSAP(
+    () => {
+      if (itemRef.current) {
+        fadeInUp(itemRef.current, {
+          duration: 0.4,
+          y: 20,
+        });
+      }
+    },
+    { scope: itemRef }
+  );
 
   // Format date
   const formattedDate = new Date(gameDate).toLocaleDateString('en-US', {
@@ -70,7 +87,7 @@ export function GameListItem({
   };
 
   return (
-    <div className={`relative ${className}`}>
+    <div ref={itemRef} className={`relative ${className}`}>
       <Link href={`/games/${slug}`} className="block">
         <Card
           className="transition-all hover:shadow-lg hover:border-clemson-orange"

@@ -1,6 +1,10 @@
 'use client';
 
+import { useRef, useState } from 'react';
+import { useGSAP } from '@gsap/react';
+import gsap from 'gsap';
 import { cn } from '@/lib/utils';
+import { fadeInUp } from '@/lib/utils/animations';
 import {
   LineChart,
   Line,
@@ -143,11 +147,106 @@ export function HistoricalChart({
   showLegend = true,
   className,
 }: HistoricalChartProps) {
+  const chartRef = useRef<HTMLDivElement>(null);
+  const [isChartReady, setIsChartReady] = useState(false);
   const ChartComponent = type === 'area' ? AreaChart : LineChart;
   const DataComponent = type === 'area' ? Area : Line;
 
+  // Scroll reveal animation
+  useGSAP(
+    () => {
+      if (chartRef.current) {
+        fadeInUp(chartRef.current, {
+          duration: 0.6,
+          y: 40,
+        });
+      }
+    },
+    { scope: chartRef }
+  );
+
+  // Progressive chart drawing animation
+  useGSAP(
+    () => {
+      if (chartRef.current && isChartReady) {
+        // Target all SVG paths (lines and areas)
+        const paths = chartRef.current.querySelectorAll('.recharts-line-curve, .recharts-area-curve');
+        const areas = chartRef.current.querySelectorAll('.recharts-area-area');
+
+        // Animate line/curve paths with drawing effect
+        paths.forEach((path, index) => {
+          const svgPath = path as SVGPathElement;
+          const pathLength = svgPath.getTotalLength();
+
+          // Set up the stroke dash for drawing animation
+          gsap.set(svgPath, {
+            strokeDasharray: pathLength,
+            strokeDashoffset: pathLength,
+          });
+
+          // Animate the drawing
+          gsap.to(svgPath, {
+            strokeDashoffset: 0,
+            duration: 1.5,
+            delay: index * 0.2,
+            ease: 'power2.out',
+          });
+        });
+
+        // Animate area fills with opacity
+        if (areas.length > 0) {
+          gsap.fromTo(
+            areas,
+            {
+              opacity: 0,
+            },
+            {
+              opacity: 1,
+              duration: 1,
+              delay: 0.5,
+              stagger: 0.2,
+              ease: 'power2.out',
+            }
+          );
+        }
+
+        // Animate dots
+        const dots = chartRef.current.querySelectorAll('.recharts-line-dot, .recharts-area-dot');
+        if (dots.length > 0) {
+          gsap.fromTo(
+            dots,
+            {
+              scale: 0,
+              opacity: 0,
+            },
+            {
+              scale: 1,
+              opacity: 1,
+              duration: 0.4,
+              delay: 1,
+              stagger: 0.05,
+              ease: 'back.out(1.7)',
+            }
+          );
+        }
+      }
+    },
+    { scope: chartRef, dependencies: [isChartReady] }
+  );
+
+  // Trigger chart ready state after Recharts has rendered
+  useGSAP(() => {
+    if (chartRef.current && !isChartReady) {
+      // Small delay to ensure Recharts has finished rendering
+      const timer = setTimeout(() => {
+        setIsChartReady(true);
+      }, 100);
+      return () => clearTimeout(timer);
+    }
+  }, []);
+
   return (
-    <div className={cn('w-full', className)}>
+    <div ref={chartRef} className={cn('w-full', className)}>
       {/* Chart Title */}
       {title && (
         <h3 className="text-lg md:text-xl font-semibold uppercase tracking-wide text-center mb-4 md:mb-6">

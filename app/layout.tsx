@@ -3,6 +3,7 @@ import "./globals.css";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { ErrorBoundary } from "@/components/error/ErrorBoundary";
+import { PageTransition } from "@/components/layout/PageTransition";
 
 export const metadata: Metadata = {
   title: "Clemson Sports Statistics",
@@ -19,7 +20,11 @@ export default function RootLayout({
       <body className="antialiased flex min-h-screen flex-col" suppressHydrationWarning>
         <Header />
         <ErrorBoundary>
-          <main className="flex-1">{children}</main>
+          <main className="flex-1">
+            <PageTransition>
+              {children}
+            </PageTransition>
+          </main>
         </ErrorBoundary>
         <Footer />
       </body>

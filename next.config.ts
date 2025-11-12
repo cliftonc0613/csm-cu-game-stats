@@ -48,8 +48,8 @@ const nextConfig: NextConfig = {
 
   // Experimental features for better SSG performance
   experimental: {
-    // Enable optimized package imports
-    optimizePackageImports: ['@/components', '@/lib'],
+    // Enable optimized package imports for tree-shaking and code splitting
+    optimizePackageImports: ['@/components', '@/lib', 'recharts', 'lucide-react'],
   },
 
   // Strict mode for better React practices

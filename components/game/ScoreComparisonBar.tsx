@@ -1,6 +1,9 @@
 'use client';
 
+import { useRef } from 'react';
+import { useGSAP } from '@gsap/react';
 import { cn } from '@/lib/utils';
+import { fadeInUp } from '@/lib/utils/animations';
 import { Button } from '@/components/ui/button';
 import { TeamLogo, type TeamSlug } from '@/components/ui/TeamLogo';
 
@@ -63,6 +66,21 @@ export function ScoreComparisonBar({
   gamesListLink = '/games',
   className,
 }: ScoreComparisonBarProps) {
+  const barRef = useRef<HTMLDivElement>(null);
+
+  // Scroll reveal animation
+  useGSAP(
+    () => {
+      if (barRef.current) {
+        fadeInUp(barRef.current, {
+          duration: 0.5,
+          y: 30,
+        });
+      }
+    },
+    { scope: barRef }
+  );
+
   // Calculate percentage widths based on scores
   const totalScore = clemson.score + opponent.score;
   const clemsonPercentage = totalScore > 0 ? (clemson.score / totalScore) * 100 : 50;
@@ -72,7 +90,7 @@ export function ScoreComparisonBar({
   const clemsonWon = isWin ?? clemson.score > opponent.score;
 
   return (
-    <div className={cn('w-full space-y-4', className)}>
+    <div ref={barRef} className={cn('w-full space-y-4', className)}>
       {/* Score Bar Container */}
       <div className="relative">
         {/* Team Logos and Records */}

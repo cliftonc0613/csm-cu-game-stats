@@ -1,6 +1,8 @@
 'use client';
 
-import { cn } from '@/lib/utils';
+import { useRef } from 'react';
+import { useGSAP } from '@gsap/react';
+import { cn, fadeInUp } from '@/lib/utils';
 import { StatCard } from './StatCard';
 
 export interface StatData {
@@ -78,6 +80,25 @@ export function StatCardGrid({
   gap = 'md',
   className,
 }: StatCardGridProps) {
+  const gridRef = useRef<HTMLDivElement>(null);
+
+  // Scroll reveal animation for stat cards
+  useGSAP(
+    () => {
+      if (gridRef.current) {
+        const cards = gridRef.current.querySelectorAll('.stat-card-item');
+        if (cards.length > 0) {
+          fadeInUp(cards, {
+            duration: 0.5,
+            stagger: 0.1,
+            y: 30,
+          });
+        }
+      }
+    },
+    { scope: gridRef }
+  );
+
   // Determine grid column classes based on columns prop
   const columnClasses = {
     2: 'lg:grid-cols-2',
@@ -94,6 +115,7 @@ export function StatCardGrid({
 
   return (
     <div
+      ref={gridRef}
       className={cn(
         'grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2',
         columnClasses[columns],
@@ -125,6 +147,7 @@ export function StatCardGrid({
             description={stat.description}
             variant={variant}
             size={stat.size}
+            className="stat-card-item"
           />
         );
       })}
