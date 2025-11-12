@@ -13,6 +13,9 @@
   [build.environment]
     NODE_VERSION = "20"
     NPM_FLAGS = "--legacy-peer-deps"
+    # Site URL for SEO metadata (Open Graph, Twitter Cards, canonical URLs)
+    # Update this to your production domain before deploying
+    NEXT_PUBLIC_SITE_URL = "https://clemson-stats.netlify.app"
 
 # Next.js Runtime Plugin
 # Netlify automatically detects and uses @netlify/plugin-nextjs

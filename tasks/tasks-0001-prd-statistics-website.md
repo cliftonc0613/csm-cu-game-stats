@@ -110,7 +110,9 @@
 - `docs/DEVICE-TESTING.md` - Mobile and tablet device testing guide for iOS and Android with screen size reference, orientation testing, touch interaction checklists, performance benchmarks, remote debugging setup, and accessibility testing for VoiceOver and TalkBack (created in Task 8.13)
 
 **Deployment configuration:**
-- `netlify.toml` - Netlify deployment configuration with build settings, redirects, security headers, cache control, and deploy contexts (created in Task 9.1)
+- `netlify.toml` - Netlify deployment configuration with build settings, redirects, security headers, cache control, deploy contexts, and environment variables (created in Task 9.1, updated in Task 9.2)
+- `.env.local.example` - Environment variables template for local development with NEXT_PUBLIC_SITE_URL configuration (created in Task 9.2)
+- `docs/ENVIRONMENT-VARIABLES.md` - Comprehensive environment variables guide with Netlify setup instructions, security best practices, and troubleshooting (created in Task 9.2)
 
 ### Notes
 
@@ -520,7 +522,7 @@
     - Set build command: `npm run build`
     - Set publish directory: `out/` (if using static export) or `.next/`
     - Configure redirects and headers if needed
-  - [ ] 9.2 Set up environment variables for Netlify (if any)
+  - [x] 9.2 Set up environment variables for Netlify (if any)
   - [ ] 9.3 Test local build: `npm run build && npm run start`
   - [ ] 9.4 Deploy to Netlify:
     - Connect GitHub repository to Netlify
