@@ -26,7 +26,7 @@ const customJestConfig = {
   ],
   // Handle ESM modules from node_modules
   transformIgnorePatterns: [
-    'node_modules/(?!(remark|remark-parse|remark-html|unified|unist-util-visit|unist-util-is|bail|is-plain-obj|trough|vfile|vfile-message|mdast-util-to-hast|mdast-util-definitions|unist-util-position|unist-util-generated|hast-util-to-html|html-void-elements|property-information|space-separated-tokens|comma-separated-tokens|web-namespaces|zwitch|ccount|escape-string-regexp|character-entities-legacy|character-entities-html4|character-reference-invalid|character-entities)/)',
+    '/node_modules/(?!(remark|remark-parse|remark-html|unified|unist-|mdast-|hast-|micromark|decode-named-character-reference|character-entities|property-information|space-separated-tokens|comma-separated-tokens|html-void-elements|bail|is-plain-obj|trough|vfile|zwitch|longest-streak|ccount|escape-string-regexp|gsap|@gsap)/)',
   ],
   // Support ESM in tests
   extensionsToTreatAsEsm: ['.ts', '.tsx'],

@@ -425,9 +425,17 @@
       - Performance checklist with 15 items before production
       - Monitoring, troubleshooting, and regression prevention strategies
       - Expected bundle sizes and Lighthouse scores (90-95+ performance)
-  - [ ] 8.9 Set up Jest testing environment:
-    - Configure `jest.config.js` for Next.js
-    - Create `jest.setup.js` with testing library setup
+  - [x] 8.9 Set up Jest testing environment:
+    - Enhanced `jest.config.js` for Next.js with proper ESM module handling
+    - Configured comprehensive `jest.setup.js` with testing library setup and mocks:
+      - Next.js router and navigation hooks (useRouter, usePathname, useSearchParams, useParams)
+      - Next.js Image component mock
+      - GSAP and ScrollTrigger mocks for animation testing
+      - @gsap/react useGSAP hook mock
+      - IntersectionObserver polyfill
+      - remark and remark-html mocks for markdown processing
+    - Fixed transformIgnorePatterns to properly handle ESM packages (gsap, @gsap, remark, unified, etc.)
+    - Verified test environment works with existing test suites
   - [ ] 8.10 Write comprehensive unit tests:
     - Markdown parser and validator tests
     - Component tests (StatCard, ScoreComparisonBar, etc.)
