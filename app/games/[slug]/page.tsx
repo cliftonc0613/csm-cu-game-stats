@@ -31,10 +31,11 @@ export async function generateStaticParams() {
 export async function generateMetadata({
   params,
 }: {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   try {
-    const game = await getGameBySlug(params.slug, { validate: false });
+    const { slug } = await params;
+    const game = await getGameBySlug(slug, { validate: false });
 
     if (!game) {
       return {
@@ -81,7 +82,7 @@ export async function generateMetadata({
 
     // Base URL for the site (can be configured via environment variable)
     const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://clemson-stats.netlify.app';
-    const canonicalUrl = `${baseUrl}/games/${params.slug}`;
+    const canonicalUrl = `${baseUrl}/games/${slug}`;
 
     return {
       title,
@@ -160,9 +161,12 @@ export async function generateMetadata({
  * Game Detail Page Component
  * Displays comprehensive statistics and information for a single game
  */
-export default async function GameDetailPage({ params }: { params: { slug: string } }) {
+export default async function GameDetailPage({ params }: { params: Promise<{ slug: string }> }) {
+  // Await params to get slug
+  const { slug } = await params;
+
   // Fetch game data by slug
-  const game = await getGameBySlug(params.slug, { validate: true });
+  const game = await getGameBySlug(slug, { validate: true });
 
   // Handle 404 for invalid slugs
   if (!game) {
