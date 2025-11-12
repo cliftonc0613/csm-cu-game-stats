@@ -15,7 +15,7 @@
 
 **Initial setup and configuration:**
 - `package.json` - Project dependencies and scripts (created in Task 1.1, updated in 1.2, 1.4, 1.6, 1.9, 8.1, 8.3)
-- `next.config.ts` - Next.js configuration with comprehensive SSG optimizations, image optimization, and performance settings (created in Task 1.1, enhanced in Task 6.7)
+- `next.config.ts` - Next.js configuration with comprehensive SSG optimizations, image optimization, and performance settings (created in Task 1.1, enhanced in Task 6.7, package imports optimized in Task 8.7)
 - `tailwind.config.ts` - Custom Clemson color palette and design tokens (created in Task 2.1)
 - `tsconfig.json` - TypeScript configuration with strict mode and additional strict options (created in Task 1.1, enhanced in Task 1.5)
 - `eslint.config.mjs` - ESLint configuration with Next.js best practices (created in Task 1.1)
@@ -46,6 +46,7 @@
 - `components/game/StatCard.tsx` - Individual stat card with orange/purple backgrounds, hover scale effect (1.05, 0.2s duration) verified in Task 8.4
 - `components/game/StatCardGrid.tsx` - Grid layout for multiple stat cards, scroll reveal animations with stagger added in Task 8.3
 - `components/game/HistoricalChart.tsx` - Line/area charts with Recharts, scroll reveal animation added in Task 8.3, progressive chart drawing animations added in Task 8.6
+- `components/game/HistoricalChartLazy.tsx` - Dynamic import wrapper for HistoricalChart with code splitting (created in Task 8.7)
 - `components/game/GameTable.tsx` - Sortable statistics tables
 - `components/game/GameDetailHeader.tsx` - Game header with title, date, location, and score bar (created in Task 6.3)
 - `components/game/GameMetadata.tsx` - Reusable metadata display component with grid/list variants (created in Task 6.4)
@@ -405,11 +406,13 @@
     - Animates area fills with opacity fade-in (1s duration, 0.5s delay)
     - Animates data point dots with scale and bounce effect (0.4s duration, 1s delay)
     - Uses stagger effect for multiple lines (0.2s between each)
-  - [ ] 8.7 Performance optimization:
-    - Enable Next.js image optimization for team logos
-    - Implement code splitting for heavy components (charts)
-    - Add lazy loading for below-the-fold content
-    - Optimize CSS (remove unused Tailwind classes with purge)
+  - [x] 8.7 Performance optimization:
+    - Next.js image optimization already enabled (AVIF/WebP formats, responsive sizing)
+    - TeamLogo component already using Next.js Image with priority prop support
+    - Created HistoricalChartLazy wrapper with dynamic import for code splitting Recharts
+    - Added recharts and lucide-react to optimizePackageImports for better tree-shaking
+    - Tailwind CSS purge already configured via content paths
+    - All optimizations in place (compression, ETag generation, console log removal in prod)
   - [ ] 8.8 Run Lighthouse audit:
     - Target: Performance score > 90
     - Target: Page load < 2 seconds
