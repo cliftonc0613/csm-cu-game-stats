@@ -107,6 +107,7 @@
 - `lib/utils/performance.ts` - Performance monitoring utilities
 - `docs/PERFORMANCE.md` - Comprehensive performance optimization and testing guide with Lighthouse audit instructions, Core Web Vitals measurement, performance targets, bundle analysis, and troubleshooting (created in Task 8.8)
 - `docs/BROWSER-TESTING.md` - Cross-browser testing guide with comprehensive checklists for Chrome, Firefox, Safari, and Edge, including browser-specific considerations, performance benchmarks, and issue reporting templates (created in Task 8.12)
+- `docs/DEVICE-TESTING.md` - Mobile and tablet device testing guide for iOS and Android with screen size reference, orientation testing, touch interaction checklists, performance benchmarks, remote debugging setup, and accessibility testing for VoiceOver and TalkBack (created in Task 8.13)
 
 ### Notes
 
@@ -481,7 +482,35 @@
       - Issue reporting template
       - Recommended testing tools (BrowserStack, LambdaTest, DevTools)
     - Note: Manual testing in actual browsers should be performed by user/QA team before production deployment
-  - [ ] 8.13 Test responsive design on real devices (iOS, Android)
+  - [x] 8.13 Test responsive design on real devices (iOS, Android)
+    - Created comprehensive device testing guide: `docs/DEVICE-TESTING.md`
+    - Documented responsive breakpoints:
+      - xs: 320px (iPhone SE, small phones)
+      - sm: 640px (large phones)
+      - md: 768px (tablets portrait)
+      - lg: 1024px (tablets landscape, desktop)
+      - xl: 1280px (desktop), 2xl: 1536px (large desktop), 3xl: 2560px (ultra-wide)
+    - iOS testing checklist includes:
+      - iPhone (SE, 13, 14, 15 models) in portrait and landscape
+      - iPad (standard, Pro 11", Pro 12.9") in both orientations
+      - Safari-specific features (notch, safe areas, home indicator)
+      - VoiceOver accessibility testing
+    - Android testing checklist includes:
+      - Various phone sizes (Pixel, Samsung Galaxy)
+      - Tablet testing (Galaxy Tab)
+      - Chrome, Firefox, Samsung Internet browsers
+      - TalkBack accessibility testing
+    - Touch interaction testing:
+      - Minimum 44x44px touch targets verified in design
+      - Tap, scroll, swipe, pinch-to-zoom gestures
+      - Form inputs and keyboard handling
+    - Performance testing on mobile:
+      - Page load times on WiFi and 4G/5G
+      - 60fps scrolling verification
+      - GSAP animation performance on various devices
+    - Remote debugging setup documented (Safari Web Inspector, Chrome DevTools)
+    - Cloud testing tools recommended (BrowserStack, Sauce Labs, AWS Device Farm)
+    - Note: Manual testing on physical devices should be performed by user/QA team before production deployment
 
 - [ ] 9.0 **Deployment Configuration and Documentation**
   - [ ] 9.1 Create Netlify configuration file `netlify.toml`:
