@@ -29,7 +29,7 @@
 - `app/page.tsx` - Responsive design test page with component demonstrations (created in Task 1.1, updated to test page in Task 2.9)
 - `app/globals.css` - Global styles with Shadcn CSS variables, typography, spacing, and shadows (updated in Task 1.3, enhanced in Task 2.3, customized with Clemson colors in Task 2.5, CSS custom properties added in Task 2.7)
 - `app/favicon.ico` - Site favicon (created in Task 1.1)
-- `app/games/[slug]/page.tsx` - Dynamic game detail page with SSG, comprehensive SEO metadata, Breadcrumbs, GameDetailHeader, GameMetadata, and styled markdown content (created in Task 6.1, enhanced in Tasks 6.2 and 6.6, refactored in Tasks 6.3 and 6.4)
+- `app/games/[slug]/page.tsx` - Dynamic game detail page with SSG, comprehensive SEO metadata, Breadcrumbs, GameDetailHeader, GameMetadata, ExportButton, and styled markdown content (created in Task 6.1, enhanced in Tasks 6.2 and 6.6, refactored in Tasks 6.3 and 6.4, export button added in Task 7.4)
 - `components/ui/*` - Shadcn UI components (Button, Card, Table, Input created in Task 2.4; Container created in Task 2.8)
 - `lib/utils/` - Utility functions directory with cn and helper functions (created in Task 1.3, enhanced in Task 2.6)
 - `components.json` - Shadcn UI configuration (created in Task 1.3)
@@ -48,6 +48,8 @@
 - `components/game/GameTable.tsx` - Sortable statistics tables
 - `components/game/GameDetailHeader.tsx` - Game header with title, date, location, and score bar (created in Task 6.3)
 - `components/game/GameMetadata.tsx` - Reusable metadata display component with grid/list variants (created in Task 6.4)
+- `components/game/ExportButton.tsx` - CSV export button with dropdown format selection, loading states, and error handling (created in Task 7.4)
+- `components/game/ExportButton.test.tsx` - ExportButton component tests with 14 test cases (created in Task 7.4)
 
 **Layout and navigation:**
 - `components/layout/Header.tsx` - Site header with navigation
@@ -331,7 +333,7 @@
     - Fetch game data
     - Generate CSV using export utility
     - Return file download response with proper headers
-  - [ ] 7.4 Add "Export CSV" button to game detail pages:
+  - [x] 7.4 Add "Export CSV" button to game detail pages:
     - Trigger download via API route
     - Show loading state during export
     - Handle errors gracefully
