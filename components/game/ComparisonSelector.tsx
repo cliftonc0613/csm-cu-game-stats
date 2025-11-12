@@ -32,6 +32,14 @@ export interface ComparisonSelectorProps {
    */
   maxGames?: number;
   /**
+   * Selected game slugs (if provided, overrides internal state)
+   */
+  selectedGames?: Set<string>;
+  /**
+   * Clear selection callback (if using external state)
+   */
+  onClear?: () => void;
+  /**
    * Callback when selection changes
    */
   onSelectionChange?: (selectedSlugs: string[]) => void;
@@ -175,15 +183,21 @@ export function ComparisonSelector({
   className,
   minGames = 2,
   maxGames = 4,
+  selectedGames: externalSelectedGames,
+  onClear: externalOnClear,
   onSelectionChange,
 }: ComparisonSelectorProps) {
   const router = useRouter();
-  const {
-    selectedGames,
-    clearSelection,
-    canCompare,
-    count,
-  } = useGameSelection(minGames, maxGames);
+
+  // Use internal state if no external state provided
+  const internalHook = useGameSelection(minGames, maxGames);
+
+  // Use external state if provided, otherwise use internal state
+  const selectedGames = externalSelectedGames ?? internalHook.selectedGames;
+  const clearSelection = externalOnClear ?? internalHook.clearSelection;
+
+  const count = selectedGames.size;
+  const canCompare = count >= minGames && count <= maxGames;
 
   // Notify parent of selection changes
   useEffect(() => {
