@@ -237,7 +237,7 @@
   - [ ] 5.8 Add loading states and error boundaries
   - [ ] 5.9 Test navigation flow and filter interactions
 
-- [ ] 6.0 **Game Detail Pages with SSG**
+- [x] 6.0 **Game Detail Pages with SSG**
   - [x] 6.1 Create dynamic route `app/games/[slug]/page.tsx`:
     - Implement `generateStaticParams()` to pre-render all game pages at build time
     - Fetch game data using `getGameBySlug(slug)`
