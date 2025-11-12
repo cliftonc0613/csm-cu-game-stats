@@ -5,6 +5,7 @@ import { Container } from '@/components/ui/container';
 import { SearchBar } from '@/components/search/SearchBar';
 import { FilterPanel, FilterState } from '@/components/filters/FilterPanel';
 import { GameListItem } from '@/components/game/GameListItem';
+import { ComparisonSelector, useGameSelection } from '@/components/game/ComparisonSelector';
 import { CLEMSON_COLORS } from '@/lib/constants/colors';
 import type { GameListItem as GameListItemType } from '@/lib/markdown/types';
 
@@ -19,6 +20,9 @@ export default function HomePage() {
     gameTypes: [],
     contentTypes: [],
   });
+
+  // Game comparison selection
+  const { selectedGames, toggleSelection, isMaxReached } = useGameSelection();
 
   // Fetch games on mount
   useEffect(() => {
@@ -254,6 +258,10 @@ export default function HomePage() {
                       season={game.season}
                       gameType={game.gameType as any}
                       homeAway={game.homeAway}
+                      showComparisonCheckbox={true}
+                      isSelectedForComparison={selectedGames.has(game.slug)}
+                      isComparisonDisabled={isMaxReached && !selectedGames.has(game.slug)}
+                      onComparisonToggle={toggleSelection}
                     />
                   ))}
                 </div>
@@ -284,6 +292,9 @@ export default function HomePage() {
           </main>
         </div>
       </Container>
+
+      {/* Comparison Selector - Sticky bottom bar */}
+      <ComparisonSelector />
     </div>
   );
 }

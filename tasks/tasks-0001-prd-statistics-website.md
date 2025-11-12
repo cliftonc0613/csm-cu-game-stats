@@ -26,7 +26,7 @@
 
 **Application structure:**
 - `app/layout.tsx` - Root layout with Clemson branding and system fonts (created in Task 1.1, updated in Task 2.9)
-- `app/page.tsx` - Responsive design test page with component demonstrations (created in Task 1.1, updated to test page in Task 2.9)
+- `app/page.tsx` - Homepage with game list, search, filters, and comparison selector (created in Task 1.1, updated to test page in Task 2.9, comparison selector added in Task 7.5)
 - `app/globals.css` - Global styles with Shadcn CSS variables, typography, spacing, and shadows (updated in Task 1.3, enhanced in Task 2.3, customized with Clemson colors in Task 2.5, CSS custom properties added in Task 2.7)
 - `app/favicon.ico` - Site favicon (created in Task 1.1)
 - `app/games/[slug]/page.tsx` - Dynamic game detail page with SSG, comprehensive SEO metadata, Breadcrumbs, GameDetailHeader, GameMetadata, ExportButton, and styled markdown content (created in Task 6.1, enhanced in Tasks 6.2 and 6.6, refactored in Tasks 6.3 and 6.4, export button added in Task 7.4)
@@ -50,6 +50,8 @@
 - `components/game/GameMetadata.tsx` - Reusable metadata display component with grid/list variants (created in Task 6.4)
 - `components/game/ExportButton.tsx` - CSV export button with dropdown format selection, loading states, and error handling (created in Task 7.4)
 - `components/game/ExportButton.test.tsx` - ExportButton component tests with 14 test cases (created in Task 7.4)
+- `components/game/ComparisonSelector.tsx` - Multi-game comparison selector with checkboxes, sticky bottom bar, URL params sync, and progress indicator (created in Task 7.5)
+- `components/game/ComparisonSelector.test.tsx` - ComparisonSelector component tests with 22 test cases (created in Task 7.5)
 
 **Layout and navigation:**
 - `components/layout/Header.tsx` - Site header with navigation
@@ -337,7 +339,7 @@
     - Trigger download via API route
     - Show loading state during export
     - Handle errors gracefully
-  - [ ] 7.5 Create `components/game/ComparisonSelector.tsx` (optional for v1):
+  - [x] 7.5 Create `components/game/ComparisonSelector.tsx` (optional for v1):
     - Checkboxes to select multiple games
     - "Compare Selected Games" button
     - Store selections in local state or URL params
