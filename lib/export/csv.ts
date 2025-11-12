@@ -8,7 +8,7 @@
  * - Multiple export formats (metadata, tables, full game data)
  */
 
-import type { ParsedGame, GameFrontmatter } from '@/lib/markdown/types';
+import type { ParsedGame } from '@/lib/markdown/types';
 
 /**
  * CSV Export Options
