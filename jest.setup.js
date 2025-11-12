@@ -48,6 +48,7 @@ jest.mock('gsap', () => ({
       set: jest.fn().mockReturnThis(),
     })),
     registerPlugin: jest.fn(),
+    killTweensOf: jest.fn(),
   },
   gsap: {
     to: jest.fn(),
@@ -60,6 +61,7 @@ jest.mock('gsap', () => ({
       set: jest.fn().mockReturnThis(),
     })),
     registerPlugin: jest.fn(),
+    killTweensOf: jest.fn(),
   },
 }));
 
@@ -69,11 +71,13 @@ jest.mock('gsap/ScrollTrigger', () => ({
     create: jest.fn(),
     refresh: jest.fn(),
     update: jest.fn(),
+    getAll: jest.fn(() => []),
   },
   ScrollTrigger: {
     create: jest.fn(),
     refresh: jest.fn(),
     update: jest.fn(),
+    getAll: jest.fn(() => []),
   },
 }));
 
