@@ -10,7 +10,7 @@
  * - Dropdown menu for format selection
  */
 
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Download, ChevronDown, FileText, Table, File } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
@@ -120,6 +120,55 @@ export function ExportButton({
   const [error, setError] = useState<string | null>(null);
   const [showDropdown, setShowDropdown] = useState(false);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  /**
+   * Handle keyboard navigation for dropdown
+   */
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (!showDropdown) return;
+
+      // Close dropdown on Escape
+      if (e.key === 'Escape') {
+        e.preventDefault();
+        setShowDropdown(false);
+      }
+
+      // Arrow key navigation
+      if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+        e.preventDefault();
+        const dropdownButtons = dropdownRef.current?.querySelectorAll('button[data-dropdown-item]');
+        if (!dropdownButtons || dropdownButtons.length === 0) return;
+
+        const currentIndex = Array.from(dropdownButtons).findIndex(
+          (btn) => btn === document.activeElement
+        );
+
+        let nextIndex: number;
+        if (e.key === 'ArrowDown') {
+          nextIndex = currentIndex < dropdownButtons.length - 1 ? currentIndex + 1 : 0;
+        } else {
+          nextIndex = currentIndex > 0 ? currentIndex - 1 : dropdownButtons.length - 1;
+        }
+
+        (dropdownButtons[nextIndex] as HTMLElement).focus();
+      }
+    };
+
+    if (showDropdown) {
+      document.addEventListener('keydown', handleKeyDown);
+      // Focus first dropdown item when opened
+      setTimeout(() => {
+        const firstItem = dropdownRef.current?.querySelector('button[data-dropdown-item]') as HTMLElement;
+        firstItem?.focus();
+      }, 0);
+    }
+
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [showDropdown]);
 
   /**
    * Handles export with specified format
@@ -220,7 +269,12 @@ export function ExportButton({
 
       {/* Dropdown Menu */}
       {showDropdown && (
-        <div className="absolute right-0 mt-2 w-72 bg-white rounded-lg shadow-lg border border-gray-200 z-50">
+        <div
+          ref={dropdownRef}
+          className="absolute right-0 mt-2 w-72 bg-white rounded-lg shadow-lg border border-gray-200 z-50"
+          role="menu"
+          aria-label="Export format options"
+        >
           <div className="py-2">
             <div className="px-4 py-2 text-xs font-semibold text-gray-500 uppercase">
               Export Options
@@ -232,10 +286,13 @@ export function ExportButton({
                   key={option.format}
                   onClick={() => handleExport(option.format, option.label)}
                   disabled={isLoading}
+                  data-dropdown-item
+                  role="menuitem"
                   className={cn(
                     'w-full px-4 py-3 text-left hover:bg-gray-50 transition-colors',
                     'disabled:opacity-50 disabled:cursor-not-allowed',
-                    'flex items-start gap-3'
+                    'flex items-start gap-3',
+                    'focus:outline-none focus:bg-gray-100 focus:ring-2 focus:ring-inset focus:ring-clemson-orange'
                   )}
                 >
                   <Icon className="h-5 w-5 text-clemson-orange mt-0.5 flex-shrink-0" />

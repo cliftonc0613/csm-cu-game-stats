@@ -242,7 +242,8 @@ export function ComparisonSelector({
               onClick={clearSelection}
               className={cn(
                 'inline-flex items-center gap-1 text-sm text-gray-600',
-                'hover:text-gray-900 transition-colors'
+                'hover:text-gray-900 transition-colors',
+                'focus:outline-none focus:ring-2 focus:ring-clemson-orange focus:ring-offset-2 rounded-md px-2 py-1'
               )}
               aria-label="Clear selection"
             >

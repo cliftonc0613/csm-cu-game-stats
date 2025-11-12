@@ -94,6 +94,7 @@
 - `components/game/ExportButton.test.tsx` - ExportButton component tests with 14 test cases (created in Task 7.4)
 - `components/game/ComparisonSelector.test.tsx` - ComparisonSelector component tests with 22 test cases (created in Task 7.5)
 - `docs/TESTING.md` - Comprehensive interactive features testing plan with test cases for all features across devices (created in Task 7.7)
+- `docs/KEYBOARD-NAVIGATION.md` - Complete keyboard navigation and accessibility guide with shortcuts, ARIA attributes, and screen reader support documentation (created in Task 7.8)
 - `jest.config.js` - Jest configuration
 - `jest.setup.js` - Jest setup file
 
@@ -358,7 +359,13 @@
     - Verified responsive breakpoints in all components
     - Ran all automated test suites (204 tests passing)
     - Verified build compiles successfully with no errors
-  - [ ] 7.8 Add keyboard navigation support for accessibility
+  - [x] 7.8 Add keyboard navigation support for accessibility:
+    - Added Enter/Space key support for GameTable column sorting
+    - Added Escape key to close ExportButton dropdown
+    - Added Arrow Up/Down navigation for ExportButton dropdown items
+    - Enhanced focus indicators on all interactive elements (orange focus rings)
+    - Added ARIA roles and attributes for screen readers
+    - Created comprehensive keyboard navigation documentation in `docs/KEYBOARD-NAVIGATION.md`
   - [ ] 7.9 Validate WCAG 2.1 AA compliance for interactive elements
 
 - [ ] 8.0 **Animations, Performance Optimization, and Testing**

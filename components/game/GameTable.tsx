@@ -193,10 +193,26 @@ export function GameTable({
                     column.align === 'center' && 'text-center',
                     column.align === 'right' && 'text-right',
                     column.sortable && 'cursor-pointer select-none hover:bg-muted/50',
-                    'transition-colors'
+                    'transition-colors',
+                    column.sortable && 'focus:outline-none focus:ring-2 focus:ring-clemson-orange focus:ring-offset-2'
                   )}
                   style={{ width: column.width }}
                   onClick={() => column.sortable && handleSort(column.key)}
+                  onKeyDown={(e) => {
+                    if (column.sortable && (e.key === 'Enter' || e.key === ' ')) {
+                      e.preventDefault();
+                      handleSort(column.key);
+                    }
+                  }}
+                  tabIndex={column.sortable ? 0 : undefined}
+                  role={column.sortable ? 'button' : undefined}
+                  aria-sort={
+                    column.sortable && sortState.column === column.key
+                      ? sortState.direction === 'asc'
+                        ? 'ascending'
+                        : 'descending'
+                      : undefined
+                  }
                 >
                   <div className="flex items-center">
                     {column.label}
