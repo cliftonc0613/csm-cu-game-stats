@@ -43,7 +43,7 @@
 
 **Visual components (based on reference images):**
 - `components/game/ScoreComparisonBar.tsx` - Horizontal score bar with team logos, scroll reveal animation added in Task 8.3
-- `components/game/StatCard.tsx` - Individual stat card with orange/purple backgrounds
+- `components/game/StatCard.tsx` - Individual stat card with orange/purple backgrounds, hover scale effect (1.05, 0.2s duration) verified in Task 8.4
 - `components/game/StatCardGrid.tsx` - Grid layout for multiple stat cards, scroll reveal animations with stagger added in Task 8.3
 - `components/game/HistoricalChart.tsx` - Line/area charts with Recharts, scroll reveal animation added in Task 8.3
 - `components/game/GameTable.tsx` - Sortable statistics tables
@@ -389,9 +389,10 @@
     - Add `useGSAP()` hook to components
     - Trigger fade-in and slide-up on scroll (0.3-0.5s duration)
     - Use `will-change` and GPU-accelerated properties
-  - [ ] 8.4 Add hover effects to StatCard components:
+  - [x] 8.4 Add hover effects to StatCard components:
     - Smooth scale transform (1.02-1.05) on hover
     - Transition duration: 0.2s
+    - Note: Already implemented via Tailwind CSS (hover:scale-105, duration-200) for optimal performance
   - [ ] 8.5 Implement page transition animations between routes
   - [ ] 8.6 Add progressive chart drawing/filling animations on load
   - [ ] 8.7 Performance optimization:
