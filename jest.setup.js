@@ -107,16 +107,42 @@ global.IntersectionObserver = class IntersectionObserver {
   }
 };
 
-// Mock remark and remark-html for markdown processing
-jest.mock('remark', () => ({
-  __esModule: true,
-  remark: jest.fn(() => ({
-    use: jest.fn().mockReturnThis(),
-    process: jest.fn().mockResolvedValue({
-      toString: jest.fn().mockReturnValue('<p>Mocked HTML content</p>'),
-    }),
-  })),
-}));
+// Mock remark with intelligent markdown-to-HTML conversion for testing
+jest.mock('remark', () => {
+  return {
+    __esModule: true,
+    remark: jest.fn(() => ({
+      use: jest.fn().mockReturnThis(),
+      process: jest.fn().mockImplementation((markdown) => {
+        // Simple markdown to HTML conversion for testing
+        let html = String(markdown);
+
+        // Convert headers
+        html = html.replace(/^# (.+)$/gm, '<h1>$1</h1>');
+        html = html.replace(/^## (.+)$/gm, '<h2>$1</h2>');
+        html = html.replace(/^### (.+)$/gm, '<h3>$1</h3>');
+
+        // Convert bold
+        html = html.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+
+        // Convert italic
+        html = html.replace(/\*(.+?)\*/g, '<em>$1</em>');
+
+        // Convert paragraphs (simple version)
+        html = html.split('\n\n').map(para => {
+          if (!para.match(/^<h[123]>/) && para.trim()) {
+            return `<p>${para}</p>`;
+          }
+          return para;
+        }).join('\n');
+
+        return Promise.resolve({
+          toString: () => html,
+        });
+      }),
+    })),
+  };
+});
 
 jest.mock('remark-html', () => ({
   __esModule: true,
