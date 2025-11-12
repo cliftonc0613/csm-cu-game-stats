@@ -1,7 +1,10 @@
+'use client';
+
 import Link from 'next/link';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { CLEMSON_COLORS } from '@/lib/constants/colors';
 import type { GameScore } from '@/lib/markdown/types';
+import { GameCheckbox } from './ComparisonSelector';
 
 export interface GameListItemProps {
   slug: string;
@@ -13,6 +16,23 @@ export interface GameListItemProps {
   gameType: 'regular_season' | 'bowl' | 'playoff' | 'championship';
   homeAway: 'home' | 'away' | 'neutral';
   className?: string;
+  /**
+   * Whether to show comparison checkbox
+   * @default false
+   */
+  showComparisonCheckbox?: boolean;
+  /**
+   * Whether this game is selected for comparison
+   */
+  isSelectedForComparison?: boolean;
+  /**
+   * Whether comparison selection is disabled
+   */
+  isComparisonDisabled?: boolean;
+  /**
+   * Callback when comparison checkbox is toggled
+   */
+  onComparisonToggle?: (slug: string) => void;
 }
 
 export function GameListItem({
@@ -25,6 +45,10 @@ export function GameListItem({
   gameType,
   homeAway,
   className = '',
+  showComparisonCheckbox = false,
+  isSelectedForComparison = false,
+  isComparisonDisabled = false,
+  onComparisonToggle,
 }: GameListItemProps) {
   const isWin = score.clemson > score.opponent;
   const displayOpponent = opponentShort || opponent;
@@ -46,40 +70,60 @@ export function GameListItem({
   };
 
   return (
-    <Link href={`/games/${slug}`} className={`block ${className}`}>
-      <Card className="transition-all hover:shadow-lg hover:border-clemson-orange">
-        <CardHeader className="pb-3">
-          <div className="flex items-center justify-between">
-            {/* Opponent Info */}
-            <div className="flex items-center space-x-3">
-              {/* Logo Placeholder */}
-              <div
-                className="flex h-12 w-12 items-center justify-center rounded-full bg-gray-100 text-lg font-bold"
-                style={{ color: CLEMSON_COLORS.purple }}
-              >
-                {displayOpponent.substring(0, 2).toUpperCase()}
-              </div>
-              <div>
-                <h3 className="text-lg font-bold" style={{ color: CLEMSON_COLORS.dark }}>
-                  vs {displayOpponent}
-                </h3>
-                <p className="text-xs text-gray-500">
-                  {gameTypeLabels[gameType]} • {homeAway === 'home' ? 'Home' : homeAway === 'away' ? 'Away' : 'Neutral'}
-                </p>
-              </div>
-            </div>
+    <div className={`relative ${className}`}>
+      {/* Comparison Checkbox - positioned absolutely */}
+      {showComparisonCheckbox && onComparisonToggle && (
+        <div
+          className="absolute top-4 left-4 z-10"
+          onClick={(e) => e.stopPropagation()}
+        >
+          <GameCheckbox
+            slug={slug}
+            isSelected={isSelectedForComparison}
+            isDisabled={isComparisonDisabled}
+            onToggle={onComparisonToggle}
+          />
+        </div>
+      )}
 
-            {/* Result Badge */}
-            <div
-              className="rounded-full px-3 py-1 text-sm font-bold text-white"
-              style={{
-                backgroundColor: isWin ? CLEMSON_COLORS.orange : CLEMSON_COLORS.purple,
-              }}
-            >
-              {isWin ? 'W' : 'L'}
+      <Link href={`/games/${slug}`} className="block">
+        <Card
+          className={`transition-all hover:shadow-lg hover:border-clemson-orange ${
+            showComparisonCheckbox ? 'pl-4' : ''
+          }`}
+        >
+          <CardHeader className="pb-3">
+            <div className="flex items-center justify-between">
+              {/* Opponent Info */}
+              <div className={`flex items-center space-x-3 ${showComparisonCheckbox ? 'ml-10' : ''}`}>
+                {/* Logo Placeholder */}
+                <div
+                  className="flex h-12 w-12 items-center justify-center rounded-full bg-gray-100 text-lg font-bold"
+                  style={{ color: CLEMSON_COLORS.purple }}
+                >
+                  {displayOpponent.substring(0, 2).toUpperCase()}
+                </div>
+                <div>
+                  <h3 className="text-lg font-bold" style={{ color: CLEMSON_COLORS.dark }}>
+                    vs {displayOpponent}
+                  </h3>
+                  <p className="text-xs text-gray-500">
+                    {gameTypeLabels[gameType]} • {homeAway === 'home' ? 'Home' : homeAway === 'away' ? 'Away' : 'Neutral'}
+                  </p>
+                </div>
+              </div>
+
+              {/* Result Badge */}
+              <div
+                className="rounded-full px-3 py-1 text-sm font-bold text-white"
+                style={{
+                  backgroundColor: isWin ? CLEMSON_COLORS.orange : CLEMSON_COLORS.purple,
+                }}
+              >
+                {isWin ? 'W' : 'L'}
+              </div>
             </div>
-          </div>
-        </CardHeader>
+          </CardHeader>
 
         <CardContent>
           <div className="flex items-center justify-between">
@@ -115,7 +159,8 @@ export function GameListItem({
             </div>
           </div>
         </CardContent>
-      </Card>
-    </Link>
+        </Card>
+      </Link>
+    </div>
   );
 }

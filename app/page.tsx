@@ -1,14 +1,15 @@
 'use client';
 
-import { useEffect, useState, useMemo } from 'react';
+import { useEffect, useState, useMemo, Suspense } from 'react';
 import { Container } from '@/components/ui/container';
 import { SearchBar } from '@/components/search/SearchBar';
 import { FilterPanel, FilterState } from '@/components/filters/FilterPanel';
 import { GameListItem } from '@/components/game/GameListItem';
+import { ComparisonSelector, useGameSelection } from '@/components/game/ComparisonSelector';
 import { CLEMSON_COLORS } from '@/lib/constants/colors';
 import type { GameListItem as GameListItemType } from '@/lib/markdown/types';
 
-export default function HomePage() {
+function HomePageContent() {
   const [games, setGames] = useState<GameListItemType[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -19,6 +20,9 @@ export default function HomePage() {
     gameTypes: [],
     contentTypes: [],
   });
+
+  // Game comparison selection
+  const { selectedGames, toggleSelection, isMaxReached } = useGameSelection();
 
   // Fetch games on mount
   useEffect(() => {
@@ -254,6 +258,10 @@ export default function HomePage() {
                       season={game.season}
                       gameType={game.gameType as any}
                       homeAway={game.homeAway}
+                      showComparisonCheckbox={true}
+                      isSelectedForComparison={selectedGames.has(game.slug)}
+                      isComparisonDisabled={isMaxReached && !selectedGames.has(game.slug)}
+                      onComparisonToggle={toggleSelection}
                     />
                   ))}
                 </div>
@@ -284,6 +292,31 @@ export default function HomePage() {
           </main>
         </div>
       </Container>
+
+      {/* Comparison Selector - Sticky bottom bar */}
+      <ComparisonSelector />
     </div>
+  );
+}
+
+export default function HomePage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="flex min-h-[60vh] items-center justify-center">
+          <div className="text-center">
+            <div
+              className="mx-auto mb-4 h-12 w-12 animate-spin rounded-full border-4 border-gray-200"
+              style={{
+                borderTopColor: CLEMSON_COLORS.orange,
+              }}
+            />
+            <p className="text-lg font-medium text-gray-600">Loading...</p>
+          </div>
+        </div>
+      }
+    >
+      <HomePageContent />
+    </Suspense>
   );
 }

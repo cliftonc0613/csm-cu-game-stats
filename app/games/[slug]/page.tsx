@@ -4,6 +4,7 @@ import { getGameBySlug, getAllGameSlugs } from '@/lib/markdown/getGameBySlug';
 import { Breadcrumbs } from '@/components/layout/Breadcrumbs';
 import { GameDetailHeader } from '@/components/game/GameDetailHeader';
 import { GameMetadata } from '@/components/game/GameMetadata';
+import { ExportButton } from '@/components/game/ExportButton';
 
 /**
  * Generate static params for all game pages at build time
@@ -196,9 +197,10 @@ export default async function GameDetailPage({ params }: { params: Promise<{ slu
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="container mx-auto px-4 py-8">
-        {/* Breadcrumbs */}
-        <div className="mb-6">
+        {/* Breadcrumbs and Export Button */}
+        <div className="mb-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <Breadcrumbs items={breadcrumbItems} />
+          <ExportButton slug={slug} />
         </div>
 
         {/* Game Header Section */}
