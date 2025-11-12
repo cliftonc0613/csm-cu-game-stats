@@ -16,6 +16,7 @@
     "test:coverage": "jest --coverage"
   },
   "dependencies": {
+    "@gsap/react": "^2.1.2",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "gray-matter": "^4.0.3",

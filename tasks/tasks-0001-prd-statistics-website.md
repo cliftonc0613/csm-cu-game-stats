@@ -14,7 +14,7 @@
 ## Relevant Files
 
 **Initial setup and configuration:**
-- `package.json` - Project dependencies and scripts (created in Task 1.1, updated in 1.2, 1.4, 1.6, 1.9, 8.1)
+- `package.json` - Project dependencies and scripts (created in Task 1.1, updated in 1.2, 1.4, 1.6, 1.9, 8.1, 8.3)
 - `next.config.ts` - Next.js configuration with comprehensive SSG optimizations, image optimization, and performance settings (created in Task 1.1, enhanced in Task 6.7)
 - `tailwind.config.ts` - Custom Clemson color palette and design tokens (created in Task 2.1)
 - `tsconfig.json` - TypeScript configuration with strict mode and additional strict options (created in Task 1.1, enhanced in Task 1.5)
@@ -42,10 +42,10 @@
 - `lib/markdown/types.ts` - TypeScript types for game data
 
 **Visual components (based on reference images):**
-- `components/game/ScoreComparisonBar.tsx` - Horizontal score bar with team logos
+- `components/game/ScoreComparisonBar.tsx` - Horizontal score bar with team logos, scroll reveal animation added in Task 8.3
 - `components/game/StatCard.tsx` - Individual stat card with orange/purple backgrounds
-- `components/game/StatCardGrid.tsx` - Grid layout for multiple stat cards
-- `components/game/HistoricalChart.tsx` - Line/area charts with Recharts
+- `components/game/StatCardGrid.tsx` - Grid layout for multiple stat cards, scroll reveal animations with stagger added in Task 8.3
+- `components/game/HistoricalChart.tsx` - Line/area charts with Recharts, scroll reveal animation added in Task 8.3
 - `components/game/GameTable.tsx` - Sortable statistics tables
 - `components/game/GameDetailHeader.tsx` - Game header with title, date, location, and score bar (created in Task 6.3)
 - `components/game/GameMetadata.tsx` - Reusable metadata display component with grid/list variants (created in Task 6.4)
@@ -53,6 +53,7 @@
 - `components/game/ExportButton.test.tsx` - ExportButton component tests with 14 test cases (created in Task 7.4)
 - `components/game/ComparisonSelector.tsx` - Multi-game comparison selector with checkboxes, sticky bottom bar, URL params sync, and progress indicator (created in Task 7.5)
 - `components/game/ComparisonSelector.test.tsx` - ComparisonSelector component tests with 22 test cases (created in Task 7.5)
+- `components/game/GameListItem.tsx` - Game list card with score display and metadata, scroll reveal animation added in Task 8.3
 
 **Layout and navigation:**
 - `components/layout/Header.tsx` - Site header with navigation
@@ -384,7 +385,7 @@
     - `scaleOnHover()` for card hover effects
     - `fadeTransition()` for page transitions
     - `progressiveChartDraw()` for chart animations
-  - [ ] 8.3 Implement scroll reveal animations:
+  - [x] 8.3 Implement scroll reveal animations:
     - Add `useGSAP()` hook to components
     - Trigger fade-in and slide-up on scroll (0.3-0.5s duration)
     - Use `will-change` and GPU-accelerated properties

@@ -1,6 +1,9 @@
 'use client';
 
+import { useRef } from 'react';
+import { useGSAP } from '@gsap/react';
 import { cn } from '@/lib/utils';
+import { fadeInUp } from '@/lib/utils/animations';
 import {
   LineChart,
   Line,
@@ -143,11 +146,25 @@ export function HistoricalChart({
   showLegend = true,
   className,
 }: HistoricalChartProps) {
+  const chartRef = useRef<HTMLDivElement>(null);
   const ChartComponent = type === 'area' ? AreaChart : LineChart;
   const DataComponent = type === 'area' ? Area : Line;
 
+  // Scroll reveal animation
+  useGSAP(
+    () => {
+      if (chartRef.current) {
+        fadeInUp(chartRef.current, {
+          duration: 0.6,
+          y: 40,
+        });
+      }
+    },
+    { scope: chartRef }
+  );
+
   return (
-    <div className={cn('w-full', className)}>
+    <div ref={chartRef} className={cn('w-full', className)}>
       {/* Chart Title */}
       {title && (
         <h3 className="text-lg md:text-xl font-semibold uppercase tracking-wide text-center mb-4 md:mb-6">
