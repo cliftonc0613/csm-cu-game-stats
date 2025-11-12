@@ -62,18 +62,20 @@ const CustomTooltip: React.FC<TooltipProps<number, string>> = ({
   }
 
   return (
-    <div className="bg-white border border-gray-200 rounded-lg shadow-lg p-3">
-      <p className="font-semibold text-sm text-gray-900 mb-2">{label}</p>
+    <div className="bg-white border border-gray-200 rounded-lg shadow-lg p-2.5 sm:p-3 min-w-[140px]">
+      <p className="font-semibold text-xs sm:text-sm text-gray-900 mb-1.5 sm:mb-2">
+        {label}
+      </p>
       {payload.map((entry, index) => (
-        <div key={`item-${index}`} className="flex items-center gap-2">
+        <div key={`item-${index}`} className="flex items-center gap-1.5 sm:gap-2">
           <div
-            className="w-3 h-3 rounded-sm"
+            className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-sm flex-shrink-0"
             style={{ backgroundColor: entry.color }}
           />
-          <span className="text-sm text-gray-700 capitalize">
+          <span className="text-xs sm:text-sm text-gray-700 capitalize">
             {entry.name}:
           </span>
-          <span className="text-sm font-medium text-gray-900">
+          <span className="text-xs sm:text-sm font-medium text-gray-900">
             {entry.value}
           </span>
         </div>
@@ -157,12 +159,13 @@ export const TeamStatsChart = React.forwardRef<
       <div
         ref={chartRef}
         className={cn(
-          'w-full rounded-lg bg-white p-6 shadow-sm border border-gray-100',
+          'w-full rounded-lg bg-white shadow-sm border border-gray-100',
+          'p-4 sm:p-5 md:p-6 lg:p-8',
           className
         )}
       >
         {title && (
-          <h3 className="text-lg font-bold uppercase tracking-wide text-gray-900 mb-6">
+          <h3 className="text-base sm:text-lg md:text-xl font-bold uppercase tracking-wide text-gray-900 mb-4 sm:mb-5 md:mb-6">
             {title}
           </h3>
         )}
@@ -171,7 +174,12 @@ export const TeamStatsChart = React.forwardRef<
           <BarChart
             data={data}
             layout="vertical"
-            margin={{ top: 5, right: 30, left: 100, bottom: 5 }}
+            margin={{
+              top: 5,
+              right: 15,
+              left: 60,
+              bottom: 5,
+            }}
           >
             <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
             <XAxis
@@ -182,9 +190,9 @@ export const TeamStatsChart = React.forwardRef<
             <YAxis
               type="category"
               dataKey="stat"
-              tick={{ fill: '#374151', fontSize: 13, fontWeight: 500 }}
+              tick={{ fill: '#374151', fontSize: 12, fontWeight: 500 }}
               stroke="#9ca3af"
-              width={90}
+              width={60}
             />
             <Tooltip
               content={<CustomTooltip />}
@@ -193,11 +201,11 @@ export const TeamStatsChart = React.forwardRef<
             {showLegend && (
               <Legend
                 wrapperStyle={{
-                  paddingTop: '20px',
+                  paddingTop: '16px',
                 }}
                 iconType="square"
                 formatter={(value) => (
-                  <span className="text-sm text-gray-700 capitalize">
+                  <span className="text-xs sm:text-sm text-gray-700 capitalize">
                     {value}
                   </span>
                 )}
