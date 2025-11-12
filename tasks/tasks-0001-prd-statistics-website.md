@@ -25,7 +25,7 @@
 - `zod` - Schema validation library (installed in Task 1.9)
 
 **Application structure:**
-- `app/layout.tsx` - Root layout with Clemson branding and system fonts (created in Task 1.1, updated in Task 2.9)
+- `app/layout.tsx` - Root layout with Clemson branding, system fonts, and PageTransition wrapper (created in Task 1.1, updated in Task 2.9, PageTransition added in Task 8.5)
 - `app/page.tsx` - Homepage with game list, search, filters, and comparison selector wrapped in Suspense boundary (created in Task 1.1, updated to test page in Task 2.9, comparison selector added in Task 7.5, Suspense boundary added in Task 7.6)
 - `app/globals.css` - Global styles with Shadcn CSS variables, typography, spacing, and shadows (updated in Task 1.3, enhanced in Task 2.3, customized with Clemson colors in Task 2.5, CSS custom properties added in Task 2.7)
 - `app/favicon.ico` - Site favicon (created in Task 1.1)
@@ -59,6 +59,7 @@
 - `components/layout/Header.tsx` - Site header with navigation
 - `components/layout/Footer.tsx` - Site footer
 - `components/layout/Breadcrumbs.tsx` - Breadcrumb navigation
+- `components/layout/PageTransition.tsx` - Page transition animations using GSAP (created in Task 8.5)
 - `components/search/SearchBar.tsx` - Game search functionality
 - `components/filters/FilterPanel.tsx` - Season/opponent/type filters
 
@@ -393,7 +394,11 @@
     - Smooth scale transform (1.02-1.05) on hover
     - Transition duration: 0.2s
     - Note: Already implemented via Tailwind CSS (hover:scale-105, duration-200) for optimal performance
-  - [ ] 8.5 Implement page transition animations between routes
+  - [x] 8.5 Implement page transition animations between routes
+    - Created PageTransition component with GSAP animations
+    - Integrated into root layout for app-wide transitions
+    - Supports fade-in with subtle upward movement (0.3s duration)
+    - Includes alternative variants: PageTransitionCrossfade and PageTransitionSlide
   - [ ] 8.6 Add progressive chart drawing/filling animations on load
   - [ ] 8.7 Performance optimization:
     - Enable Next.js image optimization for team logos
