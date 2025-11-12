@@ -43,6 +43,9 @@ const nextConfig: NextConfig = {
     } : false,
   },
 
+  // Ensure server-only packages aren't bundled for client
+  serverExternalPackages: ['sanitize-html'],
+
   // Experimental features for better SSG performance
   experimental: {
     // Enable optimized package imports
