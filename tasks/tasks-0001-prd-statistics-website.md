@@ -14,7 +14,7 @@
 ## Relevant Files
 
 **Initial setup and configuration:**
-- `package.json` - Project dependencies and scripts (created in Task 1.1, updated in 1.2, 1.4, 1.6, 1.9)
+- `package.json` - Project dependencies and scripts (created in Task 1.1, updated in 1.2, 1.4, 1.6, 1.9, 8.1)
 - `next.config.ts` - Next.js configuration with comprehensive SSG optimizations, image optimization, and performance settings (created in Task 1.1, enhanced in Task 6.7)
 - `tailwind.config.ts` - Custom Clemson color palette and design tokens (created in Task 2.1)
 - `tsconfig.json` - TypeScript configuration with strict mode and additional strict options (created in Task 1.1, enhanced in Task 1.5)
@@ -378,7 +378,7 @@
     - Overall compliance: 98% (37/38 criteria pass, 1 enhancement opportunity)
 
 - [ ] 8.0 **Animations, Performance Optimization, and Testing**
-  - [ ] 8.1 Install and configure GSAP: `npm install gsap`
+  - [x] 8.1 Install and configure GSAP: `npm install gsap`
   - [ ] 8.2 Create `lib/utils/animations.ts` with reusable GSAP animation functions:
     - `fadeInUp()` for scroll reveals
     - `scaleOnHover()` for card hover effects
