@@ -63,10 +63,10 @@
 
 **Utilities and helpers:**
 - `lib/utils/cn.ts` - Class name utility with Clemson-specific helpers (created in Task 2.6)
-- `lib/utils/index.ts` - Utility functions index/re-exports (created in Task 2.6)
+- `lib/utils/index.ts` - Utility functions index/re-exports (created in Task 2.6, updated in Task 8.2)
 - `lib/utils/sanitize.ts` - HTML sanitization utilities for markdown content (created in Task 6.5)
 - `lib/utils/colors.ts` - Color utility functions
-- `lib/utils/animations.ts` - GSAP animation helpers
+- `lib/utils/animations.ts` - GSAP animation helpers with fadeInUp, scaleOnHover, fadeTransition, progressiveChartDraw, and utility functions (created in Task 8.2)
 - `lib/constants/colors.ts` - Clemson brand color constants (created in Task 2.2)
 
 **Data and content:**
@@ -379,7 +379,7 @@
 
 - [ ] 8.0 **Animations, Performance Optimization, and Testing**
   - [x] 8.1 Install and configure GSAP: `npm install gsap`
-  - [ ] 8.2 Create `lib/utils/animations.ts` with reusable GSAP animation functions:
+  - [x] 8.2 Create `lib/utils/animations.ts` with reusable GSAP animation functions:
     - `fadeInUp()` for scroll reveals
     - `scaleOnHover()` for card hover effects
     - `fadeTransition()` for page transitions
