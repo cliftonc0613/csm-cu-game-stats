@@ -74,7 +74,8 @@
 - `public/images/logos/*.svg` - Team logos (Clemson and opponents) (will be created)
 
 **Export functionality:**
-- `lib/export/csv.ts` - CSV export logic
+- `lib/export/csv.ts` - CSV export utilities with nested data flattening, proper escaping, and multiple export formats (created in Task 7.2)
+- `lib/export/csv.test.ts` - Comprehensive CSV export tests with 39 test cases (created in Task 7.2)
 - `lib/export/pdf.ts` - PDF export logic (future enhancement)
 - `app/api/export/route.ts` - API route for data export
 
@@ -320,7 +321,7 @@
     - Toggle sort direction (ascending/descending)
     - Visual indicators (arrows) for sort state
     - Sort data array based on selected column
-  - [ ] 7.2 Create `lib/export/csv.ts`:
+  - [x] 7.2 Create `lib/export/csv.ts`:
     - Function to convert game statistics data to CSV format
     - Handle nested data structures (flatten for CSV)
     - Include headers and proper escaping
