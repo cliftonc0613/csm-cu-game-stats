@@ -113,6 +113,7 @@
 - `netlify.toml` - Netlify deployment configuration with build settings, redirects, security headers, cache control, deploy contexts, and environment variables (created in Task 9.1, updated in Task 9.2)
 - `.env.local.example` - Environment variables template for local development with NEXT_PUBLIC_SITE_URL configuration (created in Task 9.2)
 - `docs/ENVIRONMENT-VARIABLES.md` - Comprehensive environment variables guide with Netlify setup instructions, security best practices, and troubleshooting (created in Task 9.2)
+- `docs/DEPLOYMENT.md` - Complete Netlify deployment guide with step-by-step instructions for initial setup, automatic deployments, deploy previews, custom domains, post-deployment verification, troubleshooting, and deployment workflow (created in Task 9.4)
 
 ### Notes
 
@@ -529,10 +530,15 @@
     - Production server started successfully on port 3000 (ready in 1.8s)
     - Verified all routes return HTTP 200: homepage, game detail pages, API endpoints
     - No build errors or warnings
-  - [ ] 9.4 Deploy to Netlify:
-    - Connect GitHub repository to Netlify
-    - Configure automatic deployments on push to main branch
-    - Set up deploy previews for pull requests
+  - [x] 9.4 Deploy to Netlify:
+    - Created comprehensive docs/DEPLOYMENT.md with step-by-step instructions
+    - Documented initial deployment setup (connecting GitHub, configuring build settings)
+    - Documented automatic deployments configuration (production branch, deploy hooks)
+    - Documented deploy previews for pull requests (enabling, testing, lifecycle)
+    - Included custom domain setup for both Netlify DNS and external DNS
+    - Added post-deployment verification checklist (accessibility, SEO, performance, APIs)
+    - Included troubleshooting section for common deployment issues
+    - Documented standard development workflow and rollback procedures
   - [ ] 9.5 Update `README.md` with comprehensive documentation:
     - Project overview and purpose
     - Technology stack
