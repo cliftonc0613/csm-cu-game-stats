@@ -45,7 +45,7 @@
 - `components/game/ScoreComparisonBar.tsx` - Horizontal score bar with team logos, scroll reveal animation added in Task 8.3
 - `components/game/StatCard.tsx` - Individual stat card with orange/purple backgrounds, hover scale effect (1.05, 0.2s duration) verified in Task 8.4
 - `components/game/StatCardGrid.tsx` - Grid layout for multiple stat cards, scroll reveal animations with stagger added in Task 8.3
-- `components/game/HistoricalChart.tsx` - Line/area charts with Recharts, scroll reveal animation added in Task 8.3
+- `components/game/HistoricalChart.tsx` - Line/area charts with Recharts, scroll reveal animation added in Task 8.3, progressive chart drawing animations added in Task 8.6
 - `components/game/GameTable.tsx` - Sortable statistics tables
 - `components/game/GameDetailHeader.tsx` - Game header with title, date, location, and score bar (created in Task 6.3)
 - `components/game/GameMetadata.tsx` - Reusable metadata display component with grid/list variants (created in Task 6.4)
@@ -399,7 +399,12 @@
     - Integrated into root layout for app-wide transitions
     - Supports fade-in with subtle upward movement (0.3s duration)
     - Includes alternative variants: PageTransitionCrossfade and PageTransitionSlide
-  - [ ] 8.6 Add progressive chart drawing/filling animations on load
+  - [x] 8.6 Add progressive chart drawing/filling animations on load
+    - Enhanced HistoricalChart component with progressive drawing animations
+    - Animates SVG path lines with strokeDasharray/strokeDashoffset (1.5s duration)
+    - Animates area fills with opacity fade-in (1s duration, 0.5s delay)
+    - Animates data point dots with scale and bounce effect (0.4s duration, 1s delay)
+    - Uses stagger effect for multiple lines (0.2s between each)
   - [ ] 8.7 Performance optimization:
     - Enable Next.js image optimization for team logos
     - Implement code splitting for heavy components (charts)
