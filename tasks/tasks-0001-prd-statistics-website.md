@@ -76,8 +76,9 @@
 **Export functionality:**
 - `lib/export/csv.ts` - CSV export utilities with nested data flattening, proper escaping, and multiple export formats (created in Task 7.2)
 - `lib/export/csv.test.ts` - Comprehensive CSV export tests with 39 test cases (created in Task 7.2)
+- `app/api/export/route.ts` - API route for data export with query param handling, validation, and error handling (created in Task 7.3)
+- `app/api/export/README.md` - Export API documentation with examples and usage guide (created in Task 7.3)
 - `lib/export/pdf.ts` - PDF export logic (future enhancement)
-- `app/api/export/route.ts` - API route for data export
 
 **Testing:**
 - `lib/markdown/parser.test.ts` - Markdown parser tests
@@ -325,7 +326,7 @@
     - Function to convert game statistics data to CSV format
     - Handle nested data structures (flatten for CSV)
     - Include headers and proper escaping
-  - [ ] 7.3 Create API route `app/api/export/route.ts`:
+  - [x] 7.3 Create API route `app/api/export/route.ts`:
     - Accept game slug and export format as query params
     - Fetch game data
     - Generate CSV using export utility
