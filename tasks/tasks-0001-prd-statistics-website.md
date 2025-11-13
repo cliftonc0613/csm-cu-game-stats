@@ -122,6 +122,7 @@
 - `README.md` - Comprehensive project documentation with table of contents, project overview, technology stack, getting started guide, development workflow, content management instructions, testing guide, deployment guide, performance targets, project structure, contributing guidelines, and complete documentation index (enhanced in Task 9.5)
 - `CONTRIBUTING.md` - Detailed contribution guidelines for internal and external contributors with code of conduct, development process, coding standards, commit message guidelines, PR process, testing requirements, documentation standards, issue guidelines, and community resources (created in Task 9.6)
 - `docs/CONTENT-AUTHORING.md` - Step-by-step content authoring guide for non-technical users adding game statistics with prerequisites, 8-step guide, frontmatter reference, content formatting, testing instructions, submission workflow, common mistakes, FAQ, and checklist (created in Task 9.8)
+- `docs/MONITORING-ANALYTICS.md` - Comprehensive monitoring and analytics setup guide with analytics options comparison (Plausible, Simple Analytics, GA4, Netlify), performance monitoring with web-vitals, error monitoring with Sentry, uptime monitoring with UptimeRobot, implementation guide with code examples, privacy considerations and GDPR compliance, cost estimates for different setups, and custom event tracking (created in Task 9.11)
 
 ### Notes
 
@@ -623,7 +624,17 @@
     - Complete deployment checklist (pre, during, post)
     - Monitoring recommendations for post-launch
     - Verified local production build succeeds (all pages generated, sitemap created)
-  - [ ] 9.11 Set up monitoring/analytics if required (optional for v1)
+  - [x] 9.11 Set up monitoring/analytics if required (optional for v1):
+    - Created comprehensive docs/MONITORING-ANALYTICS.md with 720+ lines
+    - Analytics options comparison: Plausible (recommended, $9/month), Simple Analytics, Google Analytics 4, Netlify Analytics
+    - Implementation code examples for PlausibleAnalytics component, WebVitals tracking, Sentry error monitoring
+    - Performance monitoring guide with web-vitals library integration (LCP, FID, CLS, FCP, TTFB)
+    - Error monitoring setup with Sentry (free tier: 5k events/month) with Next.js wizard integration
+    - Uptime monitoring with UptimeRobot (free tier) with 5-minute checks
+    - Privacy considerations: GDPR compliance, cookie consent banner code for GA4, privacy policy examples
+    - Cost estimates: Free ($0), Recommended ($9/month), Enterprise ($33/month)
+    - Custom event tracking examples: CSV exports, game comparisons, search queries
+    - Dashboard setup guide and recommended metrics to track (content, user behavior, performance, business)
   - [ ] 9.12 Create internal documentation for Clemson Sports Media team
 
 ---
