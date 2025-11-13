@@ -14,8 +14,9 @@
 ## Relevant Files
 
 **Initial setup and configuration:**
-- `package.json` - Project dependencies and scripts (created in Task 1.1, updated in 1.2, 1.4, 1.6, 1.9, 8.1, 8.3)
+- `package.json` - Project dependencies and scripts (created in Task 1.1, updated in 1.2, 1.4, 1.6, 1.9, 8.1, 8.3, postbuild script added in 9.9)
 - `next.config.ts` - Next.js configuration with comprehensive SSG optimizations, image optimization, and performance settings (created in Task 1.1, enhanced in Task 6.7, package imports optimized in Task 8.7)
+- `next-sitemap.config.js` - Sitemap generation configuration with custom priorities, changefreq settings, and robots.txt generation (created in Task 9.9)
 - `tailwind.config.ts` - Custom Clemson color palette and design tokens (created in Task 2.1)
 - `tsconfig.json` - TypeScript configuration with strict mode and additional strict options (created in Task 1.1, enhanced in Task 1.5)
 - `eslint.config.mjs` - ESLint configuration with Next.js best practices (created in Task 1.1)
@@ -585,10 +586,17 @@
     - Added real game examples and best practices for data entry
     - Provided troubleshooting guide for build errors, display issues, and validation warnings
   - [ ] 9.8 Create content authoring guide for adding new games
-  - [ ] 9.9 Set up sitemap generation with `next-sitemap` (optional):
-    - Install: `npm install next-sitemap`
-    - Configure `next-sitemap.config.js`
-    - Add to build process
+  - [x] 9.9 Set up sitemap generation with `next-sitemap` (optional):
+    - Installed next-sitemap package as dev dependency
+    - Created next-sitemap.config.js with comprehensive configuration
+    - Configured siteUrl from environment variable (NEXT_PUBLIC_SITE_URL)
+    - Enabled robots.txt generation with proper allow/disallow rules
+    - Excluded API routes and error pages from sitemap
+    - Set custom priorities: homepage (1.0), game pages (0.8), comparison (0.6)
+    - Set changefreq: homepage (daily), game pages (monthly), others (weekly)
+    - Added postbuild script to package.json to auto-generate sitemap after build
+    - Updated .gitignore to ignore generated sitemap and robots.txt files
+    - Verified sitemap generation with successful build test (4 URLs generated)
   - [ ] 9.10 Verify production deployment:
     - Test all pages load correctly
     - Verify images and assets are optimized
