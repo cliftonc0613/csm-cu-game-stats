@@ -123,6 +123,7 @@
 - `CONTRIBUTING.md` - Detailed contribution guidelines for internal and external contributors with code of conduct, development process, coding standards, commit message guidelines, PR process, testing requirements, documentation standards, issue guidelines, and community resources (created in Task 9.6)
 - `docs/CONTENT-AUTHORING.md` - Step-by-step content authoring guide for non-technical users adding game statistics with prerequisites, 8-step guide, frontmatter reference, content formatting, testing instructions, submission workflow, common mistakes, FAQ, and checklist (created in Task 9.8)
 - `docs/MONITORING-ANALYTICS.md` - Comprehensive monitoring and analytics setup guide with analytics options comparison (Plausible, Simple Analytics, GA4, Netlify), performance monitoring with web-vitals, error monitoring with Sentry, uptime monitoring with UptimeRobot, implementation guide with code examples, privacy considerations and GDPR compliance, cost estimates for different setups, and custom event tracking (created in Task 9.11)
+- `docs/INTERNAL-TEAM-GUIDE.md` - Internal documentation for Clemson Sports Media team with introduction, getting started guide, game day workflow (pre-game, during, post-game), step-by-step guide for adding game statistics, content guidelines and writing style, quality control process, season planning, common tasks, troubleshooting, team contacts, and resources (created in Task 9.12)
 
 ### Notes
 
@@ -635,7 +636,20 @@
     - Cost estimates: Free ($0), Recommended ($9/month), Enterprise ($33/month)
     - Custom event tracking examples: CSV exports, game comparisons, search queries
     - Dashboard setup guide and recommended metrics to track (content, user behavior, performance, business)
-  - [ ] 9.12 Create internal documentation for Clemson Sports Media team
+  - [x] 9.12 Create internal documentation for Clemson Sports Media team:
+    - Created comprehensive docs/INTERNAL-TEAM-GUIDE.md with 1,000+ lines
+    - Introduction: What the website is, who should use the guide, quick reference table
+    - Getting started: Prerequisites, first-time setup (GitHub Desktop and command line), repository structure walkthrough
+    - Game day workflow: Pre-game preparation, during game collection, post-game processing (60-75 min total)
+    - Adding game statistics: 10-step process from copying template to review and save
+    - Content guidelines: Writing style, statistics accuracy, naming conventions, branding standards
+    - Quality control: Pre-publish checklist, peer review process, post-publication verification
+    - Season planning: Pre-season setup, mid-season review, end-of-season wrap-up
+    - Common tasks: Updating games, adding logos, searching past games, exporting stats, comparing games
+    - Troubleshooting: Build errors, display issues, markdown formatting, Git problems with solutions
+    - Team contacts: Primary contacts table, responsibilities, communication channels
+    - Resources: Templates, external resources (official stats, markdown help, Git), training materials
+    - Appendices: Game day timeline, frontmatter fields quick reference, markdown formatting, common abbreviations
 
 ---
 
