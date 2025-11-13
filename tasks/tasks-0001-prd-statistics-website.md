@@ -121,6 +121,7 @@
 **Project documentation:**
 - `README.md` - Comprehensive project documentation with table of contents, project overview, technology stack, getting started guide, development workflow, content management instructions, testing guide, deployment guide, performance targets, project structure, contributing guidelines, and complete documentation index (enhanced in Task 9.5)
 - `CONTRIBUTING.md` - Detailed contribution guidelines for internal and external contributors with code of conduct, development process, coding standards, commit message guidelines, PR process, testing requirements, documentation standards, issue guidelines, and community resources (created in Task 9.6)
+- `docs/CONTENT-AUTHORING.md` - Step-by-step content authoring guide for non-technical users adding game statistics with prerequisites, 8-step guide, frontmatter reference, content formatting, testing instructions, submission workflow, common mistakes, FAQ, and checklist (created in Task 9.8)
 
 ### Notes
 
@@ -586,7 +587,19 @@
     - Included validation rules and common error messages
     - Added real game examples and best practices for data entry
     - Provided troubleshooting guide for build errors, display issues, and validation warnings
-  - [ ] 9.8 Create content authoring guide for adding new games
+  - [x] 9.8 Create content authoring guide for adding new games
+    - Created comprehensive docs/CONTENT-AUTHORING.md with 600+ lines for non-technical content authors
+    - Introduction with what to create and time estimates (30-45 min first game, 15-20 min after)
+    - Prerequisites: text editor recommendations, Git access options, required information sources
+    - Quick start section for experienced users
+    - Step-by-step guide (8 steps from template copy to historical context)
+    - Frontmatter reference with required and optional fields tables
+    - Content formatting guide (Markdown tables, bold text, lists, headings)
+    - Testing instructions (local testing and validation check)
+    - Submission workflow (with Git and without Git access)
+    - Common mistakes section with 5 wrong/correct examples
+    - FAQ with 11 common questions and answers
+    - Complete pre-submission checklist
   - [x] 9.9 Set up sitemap generation with `next-sitemap` (optional):
     - Installed next-sitemap package as dev dependency
     - Created next-sitemap.config.js with comprehensive configuration
