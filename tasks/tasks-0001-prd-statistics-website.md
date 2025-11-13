@@ -76,10 +76,11 @@
 - `content/games/` - Directory for game statistics markdown files (created in Task 1.7)
 - `content/evaluations/` - Directory for game evaluation markdown files (created in Task 1.7)
 - `content/templates/` - Directory for template reference files (created in Task 1.7)
-- `content/games/*.md` - Markdown files for game statistics (will be created)
+- `content/games/*.md` - Markdown files for game statistics (3 games: Appalachian State, NC State, Louisville)
 - `content/evaluations/*.md` - Markdown files for game evaluations (will be created)
-- `content/templates/game-stats-template.md` - Template structure reference (will be created)
-- `public/images/logos/*.svg` - Team logos (Clemson and opponents) (will be created)
+- `content/templates/game-stats-template.md` - Template structure reference with all sections and frontmatter fields
+- `content/templates/README.md` - Comprehensive template documentation with frontmatter field definitions, content section guidelines, validation rules, examples, best practices, and troubleshooting (created in Task 9.7)
+- `public/images/logos/*.svg` - Team logos (Clemson and 9 opponent logos in SVG format)
 
 **Export functionality:**
 - `lib/export/csv.ts` - CSV export utilities with nested data flattening, proper escaping, and multiple export formats (created in Task 7.2)
@@ -573,7 +574,16 @@
     - Documented when and how to update documentation
     - Provided issue guidelines for bug reports and feature requests
     - Added community section with communication guidelines and recognition
-  - [ ] 9.7 Document Markdown template structure in `content/templates/README.md`
+  - [x] 9.7 Document Markdown template structure in `content/templates/README.md`
+    - Created comprehensive content/templates/README.md with 450+ lines of documentation
+    - Documented complete template structure and file layout
+    - Detailed all required frontmatter fields (game_date, opponent, score, season, game_type, etc.)
+    - Documented optional frontmatter fields (attendance, weather, home_away, win_streak)
+    - Explained all content sections (Game Overview, Team Statistics, Individual Statistics, Key Plays, Game Notes, Historical Context)
+    - Provided complete table structures for Scoring Summary, Team Stats, Passing, Rushing, Receiving, Defense
+    - Included validation rules and common error messages
+    - Added real game examples and best practices for data entry
+    - Provided troubleshooting guide for build errors, display issues, and validation warnings
   - [ ] 9.8 Create content authoring guide for adding new games
   - [ ] 9.9 Set up sitemap generation with `next-sitemap` (optional):
     - Install: `npm install next-sitemap`
