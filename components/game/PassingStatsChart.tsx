@@ -158,6 +158,8 @@ export const PassingStatsChart = React.forwardRef<
   ) => {
     const chartRef = React.useRef<HTMLDivElement>(null);
     const [isVisible, setIsVisible] = React.useState(false);
+    const chartId = React.useId();
+    const descriptionId = `${chartId}-desc`;
 
     // Combine refs
     React.useImperativeHandle(ref, () => chartRef.current!);
@@ -195,6 +197,9 @@ export const PassingStatsChart = React.forwardRef<
       return player.team === 'clemson' ? CHART_COLORS.clemson : CHART_COLORS.opponent;
     };
 
+    // Generate accessible description
+    const chartDescription = `Bar chart displaying passing statistics for ${data.length} player(s). Metrics include yards, touchdowns, completions, attempts, interceptions, and passer rating.`;
+
     return (
       <div
         ref={chartRef}
@@ -203,14 +208,30 @@ export const PassingStatsChart = React.forwardRef<
           'p-4 sm:p-5 md:p-6 lg:p-8',
           className
         )}
+        role="region"
+        aria-labelledby={chartId}
       >
         {title && (
-          <h3 className="text-base sm:text-lg md:text-xl font-bold uppercase tracking-wide text-gray-900 mb-4 sm:mb-5 md:mb-6">
+          <h3
+            id={chartId}
+            className="text-base sm:text-lg md:text-xl font-bold uppercase tracking-wide text-gray-900 mb-4 sm:mb-5 md:mb-6"
+          >
             {title}
           </h3>
         )}
 
-        <ResponsiveContainer width="100%" height={height}>
+        {/* Screen reader description */}
+        <div id={descriptionId} className="sr-only">
+          {chartDescription}
+        </div>
+
+        <ResponsiveContainer
+          width="100%"
+          height={height}
+          role="img"
+          aria-label={title || 'Passing Statistics'}
+          aria-describedby={descriptionId}
+        >
           <BarChart
             data={data}
             margin={{
