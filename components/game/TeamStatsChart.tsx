@@ -10,7 +10,7 @@ import {
   Tooltip,
   Legend,
   ResponsiveContainer,
-  TooltipProps,
+  
 } from 'recharts';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -52,7 +52,7 @@ export interface TeamStatsChartProps {
 /**
  * Custom tooltip component for displaying precise stat values
  */
-const CustomTooltip: React.FC<TooltipProps<number, string>> = ({
+const CustomTooltip: React.FC<any> = ({
   active,
   payload,
   label,
@@ -66,7 +66,7 @@ const CustomTooltip: React.FC<TooltipProps<number, string>> = ({
       <p className="font-semibold text-xs sm:text-sm text-gray-900 mb-1.5 sm:mb-2">
         {label}
       </p>
-      {payload.map((entry, index) => (
+      {payload.map((entry: any, index: number) => (
         <div key={`item-${index}`} className="flex items-center gap-1.5 sm:gap-2">
           <div
             className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-sm flex-shrink-0"
@@ -116,7 +116,6 @@ export const TeamStatsChart = React.forwardRef<
       title = 'TEAM STATISTICS',
       height = 400,
       showLegend = true,
-      chartType = 'horizontal-bar',
       className,
     },
     ref

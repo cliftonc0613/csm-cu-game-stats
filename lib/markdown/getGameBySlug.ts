@@ -2,11 +2,10 @@
  * Helper function to retrieve a single game by its slug
  */
 
-import path from 'path';
 import { parseMarkdownFile, getMarkdownFiles, CONTENT_DIRS } from './parser';
 import { validateGameFrontmatterStrict } from './validator';
 import { parseMarkdownTable, parseTeamSectionTable } from './tableParser';
-import type { ParsedGame, GameFrontmatter, ParsedTableData } from './types';
+import type { ParsedGame, ParsedTableData } from './types';
 
 /**
  * Extract table data from markdown content
@@ -147,6 +146,41 @@ export async function gameExists(
 ): Promise<boolean> {
   const game = await getGameBySlug(slug, { validate: false, ...options });
   return game !== null;
+}
+
+/**
+ * Get all games
+ * @param options - Options for validation and search
+ * @returns Array of all games
+ */
+export async function getAllGames(
+  options: {
+    validate?: boolean;
+    includeEvaluations?: boolean;
+  } = {}
+): Promise<ParsedGame[]> {
+  const { validate = false, includeEvaluations = false } = options;
+
+  const games: ParsedGame[] = [];
+  const gameFiles = getMarkdownFiles(CONTENT_DIRS.games);
+  const evaluationFiles = includeEvaluations ? getMarkdownFiles(CONTENT_DIRS.evaluations) : [];
+  const allFiles = [...gameFiles, ...evaluationFiles];
+
+  for (const filePath of allFiles) {
+    try {
+      const parsed = await parseMarkdownFile(filePath, { generateExcerpt: false });
+
+      if (validate) {
+        validateGameFrontmatterStrict(parsed.frontmatter);
+      }
+
+      games.push(parsed);
+    } catch (error) {
+      console.error(`Error parsing ${filePath}:`, error instanceof Error ? error.message : String(error));
+    }
+  }
+
+  return games;
 }
 
 /**

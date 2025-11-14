@@ -10,7 +10,7 @@ import {
   Tooltip,
   Legend,
   ResponsiveContainer,
-  TooltipProps,
+  
 } from 'recharts';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -52,7 +52,7 @@ export interface ScoringProgressionChartProps {
 /**
  * Custom tooltip component for displaying quarter and scores
  */
-const CustomTooltip: React.FC<TooltipProps<number, string>> = ({
+const CustomTooltip: React.FC<any> = ({
   active,
   payload,
   label,
@@ -66,7 +66,7 @@ const CustomTooltip: React.FC<TooltipProps<number, string>> = ({
       <p className="font-semibold text-xs sm:text-sm text-gray-900 mb-1.5 sm:mb-2">
         {label} Quarter
       </p>
-      {payload.map((entry, index) => (
+      {payload.map((entry: any, index: number) => (
         <div key={`item-${index}`} className="flex items-center justify-between gap-3">
           <div className="flex items-center gap-1.5 sm:gap-2">
             <div

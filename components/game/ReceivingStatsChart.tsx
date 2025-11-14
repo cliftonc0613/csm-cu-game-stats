@@ -10,7 +10,7 @@ import {
   Tooltip,
   Legend,
   ResponsiveContainer,
-  TooltipProps,
+  
 } from 'recharts';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -55,7 +55,7 @@ export interface ReceivingStatsChartProps {
 /**
  * Custom tooltip component for displaying player receiving stats
  */
-const CustomTooltip: React.FC<TooltipProps<number, string>> = ({
+const CustomTooltip: React.FC<any> = ({
   active,
   payload,
   label,
