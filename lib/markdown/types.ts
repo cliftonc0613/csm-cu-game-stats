@@ -60,6 +60,31 @@ export interface GameEvaluationFrontmatter {
 export type GameFrontmatter = GameStatsFrontmatter | GameEvaluationFrontmatter;
 
 /**
+ * Parsed table data from markdown content
+ * Contains all tables extracted from the game markdown
+ */
+export interface ParsedTableData {
+  scoringSummary?: Array<{ quarter: string; clemson: number; opponent: number }>;
+  teamStatsComparison?: Array<{ stat: string; clemson: number; opponent: number }>;
+  passing?: {
+    clemson: Array<Record<string, string | number>>;
+    opponent: Array<Record<string, string | number>>;
+  };
+  rushing?: {
+    clemson: Array<Record<string, string | number>>;
+    opponent: Array<Record<string, string | number>>;
+  };
+  receiving?: {
+    clemson: Array<Record<string, string | number>>;
+    opponent: Array<Record<string, string | number>>;
+  };
+  defense?: {
+    clemson: Array<Record<string, string | number>>;
+    opponent: Array<Record<string, string | number>>;
+  };
+}
+
+/**
  * Parsed game data structure returned by the parser
  */
 export interface ParsedGame<T extends GameFrontmatter = GameFrontmatter> {
@@ -68,6 +93,7 @@ export interface ParsedGame<T extends GameFrontmatter = GameFrontmatter> {
   rawContent: string; // Original markdown content (without frontmatter)
   slug: string; // URL-friendly slug derived from frontmatter or filename
   excerpt?: string; // Optional excerpt for preview
+  tableData?: ParsedTableData; // Optional parsed table data for charts
 }
 
 /**

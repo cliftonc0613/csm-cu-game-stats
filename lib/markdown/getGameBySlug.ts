@@ -5,7 +5,59 @@
 import path from 'path';
 import { parseMarkdownFile, getMarkdownFiles, CONTENT_DIRS } from './parser';
 import { validateGameFrontmatterStrict } from './validator';
-import type { ParsedGame, GameFrontmatter } from './types';
+import { parseMarkdownTable, parseTeamSectionTable } from './tableParser';
+import type { ParsedGame, GameFrontmatter, ParsedTableData } from './types';
+
+/**
+ * Extract table data from markdown content
+ * @param rawContent - Raw markdown content
+ * @returns Parsed table data object
+ */
+function extractTableData(rawContent: string): ParsedTableData {
+  const tableData: ParsedTableData = {};
+
+  try {
+    // Parse Scoring Summary
+    const scoringSummary = parseMarkdownTable(rawContent, 'Scoring Summary');
+    if (scoringSummary.length > 0) {
+      tableData.scoringSummary = scoringSummary as any;
+    }
+
+    // Parse Team Stats Comparison
+    const teamStats = parseMarkdownTable(rawContent, 'Team Stats Comparison');
+    if (teamStats.length > 0) {
+      tableData.teamStatsComparison = teamStats as any;
+    }
+
+    // Parse Passing stats
+    const passingData = parseTeamSectionTable(rawContent, 'Passing');
+    if (passingData.clemson.length > 0 || passingData.opponent.length > 0) {
+      tableData.passing = passingData;
+    }
+
+    // Parse Rushing stats
+    const rushingData = parseTeamSectionTable(rawContent, 'Rushing');
+    if (rushingData.clemson.length > 0 || rushingData.opponent.length > 0) {
+      tableData.rushing = rushingData;
+    }
+
+    // Parse Receiving stats
+    const receivingData = parseTeamSectionTable(rawContent, 'Receiving');
+    if (receivingData.clemson.length > 0 || receivingData.opponent.length > 0) {
+      tableData.receiving = receivingData;
+    }
+
+    // Parse Defense stats
+    const defenseData = parseTeamSectionTable(rawContent, 'Defense');
+    if (defenseData.clemson.length > 0 || defenseData.opponent.length > 0) {
+      tableData.defense = defenseData;
+    }
+  } catch (error) {
+    console.error('Error extracting table data:', error instanceof Error ? error.message : String(error));
+  }
+
+  return tableData;
+}
 
 /**
  * Get a single game by its slug
@@ -18,9 +70,10 @@ export async function getGameBySlug(
   options: {
     validate?: boolean;
     includeEvaluations?: boolean;
+    parseTableData?: boolean;
   } = {}
 ): Promise<ParsedGame | null> {
-  const { validate = true, includeEvaluations = false } = options;
+  const { validate = true, includeEvaluations = false, parseTableData = false } = options;
 
   // Get all game files
   const gameFiles = getMarkdownFiles(CONTENT_DIRS.games);
@@ -37,6 +90,11 @@ export async function getGameBySlug(
         // Validate frontmatter if requested
         if (validate) {
           validateGameFrontmatterStrict(parsed.frontmatter);
+        }
+
+        // Parse table data if requested
+        if (parseTableData) {
+          parsed.tableData = extractTableData(parsed.rawContent);
         }
 
         return parsed;
@@ -63,6 +121,7 @@ export async function getGameBySlugStrict(
   options: {
     validate?: boolean;
     includeEvaluations?: boolean;
+    parseTableData?: boolean;
   } = {}
 ): Promise<ParsedGame> {
   const game = await getGameBySlug(slug, options);
@@ -132,9 +191,10 @@ export async function getGameByDateAndOpponent(
   options: {
     validate?: boolean;
     includeEvaluations?: boolean;
+    parseTableData?: boolean;
   } = {}
 ): Promise<ParsedGame | null> {
-  const { validate = true, includeEvaluations = false } = options;
+  const { validate = true, includeEvaluations = false, parseTableData = false } = options;
 
   const gameFiles = getMarkdownFiles(CONTENT_DIRS.games);
   const evaluationFiles = includeEvaluations ? getMarkdownFiles(CONTENT_DIRS.evaluations) : [];
@@ -149,6 +209,11 @@ export async function getGameByDateAndOpponent(
         // Validate frontmatter if requested
         if (validate) {
           validateGameFrontmatterStrict(parsed.frontmatter);
+        }
+
+        // Parse table data if requested
+        if (parseTableData) {
+          parsed.tableData = extractTableData(parsed.rawContent);
         }
 
         return parsed;
